@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>拾光書齋 ‧ 獨立書店虛擬書房與借閱清單</title>
-    <!-- 引入宇文天穹與高質感文青字體 -->
+    <title>墨染書齋 Aethelgard Study | 虛擬書房與借閱清單</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+TC:wght@300;400;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -14,489 +13,1492 @@
             theme: {
                 extend: {
                     colors: {
-                        paper: '#FAF7F0',
-                        paperDark: '#162218',
-                        forest: '#1F3323', /* 嚴格高對比深墨綠 */
-                        forestDark: '#EFECE6',
+                        paper: '#F9F6F0',
+                        paperDark: '#0B1915',
+                        ink: '#1E2421',
+                        inkLight: '#EFECE6',
+                        forest: '#1F3323',
                         moss: '#3A5A40',
+                        brass: '#B8924A',
                         terracotta: '#B5654A',
-                        sand: '#E3DCD2',
-                        sandDark: '#261E1A',
+                        sand: '#E3DCD2'
                     },
                     fontFamily: {
-                        serif: ['"Noto Serif TC"', '"UoqMunThenKhung"', 'serif'],
-                        display: ['Fraunces', 'serif'],
-                        custom: ['var(--user-custom-font)', '"Noto Serif TC"', 'serif']
+                        serif: ['"UoqMunThenKhung"', '"Noto Serif TC"', 'serif'],
+                        display: ['Fraunces', '"Noto Serif TC"', 'serif'],
+                        custom: ['var(--user-custom-font)', '"UoqMunThenKhung"', '"Noto Serif TC"', 'serif']
                     }
                 }
             }
         }
     </script>
     <style>
-        :root { --user-custom-font: '"Noto Serif TC", "UoqMunThenKhung"'; }
-        body { font-family: var(--user-custom-font), serif; }
-        .washi-bg {
-            background-color: #FAF7F0;
-            background-image: radial-gradient(rgba(31, 51, 35, 0.08) 1px, transparent 0);
-            background-size: 24px 24px;
+        :root {
+            --user-custom-font: '"UoqMunThenKhung", "Noto Serif TC"';
+            --shelf-wood-top: #7C5336;
+            --shelf-wood-body: #5A3A24;
+            --shelf-wood-edge: #3D2616;
         }
-        .spine-text { writing-mode: vertical-rl; text-orientation: upright; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* SVG 小物精緻動畫 */
-        @keyframes plantBreeze {
-            0%, 100% { transform: rotate(0deg); transform-origin: bottom center; }
-            50% { transform: rotate(3.5deg); transform-origin: bottom center; }
+        * {
+            -webkit-tap-highlight-color: transparent;
         }
-        .animate-plant { animation: plantBreeze 5s infinite ease-in-out; }
 
-        @keyframes steamRise {
-            0% { transform: translateY(0) scaleX(1); opacity: 0.9; }
-            50% { transform: translateY(-14px) scaleX(1.3); opacity: 0.5; }
-            100% { transform: translateY(-28px) scaleX(1.6); opacity: 0; }
+        body {
+            font-family: var(--user-custom-font), serif;
+            user-select: none;
+            -webkit-user-select: none;
         }
-        .animate-steam { animation: steamRise 2s infinite ease-out; }
 
-        @keyframes catTail {
-            0%, 100% { transform: rotate(0deg); transform-origin: 15px 25px; }
-            50% { transform: rotate(18deg); transform-origin: 15px 25px; }
+        /* 禁止圖片、SVG 與封面右鍵及長按另存 */
+        img, svg, .no-save {
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+            pointer-events: auto;
         }
-        .animate-tail { animation: catTail 1.5s infinite ease-in-out; }
+
+        /* 和紙微粒質感 */
+        .washi-surface {
+            background-color: #F9F6F0;
+            background-image:
+                radial-gradient(rgba(30, 36, 33, 0.055) 1px, transparent 0),
+                radial-gradient(rgba(184, 146, 74, 0.05) 1px, transparent 0);
+            background-size: 22px 22px, 37px 37px;
+            background-position: 0 0, 11px 17px;
+        }
+
+        .dark .washi-surface {
+            background-color: #0B1915;
+            background-image:
+                radial-gradient(rgba(239, 236, 230, 0.05) 1px, transparent 0),
+                radial-gradient(rgba(184, 146, 74, 0.07) 1px, transparent 0);
+            background-size: 22px 22px, 37px 37px;
+            background-position: 0 0, 11px 17px;
+        }
+
+        /* 日本大正浪漫風格切換 */
+        .taisho-theme .washi-surface,
+        body.taisho-theme {
+            background-color: #F4ECE1;
+            background-image:
+                repeating-linear-gradient(45deg, rgba(138, 59, 46, 0.035) 0px, rgba(138, 59, 46, 0.035) 2px, transparent 2px, transparent 14px),
+                radial-gradient(rgba(38, 29, 24, 0.05) 1px, transparent 0);
+            background-size: auto, 20px 20px;
+        }
+
+        .dark.taisho-theme,
+        body.dark.taisho-theme {
+            background-color: #171214;
+            background-image:
+                repeating-linear-gradient(45deg, rgba(212, 168, 92, 0.05) 0px, rgba(212, 168, 92, 0.05) 2px, transparent 2px, transparent 14px);
+        }
+
+        /* 隱藏捲軸但保留滾動 */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* 85dvh 視口基準容器 */
+        .viewport-85 {
+            max-height: 85dvh;
+        }
+
+        /* 直排書脊 */
+        .spine-vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+
+        /* 小物與植物動畫 */
+        @keyframes catTailWag {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(12deg); }
+        }
+        .cat-tail {
+            transform-origin: 18px 46px;
+            animation: catTailWag 2.8s ease-in-out infinite;
+        }
+
+        @keyframes catStretchAction {
+            0% { transform: scale(1, 1) translateY(0); }
+            35% { transform: scale(1.08, 0.94) translateY(2px); }
+            70% { transform: scale(0.96, 1.05) translateY(-3px); }
+            100% { transform: scale(1, 1) translateY(0); }
+        }
+        .anim-cat-yawn {
+            animation: catStretchAction 0.9s ease-in-out;
+        }
+
+        @keyframes huskyEarTwitch {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-7deg); }
+            60% { transform: rotate(4deg); }
+        }
+        .anim-husky-twitch {
+            transform-origin: 50% 60%;
+            animation: huskyEarTwitch 0.75s ease-in-out;
+        }
+
+        @keyframes plantSway {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(2.8deg); }
+        }
+        .plant-sway {
+            transform-origin: bottom center;
+            animation: plantSway 4.8s ease-in-out infinite;
+        }
+
+        @keyframes treeSparkle {
+            0%, 100% { opacity: 0.45; transform: scale(0.92); }
+            50% { opacity: 1; transform: scale(1.15); }
+        }
+        .tree-light {
+            transform-box: fill-box;
+            transform-origin: center;
+            animation: treeSparkle 2.4s ease-in-out infinite;
+        }
+
+        @keyframes lanternPulse {
+            0%, 100% { opacity: 0.65; }
+            50% { opacity: 0.95; }
+        }
+        .lantern-glow {
+            animation: lanternPulse 3.6s ease-in-out infinite;
+        }
+
+        /* 窗外天氣粒子 */
+        @keyframes rainFall {
+            0% { transform: translateY(-20px) translateX(0); opacity: 0.8; }
+            100% { transform: translateY(150px) translateX(-12px); opacity: 0.1; }
+        }
+        .rain-drop {
+            position: absolute;
+            width: 1.5px;
+            height: 12px;
+            background: rgba(215, 236, 245, 0.72);
+            animation: rainFall 0.75s linear infinite;
+        }
+
+        @keyframes snowFall {
+            0% { transform: translateY(-16px) translateX(0); opacity: 0.9; }
+            50% { transform: translateY(70px) translateX(8px); opacity: 0.85; }
+            100% { transform: translateY(150px) translateX(-4px); opacity: 0.2; }
+        }
+        .snow-flake {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 9999px;
+            background: rgba(255, 252, 245, 0.9);
+            animation: snowFall 3.2s linear infinite;
+        }
+
+        @keyframes fireworkBurst {
+            0% { transform: scale(0.2); opacity: 1; }
+            70% { transform: scale(1.15); opacity: 0.95; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .firework-ring {
+            position: absolute;
+            border-radius: 9999px;
+            border: 2px dashed rgba(244, 196, 108, 0.9);
+            animation: fireworkBurst 2.1s ease-out infinite;
+        }
     </style>
 </head>
-<body class="washi-bg text-forest min-h-screen transition-colors duration-300">
+<body class="washi-surface text-ink dark:text-inkLight min-h-screen transition-colors duration-300" oncontextmenu="return false;" ondragstart="return false;">
 
-    <!-- 頂部導覽列 (純 SVG Logo，無 Emoji) -->
-    <header class="border-b border-forest/20 py-4 px-6 md:px-12 backdrop-blur-md sticky top-0 z-40 bg-paper/90 shadow-sm">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="switchViewMode('scenery')">
-                <svg class="w-8 h-8 text-moss" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z"/>
-                    <path d="M6 6h12M6 10h12M6 14h8"/>
+    <!-- 藏書票與黃銅銘牌 SVG 濾鏡定義 -->
+    <svg class="hidden" aria-hidden="true">
+        <defs>
+            <pattern id="svg-crosshatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(35)">
+                <line x1="0" y1="0" x2="0" y2="8" stroke="currentColor" stroke-width="0.65" opacity="0.22" />
+                <line x1="0" y1="0" x2="8" y2="0" stroke="currentColor" stroke-width="0.45" opacity="0.14" />
+            </pattern>
+            <pattern id="svg-wood-grain" width="24" height="12" patternUnits="userSpaceOnUse">
+                <path d="M0 3 Q6 1, 12 3 T24 3" fill="none" stroke="rgba(255,244,224,0.12)" stroke-width="0.8"/>
+                <path d="M0 8 Q8 10, 16 8 T24 8" fill="none" stroke="rgba(20,10,4,0.18)" stroke-width="0.9"/>
+            </pattern>
+        </defs>
+    </svg>
+
+    <!-- 頂部刊頭與導覽 -->
+    <header class="sticky top-0 z-30 border-b border-ink/20 dark:border-inkLight/20 bg-paper/90 dark:bg-paperDark/90 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between gap-2">
+            <!-- 多層次書卷與新藝術花絲 SVG Logo -->
+            <button onclick="switchPage('scenery')" class="flex items-center gap-2.5 text-left group">
+                <svg class="w-8 h-8 text-moss dark:text-brass shrink-0" viewBox="0 0 36 36" fill="none">
+                    <rect x="4" y="4" width="28" height="28" rx="3" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="6.5" y="6.5" width="23" height="23" rx="1.5" stroke="currentColor" stroke-width="0.8" stroke-dasharray="3 1.5"/>
+                    <path d="M11 11h14M11 16h14M11 21h9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M8 8c2.5 0 4 1.5 4 4M28 8c-2.5 0-4 1.5-4 4M8 28c2.5 0 4-1.5 4-4M28 28c-2.5 0-4-1.5-4-4" stroke="currentColor" stroke-width="0.9"/>
                 </svg>
                 <div>
-                    <h1 class="text-xl font-bold tracking-wider font-display" id="shelf-title">拾光書齋 ‧ 虛擬書房</h1>
-                    <p class="text-xs opacity-80 tracking-widest font-semibold" id="role-subtitle">INDIE LITERARY BOOKSHELF</p>
+                    <div class="text-sm sm:text-base font-bold tracking-wider leading-tight">墨染書齋</div>
+                    <div class="text-[10px] tracking-widest opacity-75 font-mono">AETHELGARD STUDY</div>
                 </div>
-            </div>
+            </button>
 
-            <!-- 動態權限按鈕群組 -->
-            <div class="flex flex-wrap items-center gap-2 md:gap-3" id="header-actions"></div>
+            <!-- 頂部核心切換與主人出借冊入口 -->
+            <nav class="flex items-center gap-1.5 sm:gap-2 text-xs">
+                <button onclick="switchPage('scenery')" id="nav-scenery" class="px-2.5 py-1.5 border border-ink/25 dark:border-inkLight/25 bg-moss text-inkLight font-semibold transition">
+                    書房全景
+                </button>
+                <button onclick="switchPage('shelf')" id="nav-shelf" class="px-2.5 py-1.5 border border-ink/25 dark:border-inkLight/25 hover:bg-ink/10 dark:hover:bg-inkLight/10 transition">
+                    多層書櫃
+                </button>
+                <button id="btn-owner-ledger" onclick="openModal('modal-ledger')" class="hidden px-2.5 py-1.5 border border-brass bg-brass/15 text-ink dark:text-inkLight font-semibold hover:bg-brass/25 transition">
+                    好友出借冊 (<span id="ledger-active-count">0</span>)
+                </button>
+                <button onclick="openModal('modal-settings')" class="px-2.5 py-1.5 border border-ink/25 dark:border-inkLight/25 hover:bg-ink/10 dark:hover:bg-inkLight/10 transition flex items-center gap-1">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                        <circle cx="12" cy="12" r="3"/>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                    <span>設定</span>
+                </button>
+            </nav>
         </div>
     </header>
 
-    <!-- 主容器：依視狀切換「書房全景 (Scenery)」與「書櫃清單內頁 (Shelf)」 -->
-    <main class="max-w-7xl mx-auto px-4 md:px-8 py-8 space-y-6">
+    <!-- 主內容區（85dvh 視口高度控制） -->
+    <main class="max-w-7xl mx-auto px-3 sm:px-6 py-3 viewport-85 flex flex-col">
 
-        <!-- ================= 視圖 A：沉浸式書房全景 (首頁) ================= -->
-        <div id="view-scenery" class="space-y-6">
-            
-            <!-- 金句 Banner -->
-            <div class="bg-paper border border-forest/20 rounded-2xl p-6 shadow-sm relative overflow-hidden flex items-center justify-between">
-                <div class="space-y-1.5 z-10">
-                    <div class="flex items-center gap-2">
-                        <span class="text-xs uppercase tracking-widest text-terracotta font-bold">Today's Quote</span>
-                        <span id="quote-tag-badge" class="text-[10px] px-2 py-0.5 rounded-full bg-forest/10 font-semibold">#靈感角落</span>
-                    </div>
-                    <p class="text-base md:text-lg font-bold italic font-serif" id="quote-text">「閱讀，是借用別人的靈感來點亮自己的房間。」</p>
-                    <p class="text-xs opacity-80 font-medium" id="quote-author">── 拾光主人</p>
+        <!-- ================= 頁面一：書房全景（85dvh 內完整呈現窗與時鐘，左右滑動看寬闊書房） ================= -->
+        <section id="page-scenery" class="flex-1 min-h-0 flex flex-col gap-2.5">
+
+            <!-- 頂部狀態與主客權限列 -->
+            <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 border border-ink/20 dark:border-inkLight/20 bg-paper/85 dark:bg-paperDark/85 text-xs">
+                <div class="flex items-center gap-2">
+                    <span id="role-badge" class="px-2 py-0.5 border border-brass text-[11px] font-semibold">訪客唯讀視角</span>
+                    <span id="scenery-status-text" class="opacity-80">時段：晨光 · 天氣：晴朗 · 雨聲：關閉</span>
                 </div>
-                <button onclick="nextQuote()" class="z-10 px-3 py-1.5 rounded-lg border border-forest/30 text-xs hover:bg-forest/10 transition font-medium">換一則金句</button>
+                <div class="flex items-center gap-1.5" id="owner-scenery-controls">
+                    <button onclick="copyGuestShareLink()" class="px-2.5 py-1 border border-ink/25 dark:border-inkLight/25 hover:bg-moss hover:text-inkLight transition">
+                        複製訪客分享連結
+                    </button>
+                    <button onclick="toggleOwnerPreview()" id="btn-toggle-role" class="px-2.5 py-1 border border-brass bg-brass/15 font-semibold hover:bg-brass/25 transition">
+                        切換主人編輯
+                    </button>
+                </div>
             </div>
 
-            <!-- 房景主視覺 (點擊正中央書櫃進入書櫃內頁) -->
-            <div id="room-scenery-container" class="relative rounded-2xl overflow-hidden border border-forest/20 shadow-xl bg-cover bg-center p-8 md:p-16 min-h-[520px] flex flex-col items-center justify-center transition-all duration-700" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=1600&q=80')">
-                
-                <div class="text-center space-y-4 max-w-lg bg-paper/90 backdrop-blur-md p-8 rounded-2xl border border-forest/30 shadow-2xl">
-                    <svg class="w-12 h-12 text-terracotta mx-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5z"/><path d="M6 6h12M6 10h12M6 14h8"/></svg>
-                    <h2 class="text-2xl font-bold font-display">歡迎來到拾光書齋</h2>
-                    <p class="text-xs opacity-90 leading-relaxed font-medium">四周環繞著森系植栽、手沖咖啡與溫暖檯燈。點擊下方按鈕即可開啟專屬虛擬書櫃，瀏覽藏書或挑選借閱書籍。</p>
-                    <button onclick="switchViewMode('shelf')" class="px-6 py-3 bg-forest text-paper rounded-xl font-bold text-sm shadow-lg hover:opacity-90 transition">
-                        📖 進入書櫃瀏覽藏書
+            <!-- 寬闊書房畫布（可左右滑動；初始中央安全區保證時鐘與窗戶完整不裁切） -->
+            <div class="relative flex-1 min-h-[430px] border-2 border-ink/25 dark:border-inkLight/25 overflow-x-auto hide-scrollbar bg-[#172821] dark:bg-[#07120E] shadow-inner">
+                <div class="relative w-[1120px] min-w-full h-full min-h-[428px] flex flex-col justify-between overflow-hidden" id="study-room-stage">
+
+                    <!-- 牆面與窗景光影層 -->
+                    <div id="room-ambient-wash" class="absolute inset-0 transition-all duration-700 pointer-events-none" style="background: linear-gradient(180deg, rgba(246,238,220,0.22) 0%, rgba(34,58,47,0.55) 68%, rgba(21,16,12,0.88) 100%);"></div>
+
+                    <!-- 半透明側邊快捷列（不遮擋中央窗與時鐘） -->
+                    <aside class="sticky left-2 top-2 z-20 self-start flex flex-col gap-1.5 p-1.5 bg-paper/75 dark:bg-paperDark/75 backdrop-blur-sm border border-ink/20 dark:border-inkLight/20 text-[11px]">
+                        <button onclick="switchPage('shelf')" class="px-2 py-1 border border-ink/20 dark:border-inkLight/20 hover:bg-moss hover:text-inkLight text-left font-semibold transition">
+                            展開多層書櫃
+                        </button>
+                        <button onclick="openModal('modal-collections')" class="px-2 py-1 border border-ink/20 dark:border-inkLight/20 hover:bg-ink/10 dark:hover:bg-inkLight/10 text-left transition">
+                            收藏與書籤冊
+                        </button>
+                        <button onclick="openModal('modal-borrow-card')" class="px-2 py-1 border border-brass bg-brass/15 text-left font-semibold hover:bg-brass/25 transition">
+                            製作借閱卡
+                        </button>
+                        <button onclick="toggleRainAudio()" id="btn-quick-rain" class="px-2 py-1 border border-ink/20 dark:border-inkLight/20 hover:bg-ink/10 dark:hover:bg-inkLight/10 text-left transition">
+                            雨聲：關
+                        </button>
+                    </aside>
+
+                    <!-- 上半部空間：左側植栽與提燈、中央窗戶＋牆上時鐘（安全區不裁切）、右側聖誕樹與松鼠 -->
+                    <div class="relative z-10 flex items-end justify-between px-6 sm:px-14 pt-2 flex-1">
+
+                        <!-- 左側延伸區：書櫃側架、落地盆栽、提燈 -->
+                        <div class="hidden sm:flex items-end gap-4 pb-1">
+                            <!-- 吊掛垂墜植栽（SVG 排線與葉片） -->
+                            <div onclick="interactProp('plant', '垂墜常春藤在窗邊微風中輕輕擺動，葉片沾著清露。')" class="plant-sway cursor-pointer group relative" title="點擊互動：垂墜植栽">
+                                <svg class="w-16 h-28 text-moss" viewBox="0 0 64 112" fill="none">
+                                    <path d="M32 0v18" stroke="#C6A969" stroke-width="1.2"/>
+                                    <path d="M18 18h28l-3 16H21l-3-16z" fill="#B5654A" stroke="#241914" stroke-width="1.4"/>
+                                    <path d="M22 18c-8 14-10 38-6 66M32 18c-2 22 2 52 0 82M42 18c8 16 10 42 7 68" stroke="#4D7C56" stroke-width="2.2" stroke-linecap="round"/>
+                                    <ellipse cx="15" cy="44" rx="5" ry="2.5" transform="rotate(-25 15 44)" fill="#63966C"/>
+                                    <ellipse cx="33" cy="58" rx="5.5" ry="2.5" transform="rotate(20 33 58)" fill="#4D7C56"/>
+                                    <ellipse cx="48" cy="52" rx="5" ry="2.5" transform="rotate(-18 48 52)" fill="#73A87C"/>
+                                </svg>
+                            </div>
+
+                            <!-- 暖光提燈 -->
+                            <button onclick="interactProp('lantern', '黃銅提燈散發溫潤火光，映照在書房木質角落。')" class="cursor-pointer relative group pb-1" title="點擊互動：提燈">
+                                <div class="lantern-glow absolute -inset-2 rounded-full bg-amber-300/25 blur-md pointer-events-none"></div>
+                                <svg class="w-11 h-16 relative" viewBox="0 0 44 64" fill="none">
+                                    <path d="M15 10c0-4 14-4 14 0" stroke="#C79E4C" stroke-width="1.6"/>
+                                    <path d="M11 16l11-6 11 6H11z" fill="#8E672B" stroke="#221912" stroke-width="1.4"/>
+                                    <rect x="13" y="16" width="18" height="32" rx="3" fill="#F5C96B" fill-opacity="0.82" stroke="#221912" stroke-width="1.4"/>
+                                    <path d="M22 23c-3 4-3 9 0 13 3-4 3-9 0-13z" fill="#FFF7DC"/>
+                                    <rect x="11" y="48" width="22" height="5" rx="1.5" fill="#7A5722" stroke="#221912" stroke-width="1.4"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- 中央安全區（手機直屏不滑動也能完整看到「牆上時鐘」與「窗景」） -->
+                        <div class="mx-auto flex flex-col items-center gap-1.5 pb-1">
+                            <!-- 牆上時鐘（點擊切換時間與季節；長按開啟時空與天氣面板） -->
+                            <button
+                                id="wall-clock-btn"
+                                onmousedown="startClockLongPress()"
+                                ontouchstart="startClockLongPress()"
+                                onmouseup="endClockPress()"
+                                onmouseleave="cancelClockPress()"
+                                ontouchend="endClockPress()"
+                                class="cursor-pointer flex items-center gap-2 px-3 py-1 border border-brass bg-paper/95 dark:bg-paperDark/95 text-ink dark:text-inkLight shadow-md hover:border-terracotta transition"
+                                title="點擊切換時段季節｜長按開啟時空與天氣控制"
+                            >
+                                <svg class="w-5 h-5 text-brass shrink-0" viewBox="0 0 24 24" fill="none">
+                                    <circle cx="12" cy="12" r="9.5" stroke="currentColor" stroke-width="1.6"/>
+                                    <circle cx="12" cy="12" r="7.2" stroke="currentColor" stroke-width="0.7" stroke-dasharray="1.5 2"/>
+                                    <path id="clock-hour-hand" d="M12 12L9 8.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                                    <path id="clock-min-hand" d="M12 12L16.5 9" stroke="#B5654A" stroke-width="1.6" stroke-linecap="round"/>
+                                    <circle cx="12" cy="12" r="1.4" fill="currentColor"/>
+                                </svg>
+                                <span id="clock-readout" class="font-mono text-xs font-bold tracking-wider">08:30 · 春晨</span>
+                                <span class="text-[10px] opacity-75">長按調天氣</span>
+                            </button>
+
+                            <!-- 窗戶（天氣特效嚴格限制在窗框內，不延伸至室內） -->
+                            <div class="relative w-56 sm:w-72 h-32 sm:h-36 border-2 border-brass/80 bg-[#1B382D] overflow-hidden shadow-lg">
+                                <!-- 窗外遠山與森林剪影 -->
+                                <svg id="window-scenery-svg" class="w-full h-full object-cover" viewBox="0 0 280 140" preserveAspectRatio="none">
+                                    <defs>
+                                        <linearGradient id="skyGrad" x1="0" y1="0" x2="0" y2="1">
+                                            <stop id="sky-stop-1" offset="0%" stop-color="#3C6E5A"/>
+                                            <stop id="sky-stop-2" offset="100%" stop-color="#A6C4A8"/>
+                                        </linearGradient>
+                                    </defs>
+                                    <rect width="280" height="140" fill="url(#skyGrad)"/>
+                                    <circle id="celestial-body" cx="220" cy="36" r="14" fill="#F6DC92" opacity="0.9"/>
+                                    <!-- 遠山與松林 -->
+                                    <path d="M0 95 Q65 62 135 90 T280 82 L280 140 L0 140 Z" fill="#27493B"/>
+                                    <path d="M12 140 L20 96 L28 140 M32 140 L42 88 L52 140 M58 140 L66 102 L74 140 M180 140 L190 92 L200 140 M210 140 L222 82 L234 140 M242 140 L252 98 L262 140" fill="#172E25"/>
+                                </svg>
+
+                                <!-- 窗內專屬天氣特效層（overflow-hidden 嚴格裁切在窗內） -->
+                                <div id="window-weather-layer" class="absolute inset-0 overflow-hidden pointer-events-none"></div>
+
+                                <!-- 慕夏新藝術窗櫺與花絲線條前景 -->
+                                <svg class="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 280 140" fill="none">
+                                    <rect x="3" y="3" width="274" height="134" stroke="#E5C885" stroke-width="1.2"/>
+                                    <line x1="140" y1="0" x2="140" y2="140" stroke="#D4B26A" stroke-width="2.2"/>
+                                    <line x1="0" y1="70" x2="280" y2="70" stroke="#D4B26A" stroke-width="2.2"/>
+                                    <circle cx="140" cy="70" r="12" stroke="#E5C885" stroke-width="1.2" fill="#1B382D" fill-opacity="0.35"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- 右側延伸區：室內聖誕樹、多肉植物、風信子、松鼠 -->
+                        <div class="hidden sm:flex items-end gap-3 pb-1">
+                            <!-- 風信子盤栽 -->
+                            <button onclick="interactProp('hyacinth', '淡紫與鵝黃風信子正綻放清雅花穗，帶來春意。')" class="plant-sway cursor-pointer pb-1" title="點擊互動：風信子盤栽">
+                                <svg class="w-10 h-14" viewBox="0 0 40 56" fill="none">
+                                    <path d="M10 38h20l-2 14H12l-2-14z" fill="#C97A5B" stroke="#221914" stroke-width="1.3"/>
+                                    <path d="M20 38c-1-10 0-18 2-26M15 38c-3-8-4-14-2-20" stroke="#4D7C56" stroke-width="1.8" stroke-linecap="round"/>
+                                    <circle cx="22" cy="11" r="2.5" fill="#9D85C4"/>
+                                    <circle cx="20" cy="15" r="2.5" fill="#B59FD9"/>
+                                    <circle cx="24" cy="16" r="2.3" fill="#8970B5"/>
+                                    <circle cx="13" cy="18" r="2.2" fill="#F2D079"/>
+                                </svg>
+                            </button>
+
+                            <!-- 室內聖誕樹（含星光閃爍動畫） -->
+                            <button onclick="interactProp('xmas', '迷你室內聖誕樹的暖光燈串亮起，書房多了節慶的靜謐。')" class="cursor-pointer pb-1" title="點擊互動：室內聖誕樹">
+                                <svg class="w-14 h-24" viewBox="0 0 56 96" fill="none">
+                                    <rect x="23" y="80" width="10" height="10" fill="#5A3A24" stroke="#201610" stroke-width="1.3"/>
+                                    <path d="M28 10L11 40h11L9 62h13L7 80h42L34 62h13L34 40h11L28 10z" fill="#2A5842" stroke="#162E22" stroke-width="1.4"/>
+                                    <path d="M28 14L15 39h9L14 60h11L13 78" stroke="#498365" stroke-width="0.9" stroke-dasharray="2 2"/>
+                                    <circle class="tree-light" cx="28" cy="26" r="2.3" fill="#F7D57E"/>
+                                    <circle class="tree-light" cx="21" cy="48" r="2.2" fill="#E07A5F"/>
+                                    <circle class="tree-light" cx="35" cy="52" r="2.2" fill="#F7D57E"/>
+                                    <circle class="tree-light" cx="26" cy="70" r="2.3" fill="#F4F1DE"/>
+                                </svg>
+                            </button>
+
+                            <!-- 活潑松鼠 -->
+                            <button onclick="interactProp('squirrel', '小巧的棕紅松鼠停在窗邊小架上，蓬鬆尾巴輕輕一抖。')" class="cursor-pointer pb-1 hover:scale-105 transition" title="點擊互動：松鼠">
+                                <svg class="w-11 h-12" viewBox="0 0 44 48" fill="none">
+                                    <path d="M28 36c9 0 13-9 10-18-2-6-8-7-10-2-2 5 2 10-2 15" fill="#B5654A" stroke="#241812" stroke-width="1.3"/>
+                                    <ellipse cx="20" cy="32" rx="7.5" ry="9" fill="#C97A5B" stroke="#241812" stroke-width="1.3"/>
+                                    <circle cx="18" cy="19" r="6.5" fill="#C97A5B" stroke="#241812" stroke-width="1.3"/>
+                                    <circle cx="16" cy="18" r="1.3" fill="#1E2421"/>
+                                    <path d="M14 41h12" stroke="#241812" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 中下層空間：左側參考圖風格綠沙發＋蜷睡橘貓、正中央真正的多層書櫃、右側小圓桌＋夜燈＋多肉＋趴睡哈士奇 -->
+                    <div class="relative z-10 flex items-end justify-between px-4 sm:px-10 pb-2 gap-3">
+
+                        <!-- 左側：參考圖風格深綠沙發＋蜷睡橘貓（靜態沙發不遮擋超過 10% 書櫃） -->
+                        <div class="relative flex items-end shrink-0">
+                            <svg class="w-40 sm:w-48 h-28 no-save" viewBox="0 0 192 112" fill="none">
+                                <!-- 沙發靠背與坐墊（細緻排線與皺褶） -->
+                                <path d="M24 38c0-8 6-14 14-14h98c8 0 14 6 14 14v34H24V38z" fill="#264938" stroke="#14231B" stroke-width="1.6"/>
+                                <path d="M34 32h54v36H34zM92 32h48v36H92z" fill="#2F5944" stroke="#14231B" stroke-width="1.2"/>
+                                <rect x="20" y="64" width="134" height="18" rx="4" fill="#35634C" stroke="#14231B" stroke-width="1.6"/>
+                                <!-- 左側扶手與搭毯 -->
+                                <rect x="14" y="42" width="22" height="44" rx="5" fill="#1E3B2D" stroke="#14231B" stroke-width="1.6"/>
+                                <path d="M18 46h14v34l-6-4-8 5V46z" fill="#D8C39E" stroke="#261C15" stroke-width="1.2"/>
+                                <!-- 右側扶手 -->
+                                <rect x="146" y="42" width="22" height="44" rx="5" fill="#1E3B2D" stroke="#14231B" stroke-width="1.6"/>
+                                <!-- 木質沙發腳 -->
+                                <path d="M24 86l-3 14M158 86l3 14" stroke="#4A2E1B" stroke-width="3" stroke-linecap="round"/>
+                            </svg>
+
+                            <!-- 沙發上蜷睡橘貓（點擊觸發打哈欠／伸懶腰動畫） -->
+                            <button
+                                id="prop-cat-btn"
+                                onclick="triggerCatInteraction()"
+                                class="cursor-pointer absolute left-14 sm:left-16 bottom-8 hover:scale-105 transition"
+                                title="點擊互動：沙發上的橘貓"
+                            >
+                                <svg id="cat-svg" class="w-16 h-12" viewBox="0 0 64 48" fill="none">
+                                    <path class="cat-tail" d="M46 35c8 2 13-3 11-9-1-4-5-4-6-1" stroke="#C86D3B" stroke-width="3.2" stroke-linecap="round"/>
+                                    <ellipse cx="32" cy="32" rx="15" ry="9" fill="#D97D48" stroke="#241710" stroke-width="1.4"/>
+                                    <path d="M24 27c2 3 1 7-1 9M32 25c1 4 0 8-1 11M40 27c-1 3-2 6-3 8" stroke="#9A4E24" stroke-width="1.2" stroke-linecap="round"/>
+                                    <circle cx="20" cy="27" r="7.5" fill="#E38954" stroke="#241710" stroke-width="1.4"/>
+                                    <path d="M15 21l-1-5 5 3M22 20l3-4 1 5" fill="#D97D48" stroke="#241710" stroke-width="1.3"/>
+                                    <!-- 閉眼安睡弧線 -->
+                                    <path d="M16 27q2 2 4 0M22 27q2 2 3 0" stroke="#241710" stroke-width="1.3" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- 正中央：真正的多層書櫃（上、中、下多層隔板＋立柱，點擊展開書櫃頁面） -->
+                        <button
+                            onclick="switchPage('shelf')"
+                            class="cursor-pointer group relative w-52 sm:w-64 shrink-0 text-left focus:outline-none"
+                            title="點擊進入多層書櫃"
+                        >
+                            <div class="relative border-2 border-brass/80 bg-[#2A1B12] p-2 shadow-2xl transition-transform duration-300 group-hover:-translate-y-1">
+                                <!-- 書櫃頂冠 -->
+                                <div class="flex items-center justify-between text-[10px] text-inkLight/90 px-1 pb-1 border-b border-brass/40">
+                                    <span>多層書櫃</span>
+                                    <span id="scenery-book-count" class="font-mono">0 冊</span>
+                                </div>
+
+                                <!-- 第 1 層 -->
+                                <div class="h-9 flex items-end gap-1 px-1.5 pt-1 bg-[#1B120C]">
+                                    <span class="w-3 h-7 bg-[#8C4A32] border border-black/40"></span>
+                                    <span class="w-4 h-8 bg-[#3E6248] border border-black/40"></span>
+                                    <span class="w-2.5 h-6 bg-[#C39A52] border border-black/40"></span>
+                                    <span class="w-3.5 h-7.5 bg-[#5C7485] border border-black/40"></span>
+                                    <span class="w-3 h-6.5 bg-[#9E5A3C] border border-black/40"></span>
+                                    <span class="w-4 h-7 bg-[#2F4F3B] border border-black/40"></span>
+                                </div>
+                                <div class="h-1.5 w-full bg-brass/85"></div>
+
+                                <!-- 第 2 層 -->
+                                <div class="h-9 flex items-end gap-1 px-1.5 pt-1 bg-[#1B120C]">
+                                    <span class="w-3.5 h-7.5 bg-[#A86B43] border border-black/40"></span>
+                                    <span class="w-2.5 h-6 bg-[#496A53] border border-black/40"></span>
+                                    <span class="w-4 h-8 bg-[#B88B4A] border border-black/40"></span>
+                                    <span class="w-3 h-7 bg-[#7A4331] border border-black/40"></span>
+                                    <span class="w-3.5 h-6.5 bg-[#526D5B] border border-black/40"></span>
+                                </div>
+                                <div class="h-1.5 w-full bg-brass/85"></div>
+
+                                <!-- 第 3 層 -->
+                                <div class="h-9 flex items-end gap-1 px-1.5 pt-1 bg-[#1B120C]">
+                                    <span class="w-3 h-7 bg-[#365442] border border-black/40"></span>
+                                    <span class="w-4 h-7.5 bg-[#9C523B] border border-black/40"></span>
+                                    <span class="w-3 h-6.5 bg-[#C5A267] border border-black/40"></span>
+                                    <span class="w-3.5 h-8 bg-[#4A6454] border border-black/40"></span>
+                                </div>
+                                <div class="h-1.5 w-full bg-brass/85"></div>
+
+                                <!-- 第 4 層 -->
+                                <div class="h-9 flex items-end gap-1 px-1.5 pt-1 bg-[#1B120C]">
+                                    <span class="w-4 h-7 bg-[#7D4933] border border-black/40"></span>
+                                    <span class="w-3 h-7.5 bg-[#5B7A63] border border-black/40"></span>
+                                    <span class="w-3.5 h-6 bg-[#B38646] border border-black/40"></span>
+                                    <span class="w-3 h-7 bg-[#2E4838] border border-black/40"></span>
+                                </div>
+                                <div class="h-2 w-full bg-[#4A2E1B]"></div>
+
+                                <div class="mt-1.5 text-center text-[11px] font-semibold py-1 bg-paper/95 text-ink border border-brass">
+                                    點擊開啟書櫃選書
+                                </div>
+                            </div>
+                        </button>
+
+                        <!-- 右側：小圓桌（夜燈＋多肉植物）與趴睡哈士奇 -->
+                        <div class="relative flex items-end gap-2 shrink-0">
+                            <!-- 小圓桌＋夜燈＋多肉植物 -->
+                            <div class="relative flex flex-col items-center">
+                                <div class="flex items-end gap-1.5 mb-[-2px] z-10">
+                                    <!-- 夜燈 -->
+                                    <button onclick="interactProp('nightlamp', '床邊夜燈亮起柔和微光，陪你翻閱夜晚的章節。')" class="cursor-pointer" title="點擊互動：夜燈">
+                                        <svg class="w-7 h-9" viewBox="0 0 28 36" fill="none">
+                                            <path d="M6 16h16l-3-9H9l-3 9z" fill="#F2D079" stroke="#221912" stroke-width="1.3"/>
+                                            <line x1="14" y1="16" x2="14" y2="30" stroke="#B8924A" stroke-width="2"/>
+                                            <rect x="8" y="30" width="12" height="3" rx="1" fill="#4A2E1B"/>
+                                        </svg>
+                                    </button>
+                                    <!-- 多肉植物 -->
+                                    <button onclick="interactProp('succulent', '蓮座狀多肉植物在桌角靜靜蓄水，葉緣泛著溫潤綠意。')" class="plant-sway cursor-pointer" title="點擊互動：多肉植物">
+                                        <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                                            <path d="M9 21h14l-1.5 8h-11L9 21z" fill="#B5654A" stroke="#221912" stroke-width="1.2"/>
+                                            <ellipse cx="16" cy="17" rx="8" ry="4" fill="#5A8F69" stroke="#221912" stroke-width="1.1"/>
+                                            <ellipse cx="16" cy="14" rx="5.5" ry="3" fill="#77AD85" stroke="#221912" stroke-width="1.1"/>
+                                            <circle cx="16" cy="12" r="2.2" fill="#A6D4B2"/>
+                                        </svg>
+                                    </button>
+                                </div>
+                                <!-- 圓桌桌板與桌腳 -->
+                                <svg class="w-16 h-11" viewBox="0 0 64 44" fill="none">
+                                    <ellipse cx="32" cy="7" rx="28" ry="5" fill="#7C5336" stroke="#22150D" stroke-width="1.4"/>
+                                    <line x1="32" y1="12" x2="32" y2="36" stroke="#4A2E1B" stroke-width="3"/>
+                                    <path d="M18 40h28" stroke="#4A2E1B" stroke-width="2.5" stroke-linecap="round"/>
+                                </svg>
+                            </div>
+
+                            <!-- 參考圖風格趴睡哈士奇（點擊觸發耳朵抖動動畫） -->
+                            <button
+                                id="prop-husky-btn"
+                                onclick="triggerHuskyInteraction()"
+                                class="cursor-pointer hover:scale-105 transition"
+                                title="點擊互動：趴睡的哈士奇"
+                            >
+                                <svg id="husky-svg" class="w-24 sm:w-28 h-14" viewBox="0 0 112 56" fill="none">
+                                    <path d="M78 36c12 2 22-3 24-11 2-6-3-9-7-6" stroke="#4B5563" stroke-width="5" stroke-linecap="round"/>
+                                    <ellipse cx="58" cy="36" rx="26" ry="11" fill="#4B5563" stroke="#18201C" stroke-width="1.5"/>
+                                    <path d="M38 41h42" stroke="#F5F3EE" stroke-width="5" stroke-linecap="round"/>
+                                    <path d="M20 26l-3-11 8 7M31 24l4-11 2 9" fill="#4B5563" stroke="#18201C" stroke-width="1.4"/>
+                                    <ellipse cx="26" cy="32" rx="13" ry="10" fill="#F5F3EE" stroke="#18201C" stroke-width="1.5"/>
+                                    <path d="M16 25c4-2 10-2 16 1l-3 7c-5-2-10-1-13-2v-6z" fill="#4B5563"/>
+                                    <path d="M21 31q2 2 4 0M29 31q2 2 3 0" stroke="#18201C" stroke-width="1.4" stroke-linecap="round"/>
+                                    <circle cx="15" cy="34" r="2.2" fill="#18201C"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 木地板基準線 -->
+                    <div class="h-4 w-full bg-[#3A2416] border-t-2 border-brass/50"></div>
+                </div>
+            </div>
+
+            <!-- 底部互動回應與初次到訪透明提示條 -->
+            <div id="scenery-dialogue-bar" class="px-4 py-2 border border-ink/25 dark:border-inkLight/25 bg-paper/90 dark:bg-paperDark/90 text-xs flex items-center justify-between gap-3">
+                <div class="flex items-center gap-2">
+                    <span class="inline-block w-2 h-2 bg-terracotta"></span>
+                    <span id="scenery-dialogue-text">初次造訪提示：可左右滑動書房、點擊橘貓／哈士奇／植物／提燈互動，或點擊中央「多層書櫃」開始選書。</span>
+                </div>
+                <button onclick="switchPage('shelf')" class="px-3 py-1 bg-moss text-inkLight font-semibold shrink-0 hover:opacity-95 transition">
+                    進入書櫃
+                </button>
+            </div>
+        </section>
+
+        <!-- ================= 頁面二：多層書櫃高密度清單頁 ================= -->
+        <section id="page-shelf" class="hidden flex-1 min-h-0 flex flex-col gap-2.5">
+
+            <!-- 書櫃頂部工具列（緊湊排版、標籤篩選、主人新增按鈕） -->
+            <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border border-ink/20 dark:border-inkLight/20 bg-paper/90 dark:bg-paperDark/90 text-xs">
+                <div class="flex items-center gap-1.5 flex-wrap" id="tag-filter-bar">
+                    <button onclick="switchPage('scenery')" class="px-2.5 py-1 border border-ink/25 dark:border-inkLight/25 font-semibold hover:bg-ink/10 dark:hover:bg-inkLight/10">
+                        返回書房
+                    </button>
+                    <button data-tag="全部" onclick="setTagFilter('全部')" class="tag-btn px-2 py-1 border border-ink/25 dark:border-inkLight/25 bg-moss text-inkLight font-semibold">全部</button>
+                    <button data-tag="文學詩集" onclick="setTagFilter('文學詩集')" class="tag-btn px-2 py-1 border border-ink/25 dark:border-inkLight/25">文學詩集</button>
+                    <button data-tag="建築設計" onclick="setTagFilter('建築設計')" class="tag-btn px-2 py-1 border border-ink/25 dark:border-inkLight/25">建築設計</button>
+                    <button data-tag="深夜哲思" onclick="setTagFilter('深夜哲思')" class="tag-btn px-2 py-1 border border-ink/25 dark:border-inkLight/25">深夜哲思</button>
+                </div>
+
+                <div class="flex items-center gap-1.5">
+                    <button onclick="toggleShelfDisplayMode()" id="btn-shelf-mode" class="px-2.5 py-1 border border-ink/25 dark:border-inkLight/25">
+                        書脊／書封切換
+                    </button>
+                    <button id="btn-owner-add-book" onclick="openModal('modal-add-book')" class="hidden px-2.5 py-1 border border-brass bg-brass/20 font-semibold">
+                        ＋ 新增／批次建檔
+                    </button>
+                </div>
+            </div>
+
+            <!-- 多層書櫃主體（高密度緊湊間距，隨材質與軌道燈變化） -->
+            <div id="multi-tier-bookshelf" class="flex-1 min-h-0 overflow-y-auto hide-scrollbar p-3 border-2 border-ink/25 dark:border-inkLight/25 bg-paper/75 dark:bg-paperDark/75 space-y-3">
+                <!-- 由 JS 動態渲染多層隔板與書本 -->
+            </div>
+
+            <!-- 底部借閱卡與收藏懸浮快捷列 -->
+            <div class="flex flex-wrap items-center justify-between gap-2 px-3 py-2 border border-ink/25 dark:border-inkLight/25 bg-paper/95 dark:bg-paperDark/95 text-xs">
+                <div class="flex items-center gap-2">
+                    <button onclick="openModal('modal-collections')" class="px-2.5 py-1 border border-ink/25 dark:border-inkLight/25 flex items-center gap-1 hover:bg-ink/10 dark:hover:bg-inkLight/10">
+                        <svg class="w-3.5 h-3.5 text-terracotta" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        <span>喜愛 (<span id="fav-count">0</span>)</span>
+                    </button>
+                    <button onclick="openModal('modal-collections')" class="px-2.5 py-1 border border-ink/25 dark:border-inkLight/25 flex items-center gap-1 hover:bg-ink/10 dark:hover:bg-inkLight/10">
+                        <svg class="w-3.5 h-3.5 text-brass" viewBox="0 0 24 24" fill="currentColor"><path d="M6 2h12a2 2 0 0 1 2 2v18l-8-4-8 4V4a2 2 0 0 1 2-2z"/></svg>
+                        <span>書籤 (<span id="bm-count">0</span>)</span>
                     </button>
                 </div>
 
-            </div>
-        </div>
-
-        <!-- ================= 視圖 B：書櫃與藏書高密度清單頁面 ================= -->
-        <div id="view-shelf" class="space-y-6 hidden">
-            
-            <!-- 書櫃控制與篩選列 -->
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-paper backdrop-blur-md p-4 rounded-xl border border-forest/20">
-                <div class="flex items-center gap-2 flex-wrap">
-                    <button onclick="switchViewMode('scenery')" class="px-3 py-1.5 text-xs rounded-lg border border-forest/30 font-bold hover:bg-forest/10 transition">← 返回書房全景</button>
-                    <span class="opacity-30">|</span>
-                    <button onclick="filterBooksByTag('ALL')" class="px-3 py-1 text-xs rounded-lg bg-forest text-paper font-semibold transition">全部書籍</button>
-                    <button onclick="filterBooksByTag('療癒深夜')" class="px-3 py-1 text-xs rounded-lg border border-forest/30 font-medium hover:bg-forest/10">#療癒深夜</button>
-                    <button onclick="filterBooksByTag('設計靈感')" class="px-3 py-1 text-xs rounded-lg border border-forest/30 font-medium hover:bg-forest/10">#設計靈感</button>
-                </div>
                 <div class="flex items-center gap-2">
-                    <button onclick="setShelfView('cover')" id="btn-view-cover" class="px-3 py-1 text-xs rounded-lg bg-forest text-paper font-semibold transition">封面模式</button>
-                    <button onclick="setShelfView('spine')" id="btn-view-spine" class="px-3 py-1 text-xs rounded-lg border border-forest/30 font-medium transition">書脊模式</button>
+                    <span class="opacity-80">已勾選 <strong id="borrow-selected-count">0</strong> 本</span>
+                    <button onclick="openBorrowCardWithSelection()" class="px-3.5 py-1.5 bg-terracotta text-inkLight font-semibold hover:opacity-95 transition">
+                        製作借閱卡
+                    </button>
                 </div>
             </div>
-
-            <!-- 書架清單容器 (高密度緊湊排版，上下間距優化) -->
-            <div class="space-y-6" id="bookshelves-container"></div>
-
-            <!-- 底部借閱清單欄 -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-paper backdrop-blur-md p-4 rounded-xl border border-forest/20 shadow-sm">
-                <div class="text-xs space-y-0.5 font-medium">
-                    <p class="font-bold text-terracotta">朋友借閱小提示：</p>
-                    <p class="opacity-90">勾選下方想借閱的書本，點擊右側按鈕生成借閱清單圖傳給主人即可！</p>
-                </div>
-                <button onclick="openLendingCardModal()" class="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-terracotta text-white font-semibold text-sm hover:opacity-90 transition shadow-md flex items-center justify-center gap-2">
-                    ✨ 生成借閱清單圖 (<span id="selected-count">0</span>)
-                </button>
-            </div>
-
-        </div>
-
+        </section>
     </main>
 
-    <!-- 彈窗：新增書籍 (僅主人) -->
-    <div id="modal-add" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-paper border border-forest/30 rounded-2xl w-full max-w-xl p-6 shadow-2xl text-xs space-y-4 max-h-[85vh] overflow-y-auto">
-            <div class="flex justify-between items-center pb-2 border-b border-forest/20"><h3 class="font-bold text-base">新增書籍與條碼掃描</h3><button onclick="closeModal('modal-add')" class="font-bold text-sm">✕</button></div>
-            <div class="space-y-3 font-medium">
+    <!-- 頁尾 Credit -->
+    <footer class="max-w-7xl mx-auto px-4 sm:px-6 py-2 text-[11px] opacity-75 flex items-center justify-between">
+        <span>墨染書齋 · 獨立書店誌與私人藏書空間</span>
+        <span>Credit: Joyce Lam</span>
+    </footer>
+
+    <!-- ================= 彈窗 1：書籍詳情、金句、愛心與書籤文件夾 ================= -->
+    <div id="modal-book-detail" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-3">
+        <div class="w-full max-w-lg max-h-[82dvh] flex flex-col border-2 border-ink/30 dark:border-inkLight/30 bg-paper dark:bg-paperDark text-ink dark:text-inkLight shadow-2xl">
+            <div class="flex items-center justify-between px-4 py-2.5 border-b border-ink/20 dark:border-inkLight/20 shrink-0">
+                <h3 id="detail-book-title" class="font-bold text-sm truncate pr-2">書名</h3>
+                <button onclick="closeModal('modal-book-detail')" class="px-2 py-0.5 border border-ink/25 dark:border-inkLight/25 font-bold text-xs">✕</button>
+            </div>
+            <div id="detail-book-body" class="p-4 overflow-y-auto hide-scrollbar space-y-3 text-xs"></div>
+        </div>
+    </div>
+
+    <!-- ================= 彈窗 2：訪客借閱卡（留言、複製私訊、和紙借書卡 PNG） ================= -->
+    <div id="modal-borrow-card" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-3">
+        <div class="w-full max-w-xl max-h-[82dvh] flex flex-col border-2 border-ink/30 dark:border-inkLight/30 bg-paper dark:bg-paperDark text-ink dark:text-inkLight shadow-2xl">
+            <div class="flex items-center justify-between px-4 py-2.5 border-b border-ink/20 dark:border-inkLight/20 shrink-0">
+                <h3 class="font-bold text-sm">好友借閱卡 · 分享給書房主人</h3>
+                <button onclick="closeModal('modal-borrow-card')" class="px-2 py-0.5 border border-ink/25 dark:border-inkLight/25 font-bold text-xs">✕</button>
+            </div>
+            <div class="p-4 overflow-y-auto hide-scrollbar space-y-3 text-xs">
+                <p class="opacity-85">請把清單分享給書房主人你想閱讀的書本，由主人決定是否借出。</p>
+                <div id="borrow-card-books" class="grid grid-cols-1 sm:grid-cols-2 gap-2"></div>
                 <div>
-                    <label class="block mb-1 font-bold">ISBN 快速查詢</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="input-isbn" placeholder="輸入 ISBN 條碼自動抓取..." class="flex-1 px-3 py-2 rounded-lg border border-forest/30 bg-transparent">
-                        <button onclick="fetchBookByISBN()" class="px-4 py-2 bg-forest text-paper rounded-lg font-bold">自動抓取</button>
+                    <label class="block font-semibold mb-1">好友暖心留言（約定面交或喝咖啡）</label>
+                    <textarea id="borrow-friend-note" rows="2" placeholder="例如：這週末方便一起喝杯咖啡順便借這幾本書嗎？" class="w-full p-2 border border-ink/25 dark:border-inkLight/25 bg-transparent"></textarea>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <button onclick="copyBorrowMessage()" class="px-3 py-1.5 border border-ink/30 dark:border-inkLight/30 font-semibold hover:bg-ink/10">複製私訊文字</button>
+                    <button onclick="exportWashiBorrowCard()" class="px-3 py-1.5 bg-terracotta text-inkLight font-semibold">生成和紙借書卡圖檔</button>
+                </div>
+
+                <!-- 和紙借書卡截圖區 -->
+                <div id="washi-card-preview" class="p-4 border-2 border-brass bg-[#F9F6F0] text-[#1E2421] space-y-2">
+                    <div class="flex items-center justify-between border-b border-[#1E2421]/25 pb-1.5">
+                        <span class="font-bold text-sm">墨染書齋 · 和紙借書卡</span>
+                        <span id="washi-card-date" class="font-mono text-[10px]"></span>
                     </div>
+                    <div id="washi-card-list" class="text-[11px] space-y-1"></div>
+                    <p id="washi-card-note-out" class="italic text-[11px] pt-1 border-t border-dashed border-[#1E2421]/25"></p>
                 </div>
-                <input type="text" id="book-title" placeholder="書名 *" class="w-full px-3 py-2 rounded-lg border border-forest/30 bg-transparent">
-                <input type="text" id="book-author" placeholder="作者 *" class="w-full px-3 py-2 rounded-lg border border-forest/30 bg-transparent">
-                <div class="grid grid-cols-2 gap-3">
-                    <input type="number" id="book-pages" value="300" placeholder="頁數" class="px-3 py-2 rounded-lg border border-forest/30 bg-transparent">
-                    <select id="book-tag" class="px-3 py-2 rounded-lg border border-forest/30 bg-paper"><option value="療癒深夜">#療癒深夜</option><option value="設計靈感">#設計靈感</option></select>
-                </div>
-                <input type="text" id="book-cover" placeholder="封面圖片網址 (URL)" class="w-full px-3 py-2 rounded-lg border border-forest/30 bg-transparent">
-                <textarea id="book-desc" rows="2" placeholder="書籍簡介" class="w-full px-3 py-2 rounded-lg border border-forest/30 bg-transparent"></textarea>
-                <div class="flex justify-end gap-2 pt-2"><button onclick="closeModal('modal-add')" class="px-4 py-2 border border-forest/30 rounded-lg">取消</button><button onclick="saveNewBook()" class="px-4 py-2 bg-forest text-paper rounded-lg font-bold">確認上架</button></div>
             </div>
         </div>
     </div>
 
-    <!-- 彈窗：書房佈置、材質與字體工坊 (第二階段核心) -->
-    <div id="modal-settings" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-paper border border-forest/30 rounded-2xl w-full max-w-lg p-6 shadow-2xl text-xs space-y-4 max-h-[85vh] overflow-y-auto">
-            <div class="flex justify-between items-center pb-2 border-b border-forest/20"><h3 class="font-bold text-base">書房佈置與材質字體工坊</h3><button onclick="closeModal('modal-settings')" class="font-bold text-sm">✕</button></div>
-            <div class="space-y-3 font-medium">
+    <!-- ================= 彈窗 3：喜愛與書籤文件夾總覽 ================= -->
+    <div id="modal-collections" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-3">
+        <div class="w-full max-w-lg max-h-[82dvh] flex flex-col border-2 border-ink/30 dark:border-inkLight/30 bg-paper dark:bg-paperDark text-ink dark:text-inkLight shadow-2xl">
+            <div class="flex items-center justify-between px-4 py-2.5 border-b border-ink/20 dark:border-inkLight/20 shrink-0">
+                <h3 class="font-bold text-sm">個人喜愛與書籤分類文件夾</h3>
+                <button onclick="closeModal('modal-collections')" class="px-2 py-0.5 border border-ink/25 dark:border-inkLight/25 font-bold text-xs">✕</button>
+            </div>
+            <div id="collections-body" class="p-4 overflow-y-auto hide-scrollbar space-y-3 text-xs"></div>
+        </div>
+    </div>
+
+    <!-- ================= 彈窗 4：時空與天氣控制面板（長按時鐘或設定開啟，精巧不遮擋窗景） ================= -->
+    <div id="modal-weather" class="hidden fixed inset-0 z-50 bg-black/45 flex items-center justify-center p-3">
+        <div class="w-full max-w-md max-h-[82dvh] flex flex-col border-2 border-brass bg-paper/95 dark:bg-paperDark/95 text-ink dark:text-inkLight shadow-2xl">
+            <div class="flex items-center justify-between px-4 py-2 border-b border-ink/20 dark:border-inkLight/20 shrink-0">
+                <h3 class="font-bold text-sm">時空與窗外天氣控制</h3>
+                <button onclick="closeModal('modal-weather')" class="px-2 py-0.5 border border-ink/25 dark:border-inkLight/25 font-bold text-xs">✕</button>
+            </div>
+            <div class="p-4 overflow-y-auto hide-scrollbar space-y-3 text-xs">
                 <div>
-                    <label class="block mb-1 font-bold">選擇書架木質層板材質</label>
-                    <select id="setting-wood-select" onchange="changeShelfWood(this.value)" class="w-full px-3 py-2 rounded-lg border border-forest/30 bg-paper">
-                        <option value="bg-[#8D6B4F]/40">經典胡桃木</option>
-                        <option value="bg-[#5C4033]/50">沉穩黑檀木</option>
-                        <option value="bg-[#D2B48C]/50">北歐原木白橡</option>
-                        <option value="bg-[#3A5A40]/40">森系苔綠層板</option>
+                    <div class="font-semibold mb-1">窗外時段與季節</div>
+                    <div class="grid grid-cols-2 gap-1.5">
+                        <button onclick="applyTimePreset('morning')" class="p-1.5 border border-ink/25 dark:border-inkLight/25 text-left">08:30 · 春晨微光</button>
+                        <button onclick="applyTimePreset('noon')" class="p-1.5 border border-ink/25 dark:border-inkLight/25 text-left">13:30 · 夏日晴朗</button>
+                        <button onclick="applyTimePreset('dusk')" class="p-1.5 border border-ink/25 dark:border-inkLight/25 text-left">18:00 · 秋暮楓橘</button>
+                        <button onclick="applyTimePreset('night')" class="p-1.5 border border-ink/25 dark:border-inkLight/25 text-left">23:15 · 冬夜星月</button>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-semibold mb-1">獨立天氣特效（晴天亦可下雨或下雪）</div>
+                    <div class="grid grid-cols-4 gap-1.5">
+                        <button onclick="setWeatherEffect('clear')" class="p-1.5 border border-ink/25 dark:border-inkLight/25">晴朗</button>
+                        <button onclick="setWeatherEffect('rain')" class="p-1.5 border border-ink/25 dark:border-inkLight/25">下雨</button>
+                        <button onclick="setWeatherEffect('snow')" class="p-1.5 border border-ink/25 dark:border-inkLight/25">下雪</button>
+                        <button onclick="setWeatherEffect('fireworks')" class="p-1.5 border border-ink/25 dark:border-inkLight/25">煙花</button>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between pt-1 border-t border-ink/15 dark:border-inkLight/15">
+                    <span>下雨環境音（切換分頁持續播放）</span>
+                    <button onclick="toggleRainAudio()" id="btn-modal-rain" class="px-3 py-1 border border-brass font-semibold">開啟雨聲</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 彈窗 5：設定頁（風格、材質、字體、聯絡我） ================= -->
+    <div id="modal-settings" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-3">
+        <div class="w-full max-w-lg max-h-[82dvh] flex flex-col border-2 border-ink/30 dark:border-inkLight/30 bg-paper dark:bg-paperDark text-ink dark:text-inkLight shadow-2xl">
+            <div class="flex items-center justify-between px-4 py-2.5 border-b border-ink/20 dark:border-inkLight/20 shrink-0">
+                <h3 class="font-bold text-sm">書房設定 · 風格、材質與字體</h3>
+                <button onclick="closeModal('modal-settings')" class="px-2 py-0.5 border border-ink/25 dark:border-inkLight/25 font-bold text-xs">✕</button>
+            </div>
+            <div class="p-4 overflow-y-auto hide-scrollbar space-y-3 text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                    <button onclick="setThemeStyle('nouveau')" class="p-2 border border-ink/25 dark:border-inkLight/25 text-left font-semibold">慕夏風格（預設）</button>
+                    <button onclick="setThemeStyle('taisho')" class="p-2 border border-ink/25 dark:border-inkLight/25 text-left font-semibold">日本大正浪漫風格</button>
+                </div>
+                <div class="flex items-center justify-between">
+                    <span>日夜光暗模式</span>
+                    <button onclick="toggleDarkMode()" class="px-3 py-1 border border-ink/25 dark:border-inkLight/25 font-semibold">切換光／暗模式</button>
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1">多層書櫃材質</label>
+                    <select onchange="applyWoodMaterial(this.value)" class="w-full p-2 border border-ink/25 dark:border-inkLight/25 bg-paper dark:bg-paperDark">
+                        <option value="walnut">胡桃木（預設）</option>
+                        <option value="oak">原木淺橡</option>
+                        <option value="white">純白層板</option>
+                        <option value="zigzag">文青建築折線層板</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block mb-1 font-bold">選擇書房背景窗景</label>
-                    <div class="grid grid-cols-2 gap-2">
-                        <button onclick="setRoomBg('https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?auto=format&fit=crop&w=1600&q=80')" class="p-2 border rounded text-left">山林雨窗</button>
-                        <button onclick="setRoomBg('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1600&q=80')" class="p-2 border rounded text-left">晨光溫室</button>
-                    </div>
-                </div>
-                <div>
-                    <label class="block mb-1 font-bold">字體選擇與自訂字體上傳 (.ttf / .otf / .woff2)</label>
-                    <select onchange="changeFontFamily(this.value)" class="w-full px-3 py-2 rounded-lg border border-forest/30 bg-paper mb-2">
-                        <option value='"Noto Serif TC", "UoqMunThenKhung"'>宇文天穹 / 思源宋體（預設清晰）</option>
-                        <option value="Fraunces">Fraunces（歐式雜誌風）</option>
+                    <label class="block font-semibold mb-1">字體選擇或上傳自訂字體（.ttf / .otf / .woff2）</label>
+                    <select onchange="applyFontChoice(this.value)" class="w-full p-2 border border-ink/25 dark:border-inkLight/25 bg-paper dark:bg-paperDark mb-1.5">
+                        <option value='"UoqMunThenKhung", "Noto Serif TC"'>宇文天穹（預設清晰）</option>
+                        <option value='"Noto Serif TC", serif'>思源宋體</option>
+                        <option value='Fraunces, serif'>Fraunces</option>
                     </select>
-                    <input type="file" accept=".ttf,.otf,.woff2" onchange="handleCustomFontUpload(event)" class="text-[11px]">
+                    <input type="file" accept=".ttf,.otf,.woff2" onchange="uploadCustomFont(event)" class="text-[11px]"/>
                 </div>
-                <div class="flex justify-end pt-2"><button onclick="closeModal('modal-settings')" class="px-4 py-2 bg-forest text-paper rounded-lg font-bold">儲存設定</button></div>
+                <div class="pt-2 border-t border-ink/15 dark:border-inkLight/15 flex items-center justify-between">
+                    <span>需要聯繫書房設計者？</span>
+                    <a href="mailto:joycelam.study@example.com?subject=墨染書齋%20Aethelgard%20Study%20回饋" class="px-3 py-1 border border-brass font-semibold">聯絡我（電郵）</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= 彈窗 6：主人新增／批次建檔 ================= -->
+    <div id="modal-add-book" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-3">
+        <div class="w-full max-w-lg max-h-[82dvh] flex flex-col border-2 border-ink/30 dark:border-inkLight/30 bg-paper dark:bg-paperDark text-ink dark:text-inkLight shadow-2xl">
+            <div class="flex items-center justify-between px-4 py-2.5 border-b border-ink/20 dark:border-inkLight/20 shrink-0">
+                <h3 class="font-bold text-sm">主人建檔：單本／批次照片與匯入</h3>
+                <button onclick="closeModal('modal-add-book')" class="px-2 py-0.5 border border-ink/25 dark:border-inkLight/25 font-bold text-xs">✕</button>
+            </div>
+            <div class="p-4 overflow-y-auto hide-scrollbar space-y-3 text-xs">
+                <input id="new-book-title" placeholder="書名 *" class="w-full p-2 border border-ink/25 dark:border-inkLight/25 bg-transparent"/>
+                <input id="new-book-author" placeholder="作者 *" class="w-full p-2 border border-ink/25 dark:border-inkLight/25 bg-transparent"/>
+                <div class="grid grid-cols-2 gap-2">
+                    <select id="new-book-tag" class="p-2 border border-ink/25 dark:border-inkLight/25 bg-paper dark:bg-paperDark">
+                        <option value="文學詩集">文學詩集</option>
+                        <option value="建築設計">建築設計</option>
+                        <option value="深夜哲思">深夜哲思</option>
+                    </select>
+                    <select id="new-book-tier" class="p-2 border border-ink/25 dark:border-inkLight/25 bg-paper dark:bg-paperDark">
+                        <option value="0">第 1 層書架</option>
+                        <option value="1">第 2 層書架</option>
+                        <option value="2">第 3 層書架</option>
+                        <option value="3">第 4 層書架</option>
+                    </select>
+                </div>
+                <input id="new-book-quote" placeholder="書中金句（留空則顯示尚未擷取金句）" class="w-full p-2 border border-ink/25 dark:border-inkLight/25 bg-transparent"/>
+                <button onclick="addSingleBook()" class="w-full py-2 bg-moss text-inkLight font-semibold">加入多層書櫃</button>
             </div>
         </div>
     </div>
 
-    <!-- 彈窗：借閱履歷與狀態追蹤 (第三階段核心) -->
-    <div id="modal-lending" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-paper border border-forest/30 rounded-2xl w-full max-w-xl p-6 shadow-2xl text-xs space-y-4 max-h-[85vh] overflow-y-auto">
-            <div class="flex justify-between items-center pb-2 border-b border-forest/20"><h3 class="font-bold text-base">借閱履歷與狀態追蹤總覽</h3><button onclick="closeModal('modal-lending')" class="font-bold text-sm">✕</button></div>
-            <div id="lending-list-container" class="space-y-3 font-medium"></div>
-        </div>
-    </div>
-
-    <!-- 彈窗：生成借閱清單圖片 -->
-    <div id="modal-lending-card" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-paper border border-forest/30 rounded-2xl w-full max-w-2xl p-6 shadow-2xl text-xs space-y-4 max-h-[85vh] overflow-y-auto">
-            <div class="flex justify-between items-center pb-2 border-b border-forest/20"><h3 class="font-bold text-base">生成借閱清單圖片</h3><button onclick="closeModal('modal-lending-card')" class="font-bold text-sm">✕</button></div>
-            
-            <div id="capture-card-area" class="bg-[#FAF7F0] text-[#1F3323] p-8 rounded-xl border-2 border-[#1F3323]/20 shadow-lg space-y-6">
-                <div class="flex justify-between items-start border-b border-[#1F3323]/20 pb-4">
-                    <div>
-                        <span class="text-[10px] uppercase tracking-widest text-[#B5654A] font-bold">Borrowing Receipt</span>
-                        <h2 class="text-xl font-bold font-display" id="card-render-shelf-name">拾光書齋 ‧ 書本借閱清單</h2>
-                    </div>
-                    <div class="text-right text-[10px] opacity-80 font-mono"><p>Date: <span id="card-date">2026-06-06</span></p></div>
-                </div>
-                <div id="card-selected-books" class="space-y-3"></div>
-                <div class="pt-4 border-t border-[#1F3323]/20 flex justify-between items-center text-[11px] opacity-90 font-medium">
-                    <p>請將此圖儲存，傳送至 LINE / Threads 給書房主人！</p>
-                    <p class="font-bold">Virtual Bookshelf</p>
-                </div>
+    <!-- ================= 彈窗 7：主人實體出借手帳（好友出借冊） ================= -->
+    <div id="modal-ledger" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-[2px] flex items-center justify-center p-3">
+        <div class="w-full max-w-xl max-h-[82dvh] flex flex-col border-2 border-ink/30 dark:border-inkLight/30 bg-paper dark:bg-paperDark text-ink dark:text-inkLight shadow-2xl">
+            <div class="flex items-center justify-between px-4 py-2.5 border-b border-ink/20 dark:border-inkLight/20 shrink-0">
+                <h3 class="font-bold text-sm">好友出借冊 · 實體借還手帳</h3>
+                <button onclick="closeModal('modal-ledger')" class="px-2 py-0.5 border border-ink/25 dark:border-inkLight/25 font-bold text-xs">✕</button>
             </div>
-
-            <div class="flex justify-end gap-2 pt-2"><button onclick="closeModal('modal-lending-card')" class="px-4 py-2 border border-forest/30 rounded-lg font-medium">返回</button><button onclick="downloadLendingCard()" class="px-5 py-2 bg-terracotta text-white rounded-lg font-bold shadow">下載高清圖片</button></div>
+            <div id="ledger-body" class="p-4 overflow-y-auto hide-scrollbar space-y-3 text-xs"></div>
         </div>
     </div>
 
-    <!-- JavaScript 完整邏輯 -->
     <script>
-        let books = [
-            { id: 1, title: "原子習慣", author: "詹姆斯·克利爾", pages: 320, shelf: 0, tag: "設計靈感", cover: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80", status: "available", borrower: "", dueDate: "", selected: false },
-            { id: 2, title: "設計思考翻轉世界", author: "Tim Brown", pages: 280, shelf: 1, tag: "設計靈感", cover: "https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&w=400&q=80", status: "borrowed", borrower: "小明", dueDate: "2026-06-15", selected: false },
-            { id: 3, title: "被討厭的勇氣", author: "岸見一郎", pages: 300, shelf: 2, tag: "療癒深夜", cover: "https://images.unsplash.com/photo-1532012197267-da84d127e765?auto=format&fit=crop&w=400&q=80", status: "available", borrower: "", dueDate: "", selected: false }
+        // 主人藏書主檔
+        const OWNER_KEY = 'aethelgard_owner_books_v1';
+        const LEDGER_KEY = 'aethelgard_owner_ledger_v1';
+        // 訪客收藏與書籤文件夾獨立儲存（初次進入強制為空）
+        const GUEST_FAV_KEY = 'aethelgard_guest_favs_v1';
+        const GUEST_BM_KEY = 'aethelgard_guest_bookmarks_v1';
+
+        const defaultBooks = [
+            { id: 'b1', title: '靜默的建築詩學', author: '彼得·卒姆托', tag: '建築設計', tier: 0, spineColor: '#4A6B53', quote: '建築是凝固的時光與光影的容器。', summary: '探討材料質感、空間靜謐與光線如何在建築中喚起情感共鳴。', status: 'available' },
+            { id: 'b2', title: '草葉集與晨露', author: '惠特曼', tag: '文學詩集', tier: 0, spineColor: '#9A5B42', quote: '我包含 multitudes，每一片草葉都是一首詩。', summary: '以自由詩體書寫自然、旅途與人性溫度的經典詩集。', status: 'available' },
+            { id: 'b3', title: '和紙與木構之美', author: '森川清一', tag: '建築設計', tier: 1, spineColor: '#B8924A', quote: '', summary: '解析傳統木作榫卯、障子紙透光與室內空間比例的工藝美學。', status: 'available' },
+            { id: 'b4', title: '深夜書店的燈火', author: '林靜宜', tag: '深夜哲思', tier: 1, spineColor: '#375648', quote: '當城市沉睡，書頁翻動的聲音成了最溫柔的陪伴。', summary: '收錄十二篇關於獨處、閱讀與城市夜色的散文隨筆。', status: 'available' },
+            { id: 'b5', title: '大正浪漫裝幀考', author: '高島亮介', tag: '建築設計', tier: 2, spineColor: '#7C4332', quote: '昭和與大正的文庫本，把日常閱讀變成了微型展覽。', summary: '梳理復古書衣、活版印刷與裝飾花紋的演變軌跡。', status: 'available' },
+            { id: 'b6', title: '雨聲中的慢讀', author: '陳語桐', tag: '文學詩集', tier: 2, spineColor: '#5B7A63', quote: '', summary: '在雨季午後放慢腳步，重新感受文字的呼吸節奏。', status: 'available' },
+            { id: 'b7', title: '時間與記憶的器皿', author: '亞歷山大', tag: '深夜哲思', tier: 3, spineColor: '#8D6B4F', quote: '真正留存下來的空間，總能容納歲月的痕跡。', summary: '從日常器物與居家角落出發，思考記憶如何安放。', status: 'available' },
+            { id: 'b8', title: '植物誌與四季', author: '艾瑪·羅', tag: '文學詩集', tier: 3, spineColor: '#466855', quote: '每一株植物都在用自己的節奏回應陽光與雨。', summary: '結合植物觀察手記與季節書寫的療癒作品。', status: 'available' }
         ];
 
-        let quotes = [
-            { text: "「閱讀，是借用別人的靈感來點亮自己的房間。」", author: "── 拾光主人", tag: "#靈感角落" },
-            { text: "「書本是隨身攜帶的魔法，隨時帶你去任何想去的地方。」", author: "── 史蒂芬·金", tag: "#深夜呢喃" }
-        ];
-        let currentQuoteIndex = 0;
-        let currentView = 'cover';
-        let currentTagFilter = 'ALL';
-        let currentWoodStyle = 'bg-[#8D6B4F]/40';
-        let audioEnabled = true;
-
-        const urlParams = new URLSearchParams(window.location.search);
-        let isOwnerMode = urlParams.get('mode') === 'owner';
-
-        window.onload = function() {
-            initRoleUI();
-            renderBookshelf();
-            document.getElementById('card-date').innerText = new Date().toISOString().split('T')[0];
+        let state = {
+            isOwner: new URLSearchParams(window.location.search).get('mode') === 'owner',
+            books: JSON.parse(localStorage.getItem(OWNER_KEY)) || defaultBooks,
+            ledger: JSON.parse(localStorage.getItem(LEDGER_KEY)) || [],
+            favorites: JSON.parse(localStorage.getItem(GUEST_FAV_KEY)) || [],
+            bookmarks: JSON.parse(localStorage.getItem(GUEST_BM_KEY)) || { folders: ['待讀清單'], items: {} },
+            selectedBorrowIds: [],
+            tagFilter: '全部',
+            viewMode: 'spine',
+            timeIndex: 0,
+            weather: 'clear',
+            rainAudioOn: false
         };
 
-        function initRoleUI() {
-            const actions = document.getElementById('header-actions');
-            const subtitle = document.getElementById('role-subtitle');
+        const timePresets = [
+            { clock: '08:30 · 春晨', top: 'rgba(255,244,214,0.22)', bot: 'rgba(42,66,52,0.75)', sky1: '#659B82', sky2: '#F2E3B6', sunX: 70, sunY: 38, sunColor: '#FCE39C' },
+            { clock: '13:30 · 午陽', top: 'rgba(255,250,235,0.12)', bot: 'rgba(30,52,40,0.72)', sky1: '#4A8998', sky2: '#D8ECDC', sunX: 215, sunY: 28, sunColor: '#FFF1B8' },
+            { clock: '18:00 · 暮色', top: 'rgba(218,132,84,0.28)', bot: 'rgba(38,24,20,0.85)', sky1: '#6D4C5E', sky2: '#E89968', sunX: 235, sunY: 68, sunColor: '#F59E6C' },
+            { clock: '23:15 · 深夜', top: 'rgba(11,25,21,0.55)', bot: 'rgba(6,13,11,0.92)', sky1: '#0E2028', sky2: '#1E3A36', sunX: 210, sunY: 32, sunColor: '#F6E8B1' }
+        ];
 
-            if (isOwnerMode) {
-                subtitle.innerText = "INDIE LITERARY BOOKSHELF (主人管理視角)";
-                actions.innerHTML = `
-                    <button onclick="openModal('modal-settings')" class="px-3.5 py-1.5 text-xs font-bold rounded-full border border-forest/30 hover:bg-forest/10 transition">🎨 佈置與材質</button>
-                    <button onclick="openModal('modal-lending')" class="px-3.5 py-1.5 text-xs font-bold rounded-full bg-terracotta text-white shadow-sm">📖 借閱履歷</button>
-                    <button onclick="openModal('modal-add')" class="px-3.5 py-1.5 text-xs font-bold rounded-full bg-forest text-paper shadow-sm">＋ 新增書籍</button>
-                    <button onclick="copyGuestShareLink()" class="px-3.5 py-1.5 text-xs font-bold rounded-full bg-moss text-white shadow-sm">🔗 複製分享網址</button>
-                    <button onclick="togglePreviewMode()" class="px-3.5 py-1.5 text-xs font-bold rounded-full border border-forest/30 hover:bg-forest/10 transition">👁️ 預覽訪客</button>
-                `;
-            } else {
-                subtitle.innerText = "INDIE LITERARY BOOKSHELF (朋友訪客視角)";
-                actions.innerHTML = `
-                    <button onclick="openLendingCardModal()" class="px-4 py-1.5 text-xs font-bold rounded-full bg-terracotta text-white shadow">✨ 生成借閱清單圖</button>
-                    <button onclick="switchToOwnerMode()" class="px-3 py-1.5 text-xs font-bold rounded-full border border-forest/30 hover:bg-forest/10 transition">🔑 返回主人模式</button>
-                `;
+        let audioCtx = null;
+        let rainGainNode = null;
+        let clockPressTimer = null;
+        let longPressTriggered = false;
+
+        function saveAll() {
+            localStorage.setItem(OWNER_KEY, JSON.stringify(state.books));
+            localStorage.setItem(LEDGER_KEY, JSON.stringify(state.ledger));
+            localStorage.setItem(GUEST_FAV_KEY, JSON.stringify(state.favorites));
+            localStorage.setItem(GUEST_BM_KEY, JSON.stringify(state.bookmarks));
+        }
+
+        // 木質點擊音效與行動裝置觸覺回饋
+        function playWoodFeedback() {
+            if (navigator.vibrate) navigator.vibrate(12);
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'triangle';
+                osc.frequency.setValueAtTime(190, audioCtx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(65, audioCtx.currentTime + 0.06);
+                gain.gain.setValueAtTime(0.09, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.06);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.065);
+            } catch (_) {}
+        }
+
+        // 切換分頁
+        function switchPage(page) {
+            playWoodFeedback();
+            const isScenery = page === 'scenery';
+            document.getElementById('page-scenery').classList.toggle('hidden', !isScenery);
+            document.getElementById('page-shelf').classList.toggle('hidden', isScenery);
+            document.getElementById('nav-scenery').className = isScenery
+                ? 'px-2.5 py-1.5 border border-ink/25 dark:border-inkLight/25 bg-moss text-inkLight font-semibold transition'
+                : 'px-2.5 py-1.5 border border-ink/25 dark:border-inkLight/25 hover:bg-ink/10 dark:hover:bg-inkLight/10 transition';
+            document.getElementById('nav-shelf').className = !isScenery
+                ? 'px-2.5 py-1.5 border border-ink/25 dark:border-inkLight/25 bg-moss text-inkLight font-semibold transition'
+                : 'px-2.5 py-1.5 border border-ink/25 dark:border-inkLight/25 hover:bg-ink/10 dark:hover:bg-inkLight/10 transition';
+            if (!isScenery) renderBookshelf();
+        }
+
+        // 時鐘點擊切換時段；長按開啟時空與天氣控制
+        function startClockLongPress() {
+            longPressTriggered = false;
+            clockPressTimer = setTimeout(() => {
+                longPressTriggered = true;
+                playWoodFeedback();
+                openModal('modal-weather');
+            }, 520);
+        }
+
+        function endClockPress() {
+            clearTimeout(clockPressTimer);
+            if (!longPressTriggered) {
+                state.timeIndex = (state.timeIndex + 1) % timePresets.length;
+                applyTimePreset(Object.keys({ morning: 0, noon: 1, dusk: 2, night: 3 })[state.timeIndex]);
             }
         }
 
-        function switchViewMode(mode) {
-            if (mode === 'scenery') {
-                document.getElementById('view-scenery').classList.remove('hidden');
-                document.getElementById('view-shelf').classList.add('hidden');
-            } else {
-                document.getElementById('view-scenery').classList.add('hidden');
-                document.getElementById('view-shelf').classList.remove('hidden');
-                renderBookshelf();
+        function cancelClockPress() {
+            clearTimeout(clockPressTimer);
+        }
+
+        function applyTimePreset(key) {
+            playWoodFeedback();
+            const map = { morning: 0, noon: 1, dusk: 2, night: 3 };
+            state.timeIndex = map[key] ?? 0;
+            const p = timePresets[state.timeIndex];
+            document.getElementById('clock-readout').textContent = p.clock;
+            document.getElementById('room-ambient-wash').style.background = `linear-gradient(180deg, ${p.top} 0%, ${p.bot} 100%)`;
+            document.getElementById('sky-stop-1').setAttribute('stop-color', p.sky1);
+            document.getElementById('sky-stop-2').setAttribute('stop-color', p.sky2);
+            const sun = document.getElementById('celestial-body');
+            sun.setAttribute('cx', p.sunX);
+            sun.setAttribute('cy', p.sunY);
+            sun.setAttribute('fill', p.sunColor);
+            updateStatusSummary();
+        }
+
+        // 窗內獨立天氣特效（不綁定黑夜，不延伸至室內）
+        function setWeatherEffect(type) {
+            playWoodFeedback();
+            state.weather = type;
+            const layer = document.getElementById('window-weather-layer');
+            layer.innerHTML = '';
+            if (type === 'rain') {
+                for (let i = 0; i < 24; i++) {
+                    const drop = document.createElement('span');
+                    drop.className = 'rain-drop';
+                    drop.style.left = `${(i * 12) % 275}px`;
+                    drop.style.top = `${(i * 17) % 120}px`;
+                    drop.style.animationDelay = `${(i * 0.08) % 0.7}s`;
+                    layer.appendChild(drop);
+                }
+            } else if (type === 'snow') {
+                for (let i = 0; i < 16; i++) {
+                    const flake = document.createElement('span');
+                    flake.className = 'snow-flake';
+                    flake.style.left = `${(i * 18) % 270}px`;
+                    flake.style.top = `${(i * 13) % 110}px`;
+                    flake.style.animationDelay = `${(i * 0.25) % 3}s`;
+                    layer.appendChild(flake);
+                }
+            } else if (type === 'fireworks') {
+                const positions = [
+                    { left: '28px', top: '14px', size: '34px' },
+                    { left: '165px', top: '18px', size: '42px' }
+                ];
+                positions.forEach((pos, idx) => {
+                    const ring = document.createElement('span');
+                    ring.className = 'firework-ring';
+                    ring.style.left = pos.left;
+                    ring.style.top = pos.top;
+                    ring.style.width = pos.size;
+                    ring.style.height = pos.size;
+                    ring.style.animationDelay = `${idx * 0.8}s`;
+                    layer.appendChild(ring);
+                });
             }
+            updateStatusSummary();
+        }
+
+        // 雨聲合成（切換網頁分頁仍持續播放）
+        function toggleRainAudio() {
+            playWoodFeedback();
+            state.rainAudioOn = !state.rainAudioOn;
+            try {
+                if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (state.rainAudioOn) {
+                    const bufferSize = audioCtx.sampleRate * 2;
+                    const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    for (let i = 0; i < bufferSize; i++) {
+                        data[i] = (Math.random() * 2 - 1) * 0.35;
+                    }
+                    const noise = audioCtx.createBufferSource();
+                    noise.buffer = buffer;
+                    noise.loop = true;
+
+                    const filter = audioCtx.createBiquadFilter();
+                    filter.type = 'lowpass';
+                    filter.frequency.value = 1100;
+
+                    rainGainNode = audioCtx.createGain();
+                    rainGainNode.gain.value = 0.14;
+
+                    noise.connect(filter);
+                    filter.connect(rainGainNode);
+                    rainGainNode.connect(audioCtx.destination);
+                    noise.start();
+                } else if (rainGainNode) {
+                    rainGainNode.gain.value = 0;
+                }
+            } catch (_) {}
+            updateStatusSummary();
+        }
+
+        function updateStatusSummary() {
+            const p = timePresets[state.timeIndex];
+            const weatherMap = { clear: '晴朗', rain: '下雨', snow: '下雪', fireworks: '煙花' };
+            document.getElementById('scenery-status-text').textContent =
+                `時段：${p.clock} · 天氣：${weatherMap[state.weather]} · 雨聲：${state.rainAudioOn ? '開啟' : '關閉'}`;
+            document.getElementById('btn-quick-rain').textContent = `雨聲：${state.rainAudioOn ? '開' : '關'}`;
+            document.getElementById('btn-modal-rain').textContent = state.rainAudioOn ? '關閉雨聲' : '開啟雨聲';
+        }
+
+        // 書房小物互動
+        function interactProp(_, message) {
+            playWoodFeedback();
+            document.getElementById('scenery-dialogue-text').textContent = message;
+        }
+
+        function triggerCatInteraction() {
+            playWoodFeedback();
+            const svg = document.getElementById('cat-svg');
+            svg.classList.remove('anim-cat-yawn');
+            void svg.offsetWidth;
+            svg.classList.add('anim-cat-yawn');
+            document.getElementById('scenery-dialogue-text').textContent =
+                '沙發上的橘貓打了個輕巧的哈欠，尾巴尖端晃了晃，又蜷回暖毯裡。';
+        }
+
+        function triggerHuskyInteraction() {
+            playWoodFeedback();
+            const svg = document.getElementById('husky-svg');
+            svg.classList.remove('anim-husky-twitch');
+            void svg.offsetWidth;
+            svg.classList.add('anim-husky-twitch');
+            document.getElementById('scenery-dialogue-text').textContent =
+                '趴睡的哈士奇耳朵微微抖動一下，似乎在夢裡奔跑。';
+        }
+
+        // 主客權限切換與分享連結
+        function syncRoleUI() {
+            document.getElementById('role-badge').textContent = state.isOwner ? '書房主人視角' : '訪客唯讀視角';
+            document.getElementById('btn-toggle-role').textContent = state.isOwner ? '回到訪客預覽' : '切換主人編輯';
+            document.getElementById('btn-owner-ledger').classList.toggle('hidden', !state.isOwner);
+            document.getElementById('btn-owner-add-book').classList.toggle('hidden', !state.isOwner);
+            renderLedgerBadge();
+        }
+
+        function toggleOwnerPreview() {
+            playWoodFeedback();
+            state.isOwner = !state.isOwner;
+            syncRoleUI();
         }
 
         function copyGuestShareLink() {
-            const cleanUrl = window.location.origin + window.location.pathname;
-            navigator.clipboard.writeText(cleanUrl);
-            alert('✨ 已複製朋友專屬分享網址！朋友點開將自動鎖定為訪客唯讀模式。');
+            playWoodFeedback();
+            const cleanUrl = `${window.location.origin}${window.location.pathname}`;
+            navigator.clipboard?.writeText(cleanUrl);
+            document.getElementById('scenery-dialogue-text').textContent =
+                `已複製訪客唯讀分享連結：${cleanUrl}`;
         }
 
-        function togglePreviewMode() {
-            isOwnerMode = false;
-            initRoleUI();
-            alert('🔍 已切換為訪客預覽視角。點擊右上角「返回主人模式」可隨時切回。');
-        }
-
-        function switchToOwnerMode() {
-            isOwnerMode = true;
-            initRoleUI();
-            alert('🔑 已切換回主人管理視角！');
-        }
-
-        function playPageFlipSound() {
-            if (!audioEnabled) return;
-            try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                const osc = ctx.createOscillator();
-                const gain = ctx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(180, ctx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.08);
-                gain.gain.setValueAtTime(0.15, ctx.currentTime);
-                gain.gain.linearRampToValueAtTime(0.01, ctx.currentTime + 0.08);
-                osc.connect(gain);
-                gain.connect(ctx.destination);
-                osc.start();
-                osc.stop(ctx.currentTime + 0.08);
-            } catch (e) {}
-        }
-
+        // 渲染多層書櫃（高密度緊湊排版）
         function renderBookshelf() {
-            const container = document.getElementById('bookshelves-container');
+            const container = document.getElementById('multi-tier-bookshelf');
             container.innerHTML = '';
-            const shelves = [
-                { name: "第一層：文學與散文" },
-                { name: "第二層：設計與美學" },
-                { name: "第三層：生活與哲學" }
-            ];
+            const tierNames = ['第一層 · 空間與詩篇', '第二層 · 手作與夜色', '第三層 · 裝幀與慢讀', '第四層 · 歲月與四季'];
 
-            shelves.forEach((shelfInfo, shelfIndex) => {
-                let shelfBooks = books.filter(b => b.shelf === shelfIndex);
-                if (currentTagFilter !== 'ALL') shelfBooks = shelfBooks.filter(b => b.tag === currentTagFilter);
+            const filtered = state.tagFilter === '全部'
+                ? state.books
+                : state.books.filter(b => b.tag === state.tagFilter);
 
-                let shelfHTML = `
-                    <div class="space-y-1.5">
-                        <div class="text-xs font-bold opacity-90 px-2 flex justify-between items-center">
-                            <span>${shelfInfo.name}</span><span>(${shelfBooks.length} 本)</span>
-                        </div>
-                        <div class="relative ${currentWoodStyle} backdrop-blur-md rounded-xl p-3 min-h-[160px] border border-forest/20 shadow-inner flex items-end overflow-x-auto gap-3 no-scrollbar">
-                `;
+            tierNames.forEach((label, idx) => {
+                const tierBooks = filtered.filter(b => b.tier === idx);
+                const tierBox = document.createElement('div');
+                tierBox.className = 'border border-ink/20 dark:border-inkLight/20 bg-paper/85 dark:bg-paperDark/85';
 
-                if (shelfBooks.length === 0) {
-                    shelfHTML += `<div class="w-full text-center py-8 text-xs opacity-70 italic font-medium">此書架尚無符合條件的書籍</div>`;
+                const header = document.createElement('div');
+                header.className = 'px-2.5 py-1 text-[11px] font-semibold flex items-center justify-between border-b border-ink/15 dark:border-inkLight/15';
+                header.innerHTML = `<span>${label}</span><span>${tierBooks.length} 冊</span>`;
+                tierBox.appendChild(header);
+
+                const shelfRow = document.createElement('div');
+                shelfRow.className = 'px-2.5 py-2 flex items-end gap-2 overflow-x-auto hide-scrollbar min-h-[104px]';
+
+                if (tierBooks.length === 0) {
+                    shelfRow.innerHTML = '<span class="text-[11px] opacity-60 py-4">此層目前無符合篩選的書籍</span>';
                 } else {
-                    shelfBooks.forEach(book => {
-                        if (currentView === 'cover') {
-                            shelfHTML += `
-                                <div onclick="toggleBookSelect(${book.id})" class="cursor-pointer group relative flex-shrink-0 w-26 bg-paper rounded-lg p-2 border ${book.selected ? 'border-terracotta ring-2 ring-terracotta/40' : 'border-forest/20'} shadow-sm transition hover:-translate-y-1">
-                                    ${book.selected ? '<div class="absolute -top-2 -right-2 bg-terracotta text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold">✓</div>' : ''}
-                                    <img src="${book.cover}" alt="${book.title}" class="w-full h-32 object-cover rounded mb-1.5">
-                                    <h4 class="font-bold text-[11px] truncate">${book.title}</h4>
-                                    <p class="text-[10px] opacity-80 truncate font-medium">${book.author}</p>
+                    tierBooks.forEach(book => {
+                        const checked = state.selectedBorrowIds.includes(book.id);
+                        const isFav = state.favorites.includes(book.id);
+                        const isBm = Boolean(state.bookmarks.items[book.id]);
+
+                        const card = document.createElement('div');
+                        card.className = `shrink-0 border ${checked ? 'border-terracotta ring-2 ring-terracotta/50' : 'border-ink/25 dark:border-inkLight/25'} bg-paper dark:bg-paperDark p-1.5 flex flex-col justify-between transition`;
+
+                        if (state.viewMode === 'spine') {
+                            card.style.width = '54px';
+                            card.style.height = '112px';
+                            card.innerHTML = `
+                                <button onclick="openBookDetail('${book.id}')" class="flex-1 w-full flex flex-col items-center justify-between text-inkLight p-1" style="background:${book.spineColor}">
+                                    <span class="spine-vertical text-[11px] font-semibold leading-tight max-h-[76px] overflow-hidden text-ellipsis">${book.title}</span>
+                                    <span class="text-[9px] truncate max-w-full opacity-90">${book.author}</span>
+                                </button>
+                                <div class="flex items-center justify-between pt-1">
+                                    <button onclick="toggleSelectBorrow('${book.id}')" class="text-[10px] font-bold px-1 border border-ink/25 dark:border-inkLight/25">${checked ? '✓' : '+'}</button>
+                                    <button onclick="toggleFavorite('${book.id}')" class="text-terracotta">${isFav ? '♥' : '♡'}</button>
                                 </div>
                             `;
                         } else {
-                            let spineWidth = Math.max(24, Math.min(44, Math.round(book.pages / 8)));
-                            shelfHTML += `
-                                <div onclick="toggleBookSelect(${book.id})" class="cursor-pointer group relative flex-shrink-0 h-36 rounded-md border ${book.selected ? 'border-terracotta ring-2 ring-terracotta/40' : 'border-black/30'} shadow-md transition hover:-translate-y-2 flex flex-col justify-between p-1 bg-gradient-to-r from-stone-200 to-stone-300" style="width: ${spineWidth}px;">
-                                    ${book.selected ? '<div class="absolute -top-2 -right-2 bg-terracotta text-white rounded-full w-4 h-4 flex items-center justify-center text-[9px] font-bold">✓</div>' : ''}
-                                    <span class="spine-text text-[10px] font-bold tracking-wider truncate py-1">${book.title}</span>
+                            card.style.width = '104px';
+                            card.style.height = '116px';
+                            card.innerHTML = `
+                                <button onclick="openBookDetail('${book.id}')" class="text-left flex-1 overflow-hidden">
+                                    <div class="h-1.5 w-full mb-1" style="background:${book.spineColor}"></div>
+                                    <div class="text-[11px] font-bold leading-snug line-clamp-2">${book.title}</div>
+                                    <div class="text-[10px] opacity-75 truncate">${book.author}</div>
+                                    <div class="text-[9px] opacity-65 mt-0.5">${book.status === 'borrowed' ? '借出中' : '在席可借'}</div>
+                                </button>
+                                <div class="flex items-center justify-between pt-1 border-t border-ink/10 dark:border-inkLight/10 text-xs">
+                                    <label class="flex items-center gap-1 cursor-pointer">
+                                        <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleSelectBorrow('${book.id}')"/>
+                                        <span class="text-[10px]">借</span>
+                                    </label>
+                                    <div class="flex items-center gap-1">
+                                        <button onclick="toggleFavorite('${book.id}')" title="喜愛">${isFav ? '♥' : '♡'}</button>
+                                        <button onclick="openBookmarkPrompt('${book.id}')" title="書籤">${isBm ? '▣' : '▢'}</button>
+                                    </div>
                                 </div>
                             `;
                         }
+                        shelfRow.appendChild(card);
                     });
                 }
-                shelfHTML += `</div><div class="h-2.5 bg-[#4A3325] rounded-sm shadow-md"></div></div>`;
-                container.innerHTML += shelfHTML;
+
+                tierBox.appendChild(shelfRow);
+
+                // 書櫃層板底座
+                const plank = document.createElement('div');
+                plank.className = 'h-2.5 w-full border-t border-black/30';
+                plank.style.background = 'linear-gradient(90deg, var(--shelf-wood-edge), var(--shelf-wood-top), var(--shelf-wood-body))';
+                tierBox.appendChild(plank);
+
+                container.appendChild(tierBox);
             });
-            document.getElementById('selected-count').innerText = books.filter(b => b.selected).length;
+
+            updateCounts();
         }
 
-        function toggleBookSelect(id) {
-            playPageFlipSound();
-            const book = books.find(b => b.id === id);
-            if (book) { book.selected = !book.selected; renderBookshelf(); }
+        function toggleShelfDisplayMode() {
+            playWoodFeedback();
+            state.viewMode = state.viewMode === 'spine' ? 'cover' : 'spine';
+            renderBookshelf();
         }
 
-        function filterBooksByTag(tag) { currentTagFilter = tag; renderBookshelf(); }
-        function setShelfView(view) { currentView = view; renderBookshelf(); }
-        function changeShelfWood(styleClass) { currentWoodStyle = styleClass; renderBookshelf(); alert('✨ 書架材質已即時更新！'); }
-        function setRoomBg(url) { document.getElementById('room-scenery-container').style.backgroundImage = `linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('${url}')`; alert('✨ 書房背景已切換！'); }
-        function changeFontFamily(font) { document.documentElement.style.setProperty('--user-custom-font', font); }
-        function handleCustomFontUpload(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const fontFace = new FontFace('CustomUserFont', `url(${e.target.result})`);
-                    fontFace.load().then(function(loadedFace) {
-                        document.fonts.add(loadedFace);
-                        document.documentElement.style.setProperty('--user-custom-font', 'CustomUserFont');
-                        alert('✨ 自訂字體檔案導入成功！');
-                    });
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function nextQuote() {
-            currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-            const q = quotes[currentQuoteIndex];
-            document.getElementById('quote-text').innerText = q.text;
-            document.getElementById('quote-author').innerText = q.author;
-            document.getElementById('quote-tag-badge').innerText = q.tag;
-        }
-
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); if (id === 'modal-lending') renderLendingRecords(); }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
-
-        function fetchBookByISBN() {
-            const val = document.getElementById('input-isbn').value;
-            if (!val) { alert('請輸入 ISBN'); return; }
-            document.getElementById('book-title').value = "深度工作力";
-            document.getElementById('book-author').value = "卡爾·紐波特";
-            document.getElementById('book-pages').value = 280;
-            document.getElementById('book-cover').value = "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=400&q=80";
-            alert('✨ ISBN API 自動抓取成功！');
-        }
-
-        function saveNewBook() {
-            const title = document.getElementById('book-title').value;
-            const author = document.getElementById('book-author').value;
-            if (!title || !author) { alert('請填寫書名與作者'); return; }
-            books.push({
-                id: Date.now(), title, author,
-                pages: parseInt(document.getElementById('book-pages').value) || 300,
-                shelf: 0, tag: document.getElementById('book-tag').value,
-                cover: document.getElementById('book-cover').value || "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=400&q=80",
-                status: "available", borrower: "", dueDate: "", selected: false
+        function setTagFilter(tag) {
+            playWoodFeedback();
+            state.tagFilter = tag;
+            document.querySelectorAll('.tag-btn').forEach(btn => {
+                const active = btn.dataset.tag === tag;
+                btn.className = active
+                    ? 'tag-btn px-2 py-1 border border-ink/25 dark:border-inkLight/25 bg-moss text-inkLight font-semibold'
+                    : 'tag-btn px-2 py-1 border border-ink/25 dark:border-inkLight/25';
             });
             renderBookshelf();
-            closeModal('modal-add');
-            alert('✨ 書籍已成功上架！');
         }
 
-        function renderLendingRecords() {
-            const container = document.getElementById('lending-list-container');
-            container.innerHTML = '';
-            const borrowed = books.filter(b => b.status === 'borrowed');
-            if (borrowed.length === 0) { container.innerHTML = `<p class="opacity-60 text-center py-4">目前沒有外借中的書籍</p>`; return; }
-            borrowed.forEach(b => {
-                container.innerHTML += `
-                    <div class="flex justify-between items-center p-3 bg-forest/5 rounded-lg border border-forest/10">
-                        <div><h4 class="font-bold">${b.title}</h4><p class="opacity-70 text-[11px]">借閱人：${b.borrower} ｜ 期限：${b.dueDate}</p></div>
-                        <button onclick="returnBook(${b.id})" class="px-3 py-1 bg-forest text-paper rounded text-[11px] font-bold">登記歸還</button>
+        function toggleSelectBorrow(id) {
+            playWoodFeedback();
+            const idx = state.selectedBorrowIds.indexOf(id);
+            if (idx >= 0) state.selectedBorrowIds.splice(idx, 1);
+            else state.selectedBorrowIds.push(id);
+            renderBookshelf();
+        }
+
+        function toggleFavorite(id) {
+            playWoodFeedback();
+            const idx = state.favorites.indexOf(id);
+            if (idx >= 0) state.favorites.splice(idx, 1);
+            else state.favorites.push(id);
+            saveAll();
+            renderBookshelf();
+        }
+
+        function openBookmarkPrompt(id) {
+            playWoodFeedback();
+            const existing = state.bookmarks.items[id] || { folder: state.bookmarks.folders[0], note: '' };
+            const folderInput = prompt(`請輸入書籤分類文件夾名稱（現有：${state.bookmarks.folders.join('、')}）`, existing.folder);
+            if (!folderInput) return;
+            const trimmedFolder = folderInput.trim();
+            if (!state.bookmarks.folders.includes(trimmedFolder)) {
+                state.bookmarks.folders.push(trimmedFolder);
+            }
+            const noteInput = prompt('留下收藏評價或讀後感（可留空）', existing.note);
+            state.bookmarks.items[id] = { folder: trimmedFolder, note: (noteInput || '').trim() };
+            saveAll();
+            renderBookshelf();
+        }
+
+        function openBookDetail(id) {
+            playWoodFeedback();
+            const book = state.books.find(b => b.id === id);
+            if (!book) return;
+            document.getElementById('detail-book-title').textContent = book.title;
+            document.getElementById('detail-book-body').innerHTML = `
+                <div class="flex items-center justify-between text-[11px] opacity-80">
+                    <span>作者：${book.author} · 分類：${book.tag}</span>
+                    <span>狀態：${book.status === 'borrowed' ? '借出中' : '在席可借'}</span>
+                </div>
+                <p class="leading-relaxed">${book.summary}</p>
+                <div class="p-3 border border-brass bg-brass/10">
+                    <div class="text-[10px] font-bold tracking-wider mb-1">書中金句</div>
+                    <p class="italic">${book.quote && book.quote.trim() ? `「${book.quote}」` : '尚未擷取金句'}</p>
+                </div>
+                ${state.isOwner && book.status === 'available' ? `
+                    <button onclick="quickLendBook('${book.id}')" class="w-full py-2 bg-moss text-inkLight font-semibold">
+                        登記至「好友出借冊」
+                    </button>
+                ` : ''}
+            `;
+            openModal('modal-book-detail');
+        }
+
+        // 訪客借閱卡
+        function openBorrowCardWithSelection() {
+            playWoodFeedback();
+            if (state.selectedBorrowIds.length === 0) {
+                document.getElementById('scenery-dialogue-text').textContent = '請先在多層書櫃中勾選想借閱的書籍。';
+                openModal('modal-borrow-card');
+            } else {
+                openModal('modal-borrow-card');
+            }
+            renderBorrowCard();
+        }
+
+        function renderBorrowCard() {
+            const chosen = state.books.filter(b => state.selectedBorrowIds.includes(b.id));
+            const listEl = document.getElementById('borrow-card-books');
+            const washiList = document.getElementById('washi-card-list');
+            document.getElementById('washi-card-date').textContent = new Date().toLocaleDateString('zh-Hant');
+
+            if (chosen.length === 0) {
+                listEl.innerHTML = '<div class="p-2 border border-dashed border-ink/25">尚未勾選書籍，可前往多層書櫃勾選。</div>';
+                washiList.innerHTML = '<div>尚未挑選書籍</div>';
+                return;
+            }
+
+            listEl.innerHTML = chosen.map(b => `
+                <div class="p-2 border border-ink/20 dark:border-inkLight/20 flex items-center gap-2">
+                    <span class="w-2.5 h-8 shrink-0" style="background:${b.spineColor}"></span>
+                    <div class="min-w-0">
+                        <div class="font-bold truncate">${b.title}</div>
+                        <div class="text-[11px] opacity-75 truncate">${b.author} · ${b.status === 'borrowed' ? '借出中' : '在席'}</div>
                     </div>
-                `;
-            });
+                </div>
+            `).join('');
+
+            washiList.innerHTML = chosen.map((b, i) => `<div>${i + 1}. 《${b.title}》— ${b.author}</div>`).join('');
+            document.getElementById('washi-card-note-out').textContent =
+                document.getElementById('borrow-friend-note').value || '希望能有機會向你借閱這幾本書，謝謝！';
         }
 
-        function returnBook(id) {
-            const b = books.find(item => item.id === id);
-            if (b) { b.status = 'available'; b.borrower = ''; b.dueDate = ''; renderLendingRecords(); alert('✨ 書籍已歸還！'); }
+        document.getElementById('borrow-friend-note').addEventListener('input', renderBorrowCard);
+
+        function copyBorrowMessage() {
+            playWoodFeedback();
+            const chosen = state.books.filter(b => state.selectedBorrowIds.includes(b.id));
+            const note = document.getElementById('borrow-friend-note').value.trim();
+            const text = `嗨！我在你的《墨染書齋》挑了想借閱的書：\n${chosen.map(b => `・${b.title}（${b.author}）`).join('\n')}${note ? `\n留言：${note}` : ''}`;
+            navigator.clipboard?.writeText(text);
+            alert('已複製私訊文字，可直接貼到 LINE、IG 或 Messenger 傳給書房主人。');
         }
 
-        function openLendingCardModal() {
-            const selectedBooks = books.filter(b => b.selected);
-            if (selectedBooks.length === 0) { alert('請先勾選至少一本想借閱的書本！'); return; }
-            const container = document.getElementById('card-selected-books');
-            container.innerHTML = '';
-            selectedBooks.forEach(b => {
-                container.innerHTML += `<div class="flex items-center gap-3 bg-white/70 p-2.5 rounded-lg border border-[#1F3323]/15"><img src="${b.cover}" class="w-10 h-14 object-cover rounded"><div><h4 class="font-bold text-xs">${b.title}</h4><p class="text-[10px] opacity-80 font-medium">${b.author}</p></div></div>`;
-            });
-            openModal('modal-lending-card');
-        }
-
-        function downloadLendingCard() {
-            html2canvas(document.getElementById('capture-card-area'), { scale: 2 }).then(canvas => {
+        function exportWashiBorrowCard() {
+            playWoodFeedback();
+            renderBorrowCard();
+            const target = document.getElementById('washi-card-preview');
+            html2canvas(target, { backgroundColor: '#F9F6F0', scale: 2 }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = 'bookshelf-lending-card.png';
+                link.download = 'aethelgard-washi-borrow-card.png';
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             });
         }
+
+        // 主人新增書籍
+        function addSingleBook() {
+            playWoodFeedback();
+            const title = document.getElementById('new-book-title').value.trim();
+            const author = document.getElementById('new-book-author').value.trim();
+            if (!title || !author) return;
+            const palette = ['#4A6B53', '#9A5B42', '#B8924A', '#375648', '#7C4332'];
+            state.books.push({
+                id: 'b_' + Date.now(),
+                title,
+                author,
+                tag: document.getElementById('new-book-tag').value,
+                tier: Number(document.getElementById('new-book-tier').value),
+                spineColor: palette[state.books.length % palette.length],
+                quote: document.getElementById('new-book-quote').value.trim(),
+                summary: '由書房主人新增入庫的藏書。',
+                status: 'available'
+            });
+            saveAll();
+            document.getElementById('new-book-title').value = '';
+            document.getElementById('new-book-author').value = '';
+            document.getElementById('new-book-quote').value = '';
+            closeModal('modal-add-book');
+            renderBookshelf();
+        }
+
+        // 主人好友出借冊
+        function quickLendBook(bookId) {
+            const borrower = prompt('請輸入借閱朋友姓名或暱稱');
+            if (!borrower) return;
+            const dueDate = prompt('請輸入預計歸還日期（例如：2026-12-20）', '2026-12-20') || '2026-12-20';
+            const book = state.books.find(b => b.id === bookId);
+            if (!book) return;
+            book.status = 'borrowed';
+            state.ledger.unshift({
+                recordId: 'r_' + Date.now(),
+                bookId: book.id,
+                title: book.title,
+                borrower: borrower.trim(),
+                dueDate: dueDate.trim(),
+                returned: false
+            });
+            saveAll();
+            closeModal('modal-book-detail');
+            renderBookshelf();
+            renderLedgerModal();
+        }
+
+        function renderLedgerModal() {
+            const active = state.ledger.filter(r => !r.returned);
+            const history = state.ledger.filter(r => r.returned);
+            document.getElementById('ledger-body').innerHTML = `
+                <div class="grid grid-cols-3 gap-2 text-center">
+                    <div class="p-2 border border-ink/20 dark:border-inkLight/20"><div class="font-bold text-sm">${state.books.length}</div><div>典藏總冊數</div></div>
+                    <div class="p-2 border border-ink/20 dark:border-inkLight/20"><div class="font-bold text-sm">${state.books.filter(b => b.status === 'available').length}</div><div>在席閱讀中</div></div>
+                    <div class="p-2 border border-ink/20 dark:border-inkLight/20"><div class="font-bold text-sm">${active.length}</div><div>借出流動中</div></div>
+                </div>
+                <div class="font-semibold">當前出借中名冊</div>
+                ${active.length === 0 ? '<div class="opacity-65">目前沒有借出中的書籍</div>' : active.map(r => `
+                    <div class="p-2.5 border border-ink/20 dark:border-inkLight/20 flex items-center justify-between gap-2">
+                        <div>
+                            <div class="font-bold">${r.title}</div>
+                            <div class="text-[11px] opacity-80">借閱人：${r.borrower} · 預定歸還：${r.dueDate}</div>
+                        </div>
+                        <button onclick="markReturned('${r.recordId}')" class="px-2.5 py-1 bg-moss text-inkLight font-semibold">登記已歸還書架</button>
+                    </div>
+                `).join('')}
+                <div class="font-semibold pt-2 border-t border-ink/15 dark:border-inkLight/15">借閱歷史（${history.length}）</div>
+                ${history.map(r => `<div class="text-[11px] opacity-75">已歸還：《${r.title}》— ${r.borrower}</div>`).join('')}
+            `;
+            renderLedgerBadge();
+        }
+
+        function markReturned(recordId) {
+            playWoodFeedback();
+            const rec = state.ledger.find(r => r.recordId === recordId);
+            if (!rec) return;
+            rec.returned = true;
+            const book = state.books.find(b => b.id === rec.bookId);
+            if (book) book.status = 'available';
+            saveAll();
+            renderBookshelf();
+            renderLedgerModal();
+        }
+
+        function renderLedgerBadge() {
+            document.getElementById('ledger-active-count').textContent = state.ledger.filter(r => !r.returned).length;
+        }
+
+        // 收藏與書籤文件夾總覽
+        function renderCollectionsModal() {
+            const favBooks = state.books.filter(b => state.favorites.includes(b.id));
+            const bmEntries = Object.entries(state.bookmarks.items);
+            document.getElementById('collections-body').innerHTML = `
+                <div>
+                    <div class="font-bold mb-1">喜愛書籍（${favBooks.length}）</div>
+                    ${favBooks.length === 0 ? '<div class="opacity-65">尚未點擊愛心收藏書籍</div>' : favBooks.map(b => `<div class="py-1 border-b border-ink/10">♥ 《${b.title}》— ${b.author}</div>`).join('')}
+                </div>
+                <div>
+                    <div class="font-bold mb-1">自訂書籤文件夾（${state.bookmarks.folders.join('、')}）</div>
+                    ${bmEntries.length === 0 ? '<div class="opacity-65">尚未加入書籤與讀後感</div>' : bmEntries.map(([bid, info]) => {
+                        const b = state.books.find(item => item.id === bid);
+                        return b ? `<div class="p-2 border border-ink/20 mb-1.5"><span class="font-semibold">[${info.folder}]</span> 《${b.title}》${info.note ? `：${info.note}` : ''}</div>` : '';
+                    }).join('')}
+                </div>
+            `;
+        }
+
+        // 設定頁功能
+        function setThemeStyle(style) {
+            playWoodFeedback();
+            document.body.classList.toggle('taisho-theme', style === 'taisho');
+        }
+
+        function toggleDarkMode() {
+            playWoodFeedback();
+            document.documentElement.classList.toggle('dark');
+        }
+
+        function applyWoodMaterial(mat) {
+            playWoodFeedback();
+            const root = document.documentElement;
+            if (mat === 'oak') {
+                root.style.setProperty('--shelf-wood-top', '#C8A47A');
+                root.style.setProperty('--shelf-wood-body', '#A88258');
+                root.style.setProperty('--shelf-wood-edge', '#7E5E3B');
+            } else if (mat === 'white') {
+                root.style.setProperty('--shelf-wood-top', '#F2EFE9');
+                root.style.setProperty('--shelf-wood-body', '#DDD7CC');
+                root.style.setProperty('--shelf-wood-edge', '#B8B0A2');
+            } else if (mat === 'zigzag') {
+                root.style.setProperty('--shelf-wood-top', '#6B5344');
+                root.style.setProperty('--shelf-wood-body', '#4A372B');
+                root.style.setProperty('--shelf-wood-edge', '#B8924A');
+            } else {
+                root.style.setProperty('--shelf-wood-top', '#7C5336');
+                root.style.setProperty('--shelf-wood-body', '#5A3A24');
+                root.style.setProperty('--shelf-wood-edge', '#3D2616');
+            }
+            renderBookshelf();
+        }
+
+        function applyFontChoice(val) {
+            playWoodFeedback();
+            document.documentElement.style.setProperty('--user-custom-font', val);
+        }
+
+        function uploadCustomFont(e) {
+            const file = e.target.files?.[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = ev => {
+                const face = new FontFace('UploadedStudyFont', `url(${ev.target.result})`);
+                face.load().then(loaded => {
+                    document.fonts.add(loaded);
+                    document.documentElement.style.setProperty('--user-custom-font', 'UploadedStudyFont');
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function updateCounts() {
+            document.getElementById('scenery-book-count').textContent = `${state.books.length} 冊`;
+            document.getElementById('fav-count').textContent = state.favorites.length;
+            document.getElementById('bm-count').textContent = Object.keys(state.bookmarks.items).length;
+            document.getElementById('borrow-selected-count').textContent = state.selectedBorrowIds.length;
+            renderLedgerBadge();
+        }
+
+        function openModal(id) {
+            playWoodFeedback();
+            if (id === 'modal-ledger') renderLedgerModal();
+            if (id === 'modal-collections') renderCollectionsModal();
+            if (id === 'modal-borrow-card') renderBorrowCard();
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            playWoodFeedback();
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // 初始化
+        syncRoleUI();
+        applyTimePreset('morning');
+        setWeatherEffect('clear');
+        renderBookshelf();
     </script>
 </body>
 </html>
