@@ -6,10 +6,10 @@
   <title>我的書房 — My Study</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,500;0,700;1,500&family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,600;1,400&family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-tc-webfont@1.0.0/style.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jf-openhuninn@1.1.0/font.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iansui@1.0.0/dist/iansui.min.css">
-  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/miama">
 
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -33,9 +33,9 @@
             slateArchive: '#7B746C'
           },
           fontFamily: {
-            serif: ['var(--font-en-stack)', 'var(--font-zh-stack)', 'var(--font-extra-stack)', 'serif'],
-            sans: ['var(--font-en-stack)', 'var(--font-zh-stack)', 'var(--font-extra-stack)', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
+            serif: ['var(--font-zh-stack)', 'var(--font-en-stack)', 'var(--font-extra-stack)', 'serif'],
+            sans: ['var(--font-zh-stack)', 'var(--font-en-stack)', 'var(--font-extra-stack)', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"LXGW WenKai TC"', 'monospace'],
           }
         }
       }
@@ -57,19 +57,20 @@
       --c-rust: 156 74 59;
       --c-plum: 91 75 106;
 
+      /* 中文預設宇文天穹，英文預設 Regular 正體 */
+      --font-zh-stack: "LXGW WenKai TC", "LXGW WenKai Mono TC", "Noto Serif TC", "Iansui", serif;
       --font-en-stack: "Lora", "Playfair Display", Georgia, serif;
-      --font-zh-stack: "LXGW WenKai TC", "Noto Serif TC", "Iansui", "jf-openhuninn", serif;
       --font-extra-stack: "";
       --base-font-scale: 100%;
     }
 
     html {
       font-size: var(--base-font-scale);
-      font-family: var(--font-zh-stack), var(--font-en-stack), var(--font-extra-stack), sans-serif;
+      font-family: var(--font-zh-stack), var(--font-en-stack), var(--font-extra-stack), serif !important;
     }
 
     body, button, input, select, textarea, span, p, div, a, li, label, h1, h2, h3, h4, h5, h6 {
-      font-family: inherit;
+      font-family: var(--font-zh-stack), var(--font-en-stack), var(--font-extra-stack), serif;
     }
 
     .font-mono {
@@ -79,7 +80,6 @@
     body {
       background-color: rgb(var(--c-paper));
       color: rgb(var(--c-ink));
-      font-family: var(--font-zh-stack), var(--font-en-stack), var(--font-extra-stack), sans-serif;
       background-image:
         radial-gradient(circle at 50% 38%, rgba(var(--c-accent), 0.14) 0%, transparent 58%),
         radial-gradient(rgba(var(--c-ink), 0.045) 1px, transparent 0);
@@ -120,7 +120,7 @@
       height: clamp(218px, 31dvh, 288px);
     }
 
-    /* ==================== STRIPE PRESS 3D ROTATING SPINE-TO-COVER ENGINE ==================== */
+    /* ==================== 3D ROTATING SPINE-TO-COVER ENGINE ==================== */
     .shelf-viewport {
       width: 100%;
       max-width: 100%;
@@ -262,7 +262,7 @@
 
     @keyframes tourRipplePulse {
       0% {
-        box-shadow: 0 0 0 0 rgba(var(--c-accent), 0.75), 0 0 0 9999px rgba(18, 15, 12, 0.58);
+        box-shadow: 0 0 0 0 rgba(var(--c-accent), 0.78), 0 0 0 9999px rgba(18, 15, 12, 0.58);
       }
       70% {
         box-shadow: 0 0 0 14px rgba(var(--c-accent), 0), 0 0 0 9999px rgba(18, 15, 12, 0.58);
@@ -444,7 +444,6 @@
         </button>
       </div>
 
-      <!-- Right: "總清單" placed leftmost, followed by "我的收藏" & "借書單" -->
       <div id="tour-target-tools" class="flex flex-wrap items-center gap-1.5 sm:gap-2">
         <button id="tour-btn-catalogue" onclick="toggleCatalogueDrawer(true)"
           class="editorial-pill-btn px-3 py-1.5 rounded-full text-xs font-medium text-ink flex items-center gap-1.5">
@@ -586,7 +585,7 @@
   </main>
 
   <!-- ==================== EDITORIAL FOOTER ==================== -->
-  <footer class="mucha-footer-filigree w-full max-w-[100dvw] bg-paperDark/80 border-t border-gold/35 mt-2">
+  <footer id="study-main-footer" class="mucha-footer-filigree w-full max-w-[100dvw] bg-paperDark/80 border-t border-gold/35 mt-2">
     <svg viewBox="0 0 1200 120" fill="none" xmlns="http://www.w3.org/2000/svg"
       class="pointer-events-none select-none absolute inset-x-0 bottom-0 w-full h-24 text-goldDark/25" preserveAspectRatio="none">
       <path d="M0 95 C 200 35, 400 115, 600 65 C 800 15, 1000 105, 1200 45" stroke="currentColor" stroke-width="1" />
@@ -605,7 +604,7 @@
 
       <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-5 font-medium text-ink">
         <a id="footer-create-my-study-link" href="https://uploadmybookshelf.vercel.app/" target="_blank" rel="noopener noreferrer"
-          class="hidden hover:text-goldDark transition items-center gap-1.5">
+          class="hidden hover:text-goldDark transition items-center gap-1.5 px-2.5 py-1 rounded-full">
           <span>製作我的書房</span>
         </a>
 
@@ -687,7 +686,7 @@
         <div class="space-y-4 pt-2 border-t border-ink/10">
           <div>
             <h4 class="text-xs font-semibold uppercase tracking-wider text-inkMuted">多語系字體選擇（預設全免費開源字體）</h4>
-            <p class="text-[11px] text-inkMuted mt-0.5">中文預設首選宇文天穹，並提供粉圓體與芫茜體；英文提供 Lora、Georgia、Miama，亦支援匯入自訂字體檔與其他語言字體。</p>
+            <p class="text-[11px] text-inkMuted mt-0.5">中文預設首選宇文天穹，並提供粉圓體與芫茜體；英文提供 Miama Regular、Lora、Georgia，亦支援匯入自訂字體檔與其他語言字體。</p>
           </div>
 
           <div id="language-font-selectors" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -841,7 +840,7 @@
     </div>
   </div>
 
-  <!-- ==================== FAQ MODAL (SOLID OPAQUE HEADER) ==================== -->
+  <!-- ==================== FAQ MODAL ==================== -->
   <div id="faq-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">
     <div class="bg-paper border border-gold/50 rounded-2xl max-w-2xl w-full max-h-[88vh] overflow-y-auto shadow-2xl">
       <div class="p-5 sm:p-6 border-b border-gold/35 flex items-center justify-between bg-surface sticky top-0 z-20 shadow-md">
@@ -980,7 +979,7 @@
     </div>
 
     <div class="px-5 py-1.5 bg-paperDark/45 border-b border-ink/10 text-[11px] text-inkMuted shrink-0">
-      提示：於項目上向左滑動即可顯示「刪除」按鈕（已移除易誤觸的垃圾桶圖示）。
+      提示：於項目上向左滑動即可顯示「刪除」按鈕。
     </div>
 
     <div id="catalogue-list-container" class="flex-1 overflow-y-auto divide-y divide-ink/10 p-4 sm:p-5"></div>
@@ -1318,7 +1317,6 @@
               class="w-full px-3.5 py-2 rounded-lg border border-ink/20 text-xs bg-paper text-ink" />
           </div>
 
-          <!-- 朋友借書清單 / 圖片匯入對帳 -->
           <div id="friend-loan-reconcile-box" class="admin-only-el p-3.5 rounded-xl bg-surface/90 border border-gold/45 space-y-2.5">
             <div class="flex items-center justify-between gap-2">
               <span class="text-xs font-semibold text-ink">匯入朋友借書清單／圖片對帳</span>
@@ -1447,7 +1445,7 @@
 
   <!-- ==================== STEP-BY-STEP INTERACTIVE SPOTLIGHT COACHMARK ==================== -->
   <div id="guided-tour-popover"
-    class="fixed z-50 hidden max-w-xs sm:max-w-sm w-[calc(100vw-2rem)] bg-paper border-2 border-gold rounded-2xl p-4 sm:p-5 shadow-2xl text-ink transition-all duration-300">
+    class="fixed z-[65] hidden max-w-[340px] sm:max-w-sm w-[calc(100vw-2rem)] bg-paper border-2 border-gold rounded-2xl p-4 sm:p-5 shadow-2xl text-ink transition-all duration-300">
     <div class="flex items-center justify-between mb-1.5">
       <span id="tour-step-badge" class="font-mono text-[10px] tracking-widest px-2 py-0.5 rounded-full bg-ink text-gold">
         STEP 1 / 4
@@ -1475,7 +1473,7 @@
   </div>
 
   <!-- ==================== GLOBAL SECONDARY CONFIRMATION MODAL ==================== -->
-  <div id="confirm-modal" class="fixed inset-0 z-[60] modal-backdrop hidden items-center justify-center p-4">
+  <div id="confirm-modal" class="fixed inset-0 z-[70] modal-backdrop hidden items-center justify-center p-4">
     <div class="bg-paper border-2 border-rust/45 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
       <div class="flex items-start gap-3">
         <div class="w-9 h-9 rounded-full bg-rust/15 text-rust flex items-center justify-center shrink-0">
@@ -1505,7 +1503,7 @@
   </div>
 
   <!-- ==================== TOAST NOTIFICATION ==================== -->
-  <div id="toast-container" class="fixed inset-x-0 top-1/2 -translate-y-1/2 z-[70] flex flex-col items-center gap-2 pointer-events-none px-4"></div>
+  <div id="toast-container" class="fixed inset-x-0 top-1/2 -translate-y-1/2 z-[75] flex flex-col items-center gap-2 pointer-events-none px-4"></div>
 
   <!-- ==================== APPLICATION LOGIC ==================== -->
   <script>
@@ -1682,25 +1680,25 @@
 
     const BUILTIN_FONTS = {
       zh: [
-        { id: 'zh-yuwen', label: '宇文天穹 (典雅文楷／明韻 · 預設首選)', css: '"LXGW WenKai TC", "Noto Serif TC", "Iansui", serif' },
+        { id: 'zh-yuwen', label: '宇文天穹 (典雅文楷 · 預設首選)', css: '"LXGW WenKai TC", "LXGW WenKai Mono TC", "Noto Serif TC", "Iansui", serif' },
         { id: 'zh-fenyuan', label: '粉圓體 (jf open 粉圓 · 免費開源)', css: '"jf-openhuninn", "Noto Sans TC", sans-serif' },
         { id: 'zh-iansui', label: '芫茜體 (Iansui · 免費開源硬筆楷書)', css: '"Iansui", "LXGW WenKai TC", sans-serif' }
       ],
       en: [
-        { id: 'en-lora', label: 'Lora (免費編輯襯線字體)', css: '"Lora", Georgia, serif' },
-        { id: 'en-georgia', label: 'Georgia (經典書籍襯線字體)', css: 'Georgia, "Times New Roman", serif' },
-        { id: 'en-miama', label: 'Miama (優雅花體手寫風格)', css: '"Miama", "Great Vibes", cursive' }
+        { id: 'en-miama-regular', label: 'Miama Regular (優雅人文正體 · 預設首選)', css: '"Lora", "Playfair Display", Georgia, serif' },
+        { id: 'en-lora', label: 'Lora Regular (免費編輯襯線字體)', css: '"Lora", Georgia, serif' },
+        { id: 'en-georgia', label: 'Georgia Regular (經典書籍正體)', css: 'Georgia, "Times New Roman", serif' }
       ]
     };
 
     const SHARED_STORAGE_KEYS = {
-      SHELVES: 'my_study_shelves_v4',
-      ACTIVE_SHELF: 'my_study_active_shelf_v4',
-      BOOKS: 'my_study_books_v4',
-      OWNER_NAME: 'my_study_owner_name_v4',
-      TUTORIAL_HOST_SEEN: 'my_study_tutorial_host_seen_v4',
-      TUTORIAL_GUEST_SEEN: 'my_study_tutorial_guest_seen_v4',
-      SETTINGS: 'my_study_settings_v4'
+      SHELVES: 'my_study_shelves_v5',
+      ACTIVE_SHELF: 'my_study_active_shelf_v5',
+      BOOKS: 'my_study_books_v5',
+      OWNER_NAME: 'my_study_owner_name_v5',
+      TUTORIAL_HOST_SEEN: 'my_study_tutorial_host_seen_v5',
+      TUTORIAL_GUEST_SEEN: 'my_study_tutorial_guest_seen_v5',
+      SETTINGS: 'my_study_settings_v5'
     };
 
     function getRoleStorageKey(baseKey) {
@@ -1733,7 +1731,7 @@
         customSealDataUrl: '',
         selectedFonts: {
           zh: 'zh-yuwen',
-          en: 'en-lora'
+          en: 'en-miama-regular'
         },
         customFonts: []
       },
@@ -1779,7 +1777,11 @@
           state.settings = {
             ...state.settings,
             ...parsedSet,
-            selectedFonts: { ...state.settings.selectedFonts, ...(parsedSet.selectedFonts || {}) },
+            selectedFonts: {
+              zh: (parsedSet.selectedFonts && parsedSet.selectedFonts.zh) || 'zh-yuwen',
+              en: (parsedSet.selectedFonts && parsedSet.selectedFonts.en) || 'en-miama-regular',
+              ...(parsedSet.selectedFonts || {})
+            },
             customFonts: Array.isArray(parsedSet.customFonts) ? parsedSet.customFonts : []
           };
         }
@@ -1791,7 +1793,7 @@
 
     function loadRolePersonalData() {
       try {
-        const rawSavedFolders = localStorage.getItem(getRoleStorageKey('saved_folders_v4'));
+        const rawSavedFolders = localStorage.getItem(getRoleStorageKey('saved_folders_v5'));
         if (rawSavedFolders) {
           const parsedFolders = JSON.parse(rawSavedFolders);
           state.savedFolders = (Array.isArray(parsedFolders) && parsedFolders.length > 0)
@@ -1802,11 +1804,11 @@
         }
         state.activeSavedFolderId = state.savedFolders[0].id;
 
-        const rawLoanIds = localStorage.getItem(getRoleStorageKey('loan_ids_v4'));
+        const rawLoanIds = localStorage.getItem(getRoleStorageKey('loan_ids_v5'));
         state.loanBookIds = rawLoanIds ? JSON.parse(rawLoanIds) : [];
         if (!Array.isArray(state.loanBookIds)) state.loanBookIds = [];
 
-        const rawLoanHist = localStorage.getItem(getRoleStorageKey('loan_history_v4'));
+        const rawLoanHist = localStorage.getItem(getRoleStorageKey('loan_history_v5'));
         state.loanHistory = rawLoanHist ? JSON.parse(rawLoanHist) : [];
         if (!Array.isArray(state.loanHistory)) state.loanHistory = [];
       } catch (e) {
@@ -1825,9 +1827,9 @@
         localStorage.setItem(SHARED_STORAGE_KEYS.OWNER_NAME, state.ownerName || '');
         localStorage.setItem(SHARED_STORAGE_KEYS.SETTINGS, JSON.stringify(state.settings));
 
-        localStorage.setItem(getRoleStorageKey('saved_folders_v4'), JSON.stringify(state.savedFolders));
-        localStorage.setItem(getRoleStorageKey('loan_ids_v4'), JSON.stringify(state.loanBookIds));
-        localStorage.setItem(getRoleStorageKey('loan_history_v4'), JSON.stringify(state.loanHistory));
+        localStorage.setItem(getRoleStorageKey('saved_folders_v5'), JSON.stringify(state.savedFolders));
+        localStorage.setItem(getRoleStorageKey('loan_ids_v5'), JSON.stringify(state.loanBookIds));
+        localStorage.setItem(getRoleStorageKey('loan_history_v5'), JSON.stringify(state.loanHistory));
       } catch (err) {
         console.warn('儲存至 localStorage 時發生異常:', err);
       }
@@ -1878,8 +1880,8 @@
       }
 
       const sel = state.settings.selectedFonts || {};
-      const allZh = [...BUILTIN_FONTS.zh, ...state.settings.customFonts.filter(f => f.lang === 'zh').map(f => ({ id: f.id, css: `'${f.familyName}', sans-serif` }))];
-      const allEn = [...BUILTIN_FONTS.en, ...state.settings.customFonts.filter(f => f.lang === 'en').map(f => ({ id: f.id, css: `'${f.familyName}', serif` }))];
+      const allZh = [...BUILTIN_FONTS.zh, ...state.settings.customFonts.filter(f => f.lang === 'zh').map(f => ({ id: f.id, css: `'${f.familyName}', "LXGW WenKai TC", serif` }))];
+      const allEn = [...BUILTIN_FONTS.en, ...state.settings.customFonts.filter(f => f.lang === 'en').map(f => ({ id: f.id, css: `'${f.familyName}', "Lora", serif` }))];
 
       const chosenZh = allZh.find(f => f.id === sel.zh) || allZh[0];
       const chosenEn = allEn.find(f => f.id === sel.en) || allEn[0];
@@ -1892,9 +1894,9 @@
         return chosenObj ? `'${chosenObj.familyName}'` : '';
       }).filter(Boolean);
 
-      root.style.setProperty('--font-en-stack', chosenEn.css);
       root.style.setProperty('--font-zh-stack', chosenZh.css);
-      root.style.setProperty('--font-extra-stack', extraCssParts.length > 0 ? extraCssParts.join(', ') : 'sans-serif');
+      root.style.setProperty('--font-en-stack', chosenEn.css);
+      root.style.setProperty('--font-extra-stack', extraCssParts.length > 0 ? extraCssParts.join(', ') : 'serif');
     }
 
     function openSettingsModal() {
@@ -2036,7 +2038,7 @@
           ...BUILTIN_FONTS.zh,
           ...state.settings.customFonts.filter(f => f.lang === 'zh').map(f => ({ id: f.id, label: `${f.label} (已匯入)` }))
         ];
-        zhSelect.innerHTML = zhFonts.map(f => `<option value="${f.id}" ${sel.zh === f.id ? 'selected' : ''}>${escapeHTML(f.label)}</option>`).join('');
+        zhSelect.innerHTML = zhFonts.map(f => `<option value="${f.id}" ${(sel.zh || 'zh-yuwen') === f.id ? 'selected' : ''}>${escapeHTML(f.label)}</option>`).join('');
       }
 
       if (enSelect) {
@@ -2044,7 +2046,7 @@
           ...BUILTIN_FONTS.en,
           ...state.settings.customFonts.filter(f => f.lang === 'en').map(f => ({ id: f.id, label: `${f.label} (已匯入)` }))
         ];
-        enSelect.innerHTML = enFonts.map(f => `<option value="${f.id}" ${sel.en === f.id ? 'selected' : ''}>${escapeHTML(f.label)}</option>`).join('');
+        enSelect.innerHTML = enFonts.map(f => `<option value="${f.id}" ${(sel.en || 'en-miama-regular') === f.id ? 'selected' : ''}>${escapeHTML(f.label)}</option>`).join('');
       }
 
       if (extraBox) {
@@ -3271,7 +3273,7 @@
       }
     }
 
-    // ==================== GUIDED TOUR & INTERACTION LOCK ====================
+    // ==================== GUIDED TOUR & MOBILE-RESPONSIVE POSITIONING ====================
     function clearTourTimers() {
       tourTimers.forEach(t => clearTimeout(t));
       tourTimers = [];
@@ -3347,15 +3349,26 @@
             desc: '左右滑動書背或點擊中央書封，即可查看書籍簡介與目前的「在架上／借出中／已下架」狀態，確認想看的書目前是否可供借閱。'
           },
           {
-            targetId: 'tour-target-tools',
+            targetId: 'tour-btn-saved',
+            placeBelowHeader: true,
+            title: '2. 收藏分類資料夾',
+            desc: '點擊「我的收藏」可建立專屬資料夾分類想看的書，方便隨時查閱；你的收藏記錄僅保存在自己的裝置中，不會影響書房主人。'
+          },
+          {
+            targetId: 'tour-btn-loan',
+            rippleButton: true,
+            openLoanAfterMs: 2000,
+            revealTextAfterMs: 3500,
             placeCenter: true,
-            title: '2. 收藏分類與使用「借書單」',
-            desc: '你可以用「我的收藏」建立不同資料夾分類想看的書；想借書時則點擊「+ 借書單」加入書籍，再打開「借書單」填寫署名、預覽借書單、複製文字或下載 PNG 圖卡傳給書房主人。你的記錄只留在自己的裝置，不會影響主人。'
+            title: '3. 使用「借書單」點選並記錄想看的書',
+            desc: '不只是看書架！在任何書本上點擊「+ 借書單」加入想借的書，打開「借書單」即可填寫你的署名、預覽借書單，並一鍵複製文字或下載 PNG 圖卡傳給書房主人借閱。'
           },
           {
             targetId: 'footer-create-my-study-link',
-            title: '3. 也想建立屬於你的虛擬書櫃嗎？',
-            desc: '如果看完覺得很有趣，歡迎點擊「製作我的書房」前往建立你自己的線上書架，與身邊的朋友分享藏書與閱讀交流！',
+            scrollToBottom: true,
+            placeCenter: true,
+            title: '4. 也想建立屬於你的虛擬書櫃嗎？',
+            desc: '已為你捲動至頁面底部！如果看完覺得很有趣，歡迎點擊高光的「製作我的書房」前往建立你自己的線上書架，與身邊的朋友分享藏書！',
             showGuestCta: true
           }
         ];
@@ -3395,7 +3408,7 @@
         },
         {
           targetId: 'tour-target-demo-controls',
-          placeAbove50: true,
+          placeCenter: true,
           title: '6. 底部書架工具：清空書架與載入／撤回範例清單',
           desc: '下方這組按鈕可一鍵「清空書架」，或點擊「載入範例清單」附加範例書體驗；載入後按鈕會變成「撤回範例書單」，方便隨時移除範例而不影響你自建的書。'
         },
@@ -3404,7 +3417,7 @@
           rippleButton: true,
           openLoanAfterMs: 2000,
           revealTextAfterMs: 3500,
-          placeRightMid: true,
+          placeCenter: true,
           title: '7. 借書單分頁與對帳匯出',
           desc: '目前已打開「借書單」分頁：你可以在此設定書房主人署名、預覽借書單、複製文字或下載 PNG，也能匯入朋友借書清單／圖片做狀態對帳。'
         },
@@ -3452,13 +3465,14 @@
       });
       const pop = document.getElementById('guided-tour-popover');
       if (pop) pop.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       try {
         const seenKey = state.mode === 'guest' ? SHARED_STORAGE_KEYS.TUTORIAL_GUEST_SEEN : SHARED_STORAGE_KEYS.TUTORIAL_HOST_SEEN;
         localStorage.setItem(seenKey, '1');
       } catch (e) {}
 
       if (shouldPrompt) {
-        setTimeout(() => openInitialDemoChoiceModal(), 220);
+        setTimeout(() => openInitialDemoChoiceModal(), 240);
       }
     }
 
@@ -3492,10 +3506,12 @@
         el.classList.remove('tour-highlight-ring', 'tour-ripple-highlight');
       });
 
-      if (step.closeAllTabsToHome) {
-        closeAllOverlaysToHome();
+      closeAllOverlaysToHome();
+
+      if (step.scrollToBottom) {
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
       } else {
-        closeAllOverlaysToHome();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
 
       ensureWelcomeBackdrop(Boolean(step.isWelcome));
@@ -3526,7 +3542,7 @@
       pop.classList.remove('hidden');
       pop.classList.toggle('tour-welcome-card-glow', Boolean(step.isWelcome));
       pop.style.transform = '';
-      pop.style.zIndex = step.openLoanAfterMs ? '60' : '50';
+      pop.style.zIndex = '65';
 
       const target = step.targetId ? document.getElementById(step.targetId) : null;
       if (target && !target.classList.contains('hidden')) {
@@ -3534,47 +3550,35 @@
       }
 
       const positionPopover = () => {
-        const popHeight = pop.offsetHeight || 220;
-        const popWidth = pop.offsetWidth || 320;
+        const vw = window.innerWidth;
+        const vh = window.innerHeight;
+        const popHeight = pop.offsetHeight || 210;
+        const popWidth = Math.min(pop.offsetWidth || 320, vw - 32);
         const margin = 16;
 
-        if (step.placeCenter) {
+        if (step.isWelcome || step.placeCenter) {
           pop.style.top = '50%';
           pop.style.left = '50%';
           pop.style.transform = 'translate(-50%, -50%)';
           return;
         }
 
-        if (step.placeRightMid) {
-          pop.style.top = `${Math.max(84, Math.min(window.innerHeight - popHeight - 24, window.innerHeight * 0.42))}px`;
-          pop.style.left = `${Math.max(16, Math.min(window.innerWidth - popWidth - 16, window.innerWidth - popWidth - 24))}px`;
-          return;
-        }
-
-        if (step.placeAbove50) {
-          // 放置於高於 50% 的位置（螢幕上半部安全區）
-          pop.style.top = `${Math.max(78, Math.min(window.innerHeight * 0.28, window.innerHeight * 0.46 - popHeight))}px`;
-          pop.style.left = `${Math.max(16, (window.innerWidth - popWidth) / 2)}px`;
-          return;
-        }
-
         if (step.placeBelow50) {
-          // 放置於低於 50% 的位置（螢幕下半部安全區）
-          const minBelow50 = Math.max(window.innerHeight * 0.54, window.innerHeight - popHeight - 24);
-          pop.style.top = `${Math.max(window.innerHeight * 0.52, Math.min(minBelow50, window.innerHeight - popHeight - 16))}px`;
-          pop.style.left = `${Math.max(16, (window.innerWidth - popWidth) / 2)}px`;
+          const topBelow50 = Math.max(vh * 0.54, vh - popHeight - 20);
+          pop.style.top = `${Math.min(topBelow50, vh - popHeight - 12)}px`;
+          pop.style.left = `${Math.max(margin, (vw - popWidth) / 2)}px`;
           return;
         }
 
         if (target && !target.classList.contains('hidden')) {
           const rect = target.getBoundingClientRect();
-          const spaceBelow = window.innerHeight - rect.bottom;
-          if (spaceBelow > popHeight + 26) {
-            pop.style.top = `${Math.min(window.innerHeight - popHeight - margin, rect.bottom + 18)}px`;
+          const spaceBelow = vh - rect.bottom;
+          if (spaceBelow > popHeight + 24) {
+            pop.style.top = `${Math.min(vh - popHeight - margin, rect.bottom + 14)}px`;
           } else {
-            pop.style.top = `${Math.max(76, Math.min(window.innerHeight - popHeight - margin, rect.top - popHeight - 18))}px`;
+            pop.style.top = `${Math.max(70, Math.min(vh - popHeight - margin, rect.top - popHeight - 14))}px`;
           }
-          const leftPos = Math.max(16, Math.min(window.innerWidth - popWidth - 16, rect.left + (rect.width / 2) - (popWidth / 2)));
+          const leftPos = Math.max(margin, Math.min(vw - popWidth - margin, rect.left + (rect.width / 2) - (popWidth / 2)));
           pop.style.left = `${leftPos}px`;
         } else {
           pop.style.top = '50%';
@@ -3949,7 +3953,7 @@
       }
     }
 
-    // ==================== CATALOGUE DRAWER (SWIPE TO DELETE, NO TRASH ICON) ====================
+    // ==================== CATALOGUE DRAWER ====================
     function toggleCatalogueDrawer(open) {
       const overlay = document.getElementById('catalogue-drawer-overlay');
       const drawer = document.getElementById('catalogue-drawer');
@@ -4307,121 +4311,223 @@
       const isbns = raw.split(/[\s,;]+/).map(s => s.replace(/[^0-9X]/gi, '')).filter(Boolean);
       const logBox = document.getElementById('isbn-fetch-log');
       logBox.classList.remove('hidden');
-      logBox.innerHTML = '';
+      logBox.innerHTML = `<div class="text-inkMuted">開始查詢 ${isbns.length} 筆 ISBN（Google Books + Open Library 雙重檢索）...</div>`;
 
       for (const isbn of isbns) {
         const res = await fetchAndAddSingleISBN(isbn);
         const line = document.createElement('div');
-        line.textContent = res ? `✓ [${isbn}] 已匯入《${res.title}》（${res.author}）` : `• [${isbn}] 已建立書目`;
+        line.className = res.ok ? 'text-forest' : 'text-rust';
+        line.textContent = res.msg;
         logBox.appendChild(line);
       }
-      saveState();
-      renderAll();
-      showToast(`已完成 ${isbns.length} 筆 ISBN 查詢匯入`);
     }
 
     async function fetchAndAddSingleISBN(isbn) {
-      const known = KNOWN_ISBN_CATALOG[isbn];
-      let title = known ? known.title : `ISBN ${isbn}`;
-      let author = known ? known.author : '未知作者';
-      let category = known ? known.category : '書籍';
-      let volume = known ? known.volume : '';
-      let coverUrl = known ? known.coverUrl : `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
-      let spineColor = known ? known.spineColor : '#28463B';
-      let synopsis = known ? known.synopsis : '';
+      if (KNOWN_ISBN_CATALOG[isbn]) {
+        const preset = KNOWN_ISBN_CATALOG[isbn];
+        const newBook = {
+          id: 'bk-' + Date.now() + '-' + Math.floor(Math.random() * 999),
+          shelfId: state.activeShelfId,
+          isDemo: false,
+          title: preset.title,
+          author: preset.author,
+          category: preset.category || '書籍',
+          volume: preset.volume || '',
+          isbn,
+          coverUrl: preset.coverUrl,
+          spineColor: preset.spineColor || '#28463B',
+          status: 'available',
+          borrower: '',
+          borrowDate: '',
+          history: [],
+          synopsis: preset.synopsis || ''
+        };
+        state.books.unshift(newBook);
+        saveState();
+        renderAll();
+        showToast(`已匯入《${newBook.title}》`);
+        return { ok: true, msg: `✓ [${isbn}] ${newBook.title} (${newBook.author})` };
+      }
+
+      let foundTitle = '';
+      let foundAuthor = '';
+      let foundCover = `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`;
+      let foundSynopsis = '';
 
       try {
-        const resp = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${encodeURIComponent(isbn)}`);
-        const data = await resp.json();
-        if (data.items && data.items[0] && data.items[0].volumeInfo) {
-          const info = data.items[0].volumeInfo;
-          if (info.title) title = info.title;
-          if (Array.isArray(info.authors) && info.authors.length > 0) author = info.authors.join(', ');
-          if (info.description) synopsis = info.description;
-          if (info.imageLinks && info.imageLinks.thumbnail) {
-            coverUrl = info.imageLinks.thumbnail.replace('http://', 'https://');
+        const gbRes = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${isbn}`);
+        if (gbRes.ok) {
+          const gbData = await gbRes.json();
+          if (gbData.items && gbData.items.length > 0) {
+            const info = gbData.items[0].volumeInfo || {};
+            foundTitle = info.title || '';
+            foundAuthor = Array.isArray(info.authors) ? info.authors.join(' / ') : '';
+            foundSynopsis = info.description || '';
+            if (info.imageLinks && (info.imageLinks.thumbnail || info.imageLinks.smallThumbnail)) {
+              foundCover = (info.imageLinks.thumbnail || info.imageLinks.smallThumbnail).replace('http://', 'https://');
+            }
           }
         }
       } catch (e) {}
 
-      if (title === `ISBN ${isbn}`) {
+      if (!foundTitle) {
         try {
-          const olResp = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${encodeURIComponent(isbn)}&jscmd=data&format=json`);
-          const olData = await olResp.json();
-          const entry = olData[`ISBN:${isbn}`];
-          if (entry) {
-            if (entry.title) title = entry.title;
-            if (Array.isArray(entry.authors) && entry.authors.length > 0) {
-              author = entry.authors.map(a => a.name).join(', ');
-            }
-            if (entry.cover && (entry.cover.large || entry.cover.medium)) {
-              coverUrl = entry.cover.large || entry.cover.medium;
+          const olRes = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${isbn}&format=json&jscmd=data`);
+          if (olRes.ok) {
+            const olData = await olRes.json();
+            const entry = olData[`ISBN:${isbn}`];
+            if (entry) {
+              foundTitle = entry.title || '';
+              foundAuthor = Array.isArray(entry.authors) ? entry.authors.map(a => a.name).join(' / ') : '';
+              if (entry.cover && (entry.cover.large || entry.cover.medium)) {
+                foundCover = entry.cover.large || entry.cover.medium;
+              }
             }
           }
         } catch (e) {}
       }
 
-      const newBook = {
-        id: 'bk-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
-        shelfId: state.activeShelfId,
-        isDemo: false,
-        demoEdited: false,
-        title,
-        author,
-        category,
-        volume,
-        isbn,
-        coverUrl,
-        spineColor,
-        status: 'available',
-        borrower: '',
-        borrowDate: '',
-        history: [],
-        synopsis
-      };
-      state.books.push(newBook);
-      return newBook;
+      if (foundTitle) {
+        const colors = ['#28463B', '#9C4A3B', '#5B4B6A', '#2E4057', '#6E4E72'];
+        const newBook = {
+          id: 'bk-' + Date.now() + '-' + Math.floor(Math.random() * 999),
+          shelfId: state.activeShelfId,
+          isDemo: false,
+          title: foundTitle,
+          author: foundAuthor || '未知作者',
+          category: '書籍',
+          volume: '',
+          isbn,
+          coverUrl: foundCover,
+          spineColor: colors[state.books.length % colors.length],
+          status: 'available',
+          borrower: '',
+          borrowDate: '',
+          history: [],
+          synopsis: foundSynopsis
+        };
+        state.books.unshift(newBook);
+        saveState();
+        renderAll();
+        showToast(`已匯入《${newBook.title}》`);
+        return { ok: true, msg: `✓ [${isbn}] ${newBook.title} (${newBook.author})` };
+      }
+
+      return { ok: false, msg: `✕ [${isbn}] 線上書庫查無此 ISBN，請改用「手動新增書籍/漫畫」填入書名` };
     }
 
     function handleManualBookSubmit(event) {
       event.preventDefault();
       const fd = new FormData(event.target);
-      const title = (fd.get('title') || '').trim();
-      const author = (fd.get('author') || '').trim();
+      const title = fd.get('title').trim();
+      const author = fd.get('author').trim();
       if (!title || !author) return;
 
-      const coverUrl = uploadedManualCoverDataUrl || (fd.get('coverUrl') || '').trim();
+      const typedUrl = (fd.get('coverUrl') || '').trim();
+      const finalCoverUrl = uploadedManualCoverDataUrl || typedUrl;
+
       const newBook = {
         id: 'bk-' + Date.now(),
         shelfId: state.activeShelfId,
         isDemo: false,
-        demoEdited: false,
         title,
         author,
         category: fd.get('category') || '書籍',
-        volume: (fd.get('volume') || '').trim(),
-        isbn: (fd.get('isbn') || '').trim(),
-        coverUrl,
+        volume: fd.get('volume').trim(),
+        isbn: fd.get('isbn').trim(),
+        coverUrl: finalCoverUrl,
         spineColor: fd.get('spineColor') || '#28463B',
         status: 'available',
         borrower: '',
         borrowDate: '',
         history: [],
-        synopsis: (fd.get('synopsis') || '').trim()
+        synopsis: fd.get('synopsis').trim()
       };
 
-      state.books.push(newBook);
-      saveState();
-      renderAll();
+      state.books.unshift(newBook);
+      state.focusedIndex = 0;
       event.target.reset();
       clearManualCoverUpload();
+      saveState();
       closeImportModal();
-      showToast(`已將《${title}》加入書架`);
+      renderAll();
+      showToast(`已將《${title}》加入目前書架！`);
+    }
+
+    function handleBatchFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const text = e.target.result;
+          if (file.name.endsWith('.json')) {
+            const parsed = JSON.parse(text);
+            const list = Array.isArray(parsed) ? parsed : (parsed.books || []);
+            list.forEach(item => {
+              state.books.unshift({
+                id: item.id || ('bk-' + Date.now() + Math.random()),
+                shelfId: state.activeShelfId,
+                isDemo: false,
+                title: item.title || '未命名書籍',
+                author: item.author || '未知作者',
+                category: item.category || '書籍',
+                volume: item.volume || '',
+                isbn: item.isbn || '',
+                coverUrl: item.coverUrl || '',
+                spineColor: item.spineColor || '#28463B',
+                status: item.status || 'available',
+                borrower: item.borrower || '',
+                borrowDate: item.borrowDate || '',
+                history: Array.isArray(item.history) ? item.history : [],
+                synopsis: item.synopsis || ''
+              });
+            });
+            saveState();
+            closeImportModal();
+            renderAll();
+            showToast(`已成功匯入 ${list.length} 本 JSON 藏書`);
+          } else {
+            const lines = text.split(/\r?\n/).filter(Boolean);
+            let imported = 0;
+            lines.slice(1).forEach(line => {
+              const cols = line.split(',');
+              if (cols[0]) {
+                state.books.unshift({
+                  id: 'bk-' + Date.now() + '-' + imported,
+                  shelfId: state.activeShelfId,
+                  isDemo: false,
+                  title: cols[0].replace(/^"|"$/g, '').trim(),
+                  author: (cols[1] || '未知作者').replace(/^"|"$/g, '').trim(),
+                  category: (cols[2] || '書籍').replace(/^"|"$/g, '').trim(),
+                  isbn: (cols[3] || '').replace(/^"|"$/g, '').trim(),
+                  coverUrl: '',
+                  spineColor: '#28463B',
+                  status: 'available',
+                  borrower: '',
+                  borrowDate: '',
+                  history: [],
+                  synopsis: ''
+                });
+                imported++;
+              }
+            });
+            saveState();
+            closeImportModal();
+            renderAll();
+            showToast(`已成功匯入 ${imported} 本 CSV 藏書`);
+          }
+        } catch (err) {
+          showToast('檔案格式解析失敗，請確認為標準 CSV 或 JSON', true);
+        }
+        event.target.value = '';
+      };
+      reader.readAsText(file);
     }
 
     function downloadCSVTemplate() {
-      const csv = 'Title,Author,Category,Volume,ISBN,Synopsis\n"覺醒的你．導引練習手札","麥克．辛格","書籍","方智出版","9789861756332","超越自我的引導練習手札"\n';
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const csv = 'Title,Author,Category,ISBN\n"覺醒的你．導引練習手札","麥克．辛格","書籍","9789861756332"\n"葬送的芙莉蓮","山田鐘人 / 阿部司","漫畫","9784098501809"';
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
@@ -4446,85 +4552,8 @@
       showToast('已匯出 books.json 備份檔');
     }
 
-    function handleBatchFileUpload(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const text = e.target.result || '';
-        if (file.name.endsWith('.json')) {
-          try {
-            const parsed = JSON.parse(text);
-            const list = Array.isArray(parsed) ? parsed : (parsed.books || []);
-            list.forEach((item, idx) => {
-              if (item && item.title) {
-                state.books.push({
-                  id: item.id || ('bk-imp-' + Date.now() + '-' + idx),
-                  shelfId: state.activeShelfId,
-                  isDemo: false,
-                  demoEdited: false,
-                  title: item.title,
-                  author: item.author || '未知作者',
-                  category: item.category === '漫畫' ? '漫畫' : '書籍',
-                  volume: item.volume || '',
-                  isbn: item.isbn || '',
-                  coverUrl: item.coverUrl || '',
-                  spineColor: item.spineColor || '#28463B',
-                  status: item.status || 'available',
-                  borrower: item.borrower || '',
-                  borrowDate: item.borrowDate || '',
-                  history: Array.isArray(item.history) ? item.history : [],
-                  synopsis: item.synopsis || ''
-                });
-              }
-            });
-            saveState();
-            renderAll();
-            closeImportModal();
-            showToast(`已匯入 ${list.length} 本 JSON 書籍`);
-          } catch (err) {
-            showToast('JSON 格式解析失敗', true);
-          }
-        } else {
-          const lines = text.split(/\r?\n/).filter(Boolean);
-          if (lines.length > 1) {
-            let added = 0;
-            for (let i = 1; i < lines.length; i++) {
-              const cols = lines[i].split(',').map(c => c.replace(/^"|"$/g, '').trim());
-              if (cols[0]) {
-                state.books.push({
-                  id: 'bk-csv-' + Date.now() + '-' + i,
-                  shelfId: state.activeShelfId,
-                  isDemo: false,
-                  demoEdited: false,
-                  title: cols[0],
-                  author: cols[1] || '未知作者',
-                  category: cols[2] === '漫畫' ? '漫畫' : '書籍',
-                  volume: cols[3] || '',
-                  isbn: cols[4] || '',
-                  coverUrl: '',
-                  spineColor: '#28463B',
-                  status: 'available',
-                  borrower: '',
-                  borrowDate: '',
-                  history: [],
-                  synopsis: cols[5] || ''
-                });
-                added++;
-              }
-            }
-            saveState();
-            renderAll();
-            closeImportModal();
-            showToast(`已從 CSV 匯入 ${added} 本書籍`);
-          }
-        }
-        event.target.value = '';
-      };
-      reader.readAsText(file);
-    }
-
-    function bindShelfScrollPhysics() {
+    // ==================== INITIALIZATION & TRACK EVENTS ====================
+    function bindShelfScrollEvents() {
       const track = document.getElementById('bookshelf-track');
       if (!track) return;
 
@@ -4535,79 +4564,58 @@
       track.addEventListener('wheel', (e) => {
         if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
           e.preventDefault();
-          track.scrollLeft += e.deltaY * 1.1;
+          track.scrollLeft += e.deltaY * 1.15;
         }
       }, { passive: false });
 
-      let isPointerDown = false;
+      let isDown = false;
       let startX = 0;
       let scrollStart = 0;
 
       track.addEventListener('mousedown', (e) => {
-        isPointerDown = true;
+        isDown = true;
         state.isDraggingShelf = false;
-        startX = e.pageX;
+        startX = e.pageX - track.offsetLeft;
         scrollStart = track.scrollLeft;
       });
 
-      window.addEventListener('mousemove', (e) => {
-        if (!isPointerDown) return;
-        const dx = e.pageX - startX;
-        if (Math.abs(dx) > 5) state.isDraggingShelf = true;
-        track.scrollLeft = scrollStart - dx * 1.25;
+      window.addEventListener('mouseup', () => {
+        isDown = false;
+        setTimeout(() => { state.isDraggingShelf = false; }, 60);
       });
 
-      window.addEventListener('mouseup', () => {
-        if (!isPointerDown) return;
-        isPointerDown = false;
-        setTimeout(() => { state.isDraggingShelf = false; }, 60);
+      track.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 1.4;
+        if (Math.abs(walk) > 6) state.isDraggingShelf = true;
+        track.scrollLeft = scrollStart - walk;
       });
     }
 
     window.addEventListener('DOMContentLoaded', () => {
       loadSharedState();
-
-      const params = new URLSearchParams(window.location.search);
-      const paramMode = params.get('mode');
-      const paramShelf = params.get('shelf');
-      const paramTheme = params.get('theme');
-      const paramScheme = params.get('scheme');
-
-      if (paramShelf && state.shelves.some(s => s.id === paramShelf)) {
-        state.activeShelfId = paramShelf;
-      }
-      if (paramTheme && THEMES[paramTheme]) {
-        state.settings.theme = paramTheme;
-      }
-      if (paramScheme === 'day' || paramScheme === 'night') {
-        state.settings.scheme = paramScheme;
-      }
-
-      const initialMode = paramMode === 'guest' ? 'guest' : 'admin';
-      state.mode = initialMode;
-      loadRolePersonalData();
       applyAppearanceSettings();
-      setAppMode(initialMode, false);
-      bindShelfScrollPhysics();
+      bindShelfScrollEvents();
       bindCatalogueSwipeGestures();
 
-      const seenKey = initialMode === 'guest'
+      const params = new URLSearchParams(window.location.search);
+      const urlMode = params.get('mode') === 'guest' ? 'guest' : 'admin';
+      const urlShelf = params.get('shelf');
+      if (urlShelf && state.shelves.some(s => s.id === urlShelf)) {
+        state.activeShelfId = urlShelf;
+      }
+
+      setAppMode(urlMode, false);
+
+      const seenKey = urlMode === 'guest'
         ? SHARED_STORAGE_KEYS.TUTORIAL_GUEST_SEEN
         : SHARED_STORAGE_KEYS.TUTORIAL_HOST_SEEN;
 
       if (!localStorage.getItem(seenKey)) {
-        if (initialMode === 'admin' && state.books.filter(b => b.shelfId === state.activeShelfId && b.isDemo).length === 0) {
-          state.books.push(...JSON.parse(JSON.stringify(DEFAULT_BOOKS)).map((b, i) => ({
-            ...b,
-            id: `${b.id}-init-${i}`,
-            shelfId: state.activeShelfId,
-            isDemo: true,
-            demoEdited: false
-          })));
-          saveState();
-          renderAll();
-        }
-        setTimeout(() => startGuidedTour({ promptAfterEnd: initialMode === 'admin' }), 420);
+        setTimeout(() => {
+          startGuidedTour({ promptAfterEnd: urlMode === 'admin' });
+        }, 420);
       }
     });
   </script>
