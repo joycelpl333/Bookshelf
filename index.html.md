@@ -1,0 +1,6197 @@
+<!DOCTYPE html>  
+<html lang="zh-Hant">  
+<head>  
+  <meta charset="UTF-8" />  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
+  <title>我的書房 — My Study</title>  
+  <!-- Google Fonts: Editorial Serif, Clean Sans, Monospace, Lora, Miama Script & Traditional Chinese Fonts -->  
+  <link rel="preconnect" href="https://fonts.googleapis.com">  
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Lora:ital,wght@0,500;0,700;1,500&family=LXGW+WenKai+TC:wght@400;700&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Great+Vibes&display=swap" rel="stylesheet">  
+  <!-- Yuwen Tianqiong (宇文天穹) & Open-Source Chinese Fonts -->  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cn-fontsource-yuwen-tianqiong@1.0.0/font.min.css">  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jf-openhuninn@1.1.0/font.min.css">  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iansui@1.0.0/dist/iansui.min.css">  
+  <!-- Free Miama Script Font CDN -->  
+  <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/miama">  
+  
+  <!-- Barcode Scanner (html5-qrcode) & Canvas Export (html2canvas) -->  
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>  
+  <script src="https://cdn.tailwindcss.com"></script>  
+  
+  <script>  
+    tailwind.config = {  
+      theme: {  
+        extend: {  
+          colors: {  
+            paper: 'rgb(var(--c-paper) / <alpha-value>)',  
+            paperDark: 'rgb(var(--c-paper-dark) / <alpha-value>)',  
+            surface: 'rgb(var(--c-surface) / <alpha-value>)',  
+            ink: 'rgb(var(--c-ink) / <alpha-value>)',  
+            inkMuted: 'rgb(var(--c-ink-muted) / <alpha-value>)',  
+            gold: 'rgb(var(--c-accent) / <alpha-value>)',  
+            goldDark: 'rgb(var(--c-accent-dark) / <alpha-value>)',  
+            forest: 'rgb(var(--c-forest) / <alpha-value>)',  
+            rust: 'rgb(var(--c-rust) / <alpha-value>)',  
+            plum: 'rgb(var(--c-plum) / <alpha-value>)',  
+            slateArchive: '#7B746C'  
+          },  
+          fontFamily: {  
+            serif: ['var(--font-zh-stack)', 'var(--font-en-stack)', 'var(--font-extra-stack)', 'serif'],  
+            sans: ['var(--font-zh-stack)', 'var(--font-en-stack)', 'var(--font-extra-stack)', 'sans-serif'],  
+            mono: ['"JetBrains Mono"', '"Yuwen Tianqiong"', '"LXGW WenKai TC"', 'monospace'],  
+          }  
+        }  
+      }  
+    }  
+  </script>  
+  
+  <style id="dynamic-font-faces"></style>  
+  
+  <style>  
+    :root {  
+      /* Default Theme: Alphonse Mucha Art Nouveau (Day) */  
+      --c-paper: 244 239 228;  
+      --c-paper-dark: 232 223 206;  
+      --c-surface: 252 249 242;  
+      --c-ink: 38 30 24;  
+      --c-ink-muted: 107 93 82;  
+      --c-accent: 197 160 89;  
+      --c-accent-dark: 154 120 54;  
+      --c-forest: 40 70 59;  
+      --c-rust: 156 74 59;  
+      --c-plum: 91 75 106;  
+  
+      --font-en-stack: "Lora", "Playfair Display", Georgia, serif;  
+      --font-zh-stack: "Yuwen Tianqiong", "宇文天穹", "LXGW WenKai TC", "Noto Serif TC", serif;  
+      --font-extra-stack: "";  
+      --base-font-scale: 100%;  
+    }  
+  
+    html {  
+      font-size: var(--base-font-scale);  
+      font-family: var(--font-zh-stack), var(--font-en-stack), var(--font-extra-stack), sans-serif;  
+    }  
+  
+    body, button, input, select, textarea, span, p, div, a, li, label, h1, h2, h3, h4, h5, h6 {  
+      font-family: var(--font-zh-stack), var(--font-en-stack), var(--font-extra-stack), sans-serif !important;  
+    }  
+  
+    .font-mono {  
+      font-family: "JetBrains Mono", "Yuwen Tianqiong", "LXGW WenKai TC", monospace !important;  
+    }  
+  
+    body {  
+      background-color: rgb(var(--c-paper));  
+      color: rgb(var(--c-ink));  
+      font-family: var(--font-zh-stack), var(--font-en-stack), var(--font-extra-stack), sans-serif;  
+      background-image:  
+        radial-gradient(circle at 50% 38%, rgba(var(--c-accent), 0.14) 0%, transparent 58%),  
+        radial-gradient(rgba(var(--c-ink), 0.045) 1px, transparent 0);  
+      background-size: 100% 100%, 22px 22px;  
+      overflow-x: hidden;  
+      transition: background-color 0.35s ease, color 0.35s ease;  
+    }  
+  
+    .no-scrollbar::-webkit-scrollbar {  
+      display: none;  
+    }  
+    .no-scrollbar {  
+      -ms-overflow-style: none;  
+      scrollbar-width: none;  
+    }  
+  
+    .mucha-border {  
+      border: 1px solid rgba(var(--c-accent), 0.55);  
+      box-shadow: inset 0 0 0 3px rgb(var(--c-paper)), inset 0 0 0 4px rgba(var(--c-accent), 0.35);  
+    }  
+  
+    /* Fine-line Alphonse Mucha Art Nouveau Stage Pedestal & Arch Backdrop */  
+    .mucha-stage-backdrop {  
+      position: absolute;  
+      inset: 0;  
+      pointer-events: none;  
+      display: flex;  
+      align-items: flex-end;  
+      justify-content: center;  
+      overflow: hidden;  
+    }  
+  
+    /* Day & Night Bookshelf Shelf-Ledge Atmosphere */  
+    .bookshelf-day-ledge {  
+      background: linear-gradient(180deg, rgba(var(--c-surface), 0.25) 0%, rgba(var(--c-paper-dark), 0.72) 100%);  
+      border-top: 1px solid rgba(var(--c-accent), 0.35);  
+      border-bottom: 2px solid rgba(var(--c-accent-dark), 0.55);  
+    }  
+  
+    .bookshelf-night-ledge {  
+      background: linear-gradient(180deg, rgba(var(--c-surface), 0.12) 0%, rgba(12, 10, 8, 0.78) 100%);  
+      border-top: 1px solid rgba(var(--c-accent), 0.45);  
+      border-bottom: 2px solid rgba(var(--c-accent), 0.7);  
+      box-shadow: inset 0 12px 28px -18px rgba(var(--c-accent), 0.28);  
+    }  
+  
+    /* Compact responsive 3D stage height */  
+    .stage-3d-responsive {  
+      min-height: clamp(275px, 41dvh, 360px);  
+    }  
+  
+    .book-3d-card-size {  
+      width: clamp(148px, 21dvh, 196px);  
+      height: clamp(218px, 31dvh, 288px);  
+    }  
+  
+    /* ==================== STRIPE PRESS 3D ROTATING SPINE-TO-COVER ENGINE ==================== */  
+    .shelf-viewport {  
+      width: 100%;  
+      max-width: 100%;  
+      perspective: 2200px;  
+      transform-style: preserve-3d;  
+    }  
+  
+    .book-node {  
+      position: relative;  
+      transform-style: preserve-3d;  
+      will-change: transform, margin;  
+      transition: margin 0.25s cubic-bezier(0.22, 1, 0.36, 1);  
+    }  
+  
+    .book-3d-pivot {  
+      position: relative;  
+      transform-style: preserve-3d;  
+      will-change: transform;  
+      transition: box-shadow 0.35s ease;  
+    }  
+  
+    .book-spine {  
+      position: absolute;  
+      top: 0;  
+      left: 0;  
+      width: 44px;  
+      height: 100%;  
+      transform-origin: left center;  
+      transform: rotateY(-90deg) translateX(-44px);  
+      display: flex;  
+      flex-direction: column;  
+      align-items: center;  
+      justify-content: space-between;  
+      padding: 14px 4px;  
+      border-right: 1px solid rgba(255, 255, 255, 0.22);  
+      border-left: 1px solid rgba(0, 0, 0, 0.35);  
+      box-shadow:  
+        inset -6px 0 14px rgba(0, 0, 0, 0.32),  
+        inset 2px 0 6px rgba(255, 255, 255, 0.18);  
+      border-radius: 3px 0 0 3px;  
+    }  
+  
+    .book-pages {  
+      position: absolute;  
+      top: 4px;  
+      right: 0;  
+      width: 36px;  
+      height: calc(100% - 8px);  
+      transform-origin: right center;  
+      transform: rotateY(90deg) translateX(36px);  
+      background: repeating-linear-gradient(  
+        to right,  
+        #f7f2e7 0px,  
+        #f7f2e7 2px,  
+        #e2d8c5 2px,  
+        #e2d8c5 3px  
+      );  
+      box-shadow: inset 6px 0 10px rgba(38, 30, 24, 0.16);  
+    }  
+  
+    .book-cover-sheen {  
+      position: absolute;  
+      inset: 0;  
+      background: linear-gradient(  
+        90deg,  
+        rgba(255, 255, 255, 0.26) 0%,  
+        rgba(20, 14, 10, 0.22) 3.5%,  
+        rgba(255, 248, 230, 0.14) 7.5%,  
+        transparent 28%,  
+        rgba(20, 14, 10, 0.12) 100%  
+      );  
+      pointer-events: none;  
+      border-radius: 2px 6px 6px 2px;  
+    }  
+  
+    .book-archived-mask {  
+      background-color: rgba(110, 108, 104, 0.78);  
+      border-radius: 2px 6px 6px 2px;  
+    }  
+  
+    /* ==================== CATALOGUE SWIPE-LEFT TO DELETE ==================== */  
+    .catalogue-swipe-wrapper {  
+      position: relative;  
+      overflow: hidden;  
+    }  
+  
+    .catalogue-swipe-action {  
+      position: absolute;  
+      top: 0;  
+      right: 0;  
+      bottom: 0;  
+      width: 84px;  
+      background-color: rgb(var(--c-rust));  
+      color: #ffffff;  
+      font-size: 12px;  
+      font-weight: 600;  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+      border: none;  
+      cursor: pointer;  
+    }  
+  
+    .catalogue-swipe-content {  
+      position: relative;  
+      z-index: 1;  
+      background-color: rgb(var(--c-paper));  
+      transition: transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);  
+      will-change: transform;  
+    }  
+  
+    .catalogue-swipe-content.is-swiping {  
+      transition: none;  
+    }  
+  
+    /* ==================== PERSPECTIVE SCAN CROPPER CANVAS ==================== */  
+    #perspective-crop-canvas {  
+      touch-action: none;  
+      cursor: crosshair;  
+      max-width: 100%;  
+      max-height: 54vh;  
+      display: block;  
+      margin: 0 auto;  
+    }  
+  
+    /* ==================== GUIDED TOUR FOUR-PANE OUT-OF-FRAME BLUR & CONTOUR HIGHLIGHT ==================== */  
+    body.tour-active-lock {  
+      overflow: hidden !important;  
+      touch-action: none !important;  
+    }  
+  
+    /* Four-pane blur backdrop around target rect (keeps target crystal clear and avoids sharp box-shadow corners) */  
+    .tour-blur-pane {  
+      position: fixed;  
+      z-index: 44;  
+      background: rgba(18, 15, 12, 0.16);  
+      backdrop-filter: blur(3px);  
+      -webkit-backdrop-filter: blur(3px);  
+      pointer-events: auto;  
+      touch-action: none;  
+    }  
+  
+    /* Full-screen gentle blur for Welcome step & Step 8 out-of-frame blur */  
+    .tour-welcome-backdrop {  
+      position: fixed;  
+      inset: 0;  
+      z-index: 44;  
+      background: radial-gradient(circle at 50% 45%, rgba(var(--c-accent), 0.18) 0%, rgba(18, 15, 12, 0.36) 72%);  
+      backdrop-filter: blur(3px);  
+      -webkit-backdrop-filter: blur(3px);  
+      pointer-events: auto;  
+      touch-action: none;  
+    }  
+  
+    .tour-welcome-card-glow {  
+      box-shadow:  
+        0 0 0 1px rgba(var(--c-accent), 0.55),  
+        0 0 42px rgba(var(--c-accent), 0.35),  
+        0 24px 60px rgba(0, 0, 0, 0.42);  
+    }  
+  
+    /* Contour-hugging target highlight ring (inherits target border-radius dynamically so it never cuts sharp corners) */  
+    .tour-target-frame {  
+      position: relative;  
+      z-index: 46 !important;  
+      outline: 2.5px solid rgb(var(--c-accent));  
+      outline-offset: 4px;  
+      box-shadow:  
+        0 0 0 4px rgba(var(--c-accent), 0.24),  
+        0 0 22px rgba(var(--c-accent), 0.38) !important;  
+      transition: box-shadow 0.25s ease, outline-offset 0.25s ease;  
+    }  
+  
+    @keyframes tourRipplePulse {  
+      0% {  
+        box-shadow:  
+          0 0 0 0 rgba(var(--c-accent), 0.92),  
+          0 0 18px 4px rgba(255, 226, 154, 0.85);  
+      }  
+      50% {  
+        box-shadow:  
+          0 0 0 14px rgba(var(--c-accent), 0.12),  
+          0 0 30px 8px rgba(255, 232, 168, 0.95);  
+      }  
+      100% {  
+        box-shadow:  
+          0 0 0 0 rgba(var(--c-accent), 0.92),  
+          0 0 18px 4px rgba(255, 226, 154, 0.85);  
+      }  
+    }  
+  
+    .tour-ripple-ring {  
+      position: relative;  
+      z-index: 46 !important;  
+      outline: 2.5px solid #FFE8A8;  
+      outline-offset: 4px;  
+      border-radius: 9999px;  
+      animation: tourRipplePulse 1.15s ease-in-out infinite !important;  
+    }  
+  
+    .mucha-footer-filigree {  
+      position: relative;  
+      overflow: hidden;  
+    }  
+  
+    .ex-libris-frame {  
+      background-color: #FAF6ED;  
+      color: #261E18;  
+      background-image:  
+        radial-gradient(circle at 50% 0%, rgba(197, 160, 89, 0.16), transparent 60%),  
+        radial-gradient(rgba(197, 160, 89, 0.12) 1px, transparent 0);  
+      background-size: 100% 100%, 16px 16px;  
+      border: 2px solid #261E18;  
+      box-shadow: inset 0 0 0 5px #FAF6ED, inset 0 0 0 6.5px #C5A059;  
+    }  
+  
+    /* ==================== INTERACTIVE EX-LIBRIS SEAL WITH LASER CRIMSON GLOW ==================== */  
+    .ex-libris-seal {  
+      position: relative;  
+      overflow: hidden;  
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;  
+      cursor: pointer;  
+    }  
+  
+    .ex-libris-seal::before {  
+      content: '';  
+      position: absolute;  
+      top: -60%;  
+      left: -120%;  
+      width: 70%;  
+      height: 220%;  
+      background: linear-gradient(  
+        115deg,  
+        transparent 0%,  
+        rgba(239, 68, 68, 0.18) 35%,  
+        rgba(255, 82, 82, 0.72) 50%,  
+        rgba(239, 68, 68, 0.18) 65%,  
+        transparent 100%  
+      );  
+      transform: rotate(18deg);  
+      pointer-events: none;  
+      transition: left 0.65s cubic-bezier(0.22, 1, 0.36, 1);  
+    }  
+  
+    .ex-libris-seal:hover {  
+      transform: scale(1.06) rotate(0deg) !important;  
+      box-shadow: 0 0 16px rgba(185, 28, 28, 0.55), inset 0 0 8px rgba(239, 68, 68, 0.35);  
+      border-color: #DC2626 !important;  
+    }  
+  
+    .ex-libris-seal:hover::before {  
+      left: 150%;  
+    }  
+  
+    /* ==================== DYNAMIC ISLAND ==================== */  
+    .dynamic-island {  
+      background: linear-gradient(180deg, #2E241D 0%, #1F1813 100%);  
+      box-shadow:  
+        0 14px 32px -8px rgba(0, 0, 0, 0.36),  
+        0 4px 12px -2px rgba(0, 0, 0, 0.22),  
+        inset 0 1px 0 0 rgba(235, 207, 148, 0.28),  
+        inset 0 0 0 1px rgba(197, 160, 89, 0.35);  
+      transition: all 0.52s cubic-bezier(0.32, 1.28, 0.45, 1);  
+    }  
+  
+    .island-segment-pill {  
+      background: linear-gradient(180deg, rgba(197, 160, 89, 0.38) 0%, rgba(197, 160, 89, 0.22) 100%);  
+      transition: transform 0.42s cubic-bezier(0.32, 1.25, 0.48, 1);  
+      box-shadow:  
+        0 2px 8px rgba(0, 0, 0, 0.4),  
+        inset 0 1px 0 rgba(255, 243, 214, 0.32),  
+        inset 0 0 0 1px rgba(197, 160, 89, 0.48);  
+    }  
+  
+    .editorial-pill-btn {  
+      background: rgba(var(--c-surface), 0.88);  
+      border: 1px solid rgba(var(--c-accent), 0.55);  
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);  
+      transition: all 0.28s cubic-bezier(0.22, 1, 0.36, 1);  
+    }  
+    .editorial-pill-btn:hover {  
+      background: rgb(var(--c-ink));  
+      color: rgb(var(--c-paper));  
+      border-color: rgb(var(--c-accent));  
+      transform: translateY(-1px);  
+    }  
+    .editorial-pill-btn:active {  
+      transform: translateY(0) scale(0.98);  
+    }  
+  
+    .modal-backdrop {  
+      backdrop-filter: blur(8px);  
+      -webkit-backdrop-filter: blur(8px);  
+      background-color: rgba(18, 15, 12, 0.52);  
+    }  
+  </style>  
+</head>  
+<body class="font-sans antialiased selection:bg-gold/30 selection:text-ink min-h-screen w-full max-w-[100dvw] overflow-x-hidden flex flex-col">  
+  
+  <!-- ==================== TOP HEADER ==================== -->  
+  <header class="sticky top-0 z-30 w-full max-w-[100dvw] bg-paper/95 backdrop-blur-xl border-b border-gold/35">  
+    <div class="w-full max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-10 h-14 sm:h-16 flex items-center justify-between gap-2">  
+  
+      <!-- Left: Full App Name "我的書房" -->  
+      <div class="flex items-baseline gap-2.5 shrink-0 min-w-0">  
+        <h1 class="font-serif font-bold text-xl sm:text-2xl tracking-tight text-ink whitespace-nowrap">我的書房</h1>  
+        <span class="hidden md:inline-block font-mono text-[10px] tracking-[0.22em] text-goldDark uppercase whitespace-nowrap">  
+          SALON DE LECTURE  
+        </span>  
+      </div>  
+  
+      <!-- Right: Separated Dynamic Island ("主人" / "訪客") + Independent Transparent Settings Icon Button -->  
+      <div class="flex items-center gap-2.5 sm:gap-3.5 shrink-0">  
+        <div id="tour-target-island" class="flex justify-end shrink-0 rounded-full">  
+          <div id="dynamic-island"  
+            class="dynamic-island relative inline-flex items-center h-9 sm:h-10 px-1 rounded-full text-[#F4EFE4] select-none overflow-hidden">  
+  
+            <div id="island-main-view" class="flex items-center">  
+              <div class="relative flex items-center bg-black/25 p-0.5 rounded-full border border-gold/25">  
+                <div id="island-active-pill"  
+                  class="island-segment-pill absolute top-0.5 bottom-0.5 left-0.5 w-[50px] sm:w-[58px] rounded-full pointer-events-none">  
+                </div>  
+  
+                <button id="btn-mode-admin" onclick="setAppMode('admin')"  
+                  class="relative z-10 w-[50px] sm:w-[58px] py-1 rounded-full text-[11px] sm:text-xs font-medium tracking-wider transition-colors flex items-center justify-center gap-1 text-white">  
+                  <span id="dot-admin" class="w-1.5 h-1.5 rounded-full bg-gold transition-opacity"></span>  
+                  <span>主人</span>  
+                </button>  
+  
+                <button id="btn-mode-guest" onclick="setAppMode('guest')"  
+                  class="relative z-10 w-[50px] sm:w-[58px] py-1 rounded-full text-[11px] sm:text-xs font-medium tracking-wider transition-colors flex items-center justify-center gap-1 text-white/60 hover:text-white/95">  
+                  <span id="dot-guest" class="w-1.5 h-1.5 rounded-full bg-emerald-400 opacity-0 transition-opacity"></span>  
+                  <span>訪客</span>  
+                </button>  
+              </div>  
+            </div>  
+          </div>  
+        </div>  
+  
+        <!-- Independent Transparent Settings Button -->  
+        <button onclick="openSettingsModal()" aria-label="書房外觀與字體設定" title="外觀、主題與字體設定"  
+          class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-transparent hover:bg-ink/10 text-ink border border-ink/25 hover:border-ink transition flex items-center justify-center shrink-0">  
+          <svg class="w-4 h-4 sm:w-[18px] sm:h-[18px]" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />  
+          </svg>  
+        </button>  
+      </div>  
+  
+    </div>  
+  </header>  
+  
+  <!-- ==================== SUB-HEADER ACTION & MULTI-SHELF BAR ==================== -->  
+  <nav class="w-full max-w-[100dvw] bg-paperDark/55 border-b border-gold/25">  
+    <div class="w-full max-w-[1440px] mx-auto px-3 sm:px-6 lg:px-10 py-2.5 flex flex-wrap items-center justify-between gap-2">  
+  
+      <!-- Left: Multi-Shelf Switcher (Strictly hidden when guest enters via single-shelf locked link) -->  
+      <div id="tour-target-shelves" class="flex flex-wrap items-center gap-1.5 min-w-0 rounded-2xl">  
+        <span id="shelf-bar-label" class="font-mono text-[10px] tracking-wider text-inkMuted uppercase mr-0.5">書架：</span>  
+        <div id="shelf-tabs-container" class="flex flex-wrap items-center gap-1.5"></div>  
+        <button onclick="openCreateShelfModal()"  
+          class="admin-only-el px-2.5 py-1 rounded-full border border-dashed border-goldDark/75 bg-surface/85 text-[11px] font-medium text-goldDark hover:bg-ink hover:text-gold hover:border-ink transition flex items-center gap-1">  
+          <span>+ 新增書架</span>  
+        </button>  
+        <button onclick="openShelfThemeStudio()"  
+          class="admin-only-el px-2.5 py-1 rounded-full border border-gold/45 bg-surface/85 text-[11px] font-medium text-ink hover:bg-ink hover:text-gold transition flex items-center gap-1"  
+          title="開啟各書架色彩主題橫向預覽視窗">  
+          <svg class="w-3 h-3 text-goldDark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />  
+          </svg>  
+          <span>書架主題</span>  
+        </button>  
+      </div>  
+  
+      <!-- Locked Single-Shelf Guest Badge (Shown only when guest enters via shared single-shelf URL) -->  
+      <div id="single-shelf-locked-banner" class="hidden items-center gap-2 text-xs min-w-0">  
+        <span class="px-2.5 py-1 rounded-full bg-ink text-gold font-mono text-[10px] tracking-wider shrink-0">LOCKED SHELF</span>  
+        <span class="text-ink font-serif font-bold truncate" id="locked-shelf-display-name">主書房典藏</span>  
+        <span class="text-[11px] text-inkMuted shrink-0">（訪客單一書櫃唯讀）</span>  
+      </div>  
+  
+      <!-- Right: Separated "總清單", "我的收藏" & "借書單" Buttons -->  
+      <div id="tour-target-tools" class="flex flex-wrap items-center gap-1.5 sm:gap-2 rounded-full">  
+        <button onclick="toggleCatalogueDrawer(true)"  
+          class="editorial-pill-btn px-3 py-1.5 rounded-full text-xs font-medium text-ink flex items-center gap-1.5">  
+          <svg class="w-3.5 h-3.5 opacity-80" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h10" />  
+          </svg>  
+          <span>總清單</span>  
+          <span id="total-books-badge" class="font-mono text-[10px] px-1.5 rounded-full bg-ink text-paper tabular-nums">0</span>  
+        </button>  
+  
+        <button onclick="openSavedFoldersModal()"  
+          class="editorial-pill-btn px-3 py-1.5 rounded-full text-xs font-medium text-ink flex items-center gap-1.5">  
+          <svg class="w-3.5 h-3.5 text-goldDark" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />  
+          </svg>  
+          <span>我的收藏</span>  
+          <span id="saved-count-badge" class="font-mono text-[10px] px-1.5 rounded-full bg-gold/25 text-ink tabular-nums">0</span>  
+        </button>  
+  
+        <button id="btn-header-loan-slip" onclick="openLoanSlipModal()"  
+          class="editorial-pill-btn px-3 py-1.5 rounded-full text-xs font-medium text-ink flex items-center gap-1.5">  
+          <svg class="w-3.5 h-3.5 text-forest" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />  
+          </svg>  
+          <span>借書單</span>  
+          <span id="loan-count-badge" class="font-mono text-[10px] px-1.5 rounded-full bg-forest/15 text-forest tabular-nums">0</span>  
+        </button>  
+      </div>  
+  
+    </div>  
+  </nav>  
+  
+  <!-- ==================== MAIN STAGE: 3D ROTATING BOOKSHELF ==================== -->  
+  <main class="flex-1 flex flex-col justify-between w-full max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-3 sm:py-4 overflow-hidden">  
+  
+    <!-- Compact Above-Stage Telemetry, Quick Status Chips & Owner Actions -->  
+    <div class="flex flex-wrap items-center justify-between gap-2.5 pb-2.5 border-b border-gold/30">  
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1.5 text-[11px] text-inkMuted font-mono">  
+        <span>館藏：<strong id="stat-total" class="text-ink">0</strong></span>  
+        <span class="flex items-center gap-1"><i class="w-1.5 h-1.5 rounded-full bg-forest inline-block"></i> 在架：<strong id="stat-available" class="text-ink">0</strong></span>  
+        <span class="flex items-center gap-1"><i class="w-1.5 h-1.5 rounded-full bg-rust inline-block"></i> 借出：<strong id="stat-lent" class="text-ink">0</strong></span>  
+        <span class="flex items-center gap-1"><i class="w-1.5 h-1.5 rounded-full bg-slateArchive inline-block"></i> 下架：<strong id="stat-archived" class="text-ink">0</strong></span>  
+        <button id="btn-delete-current-shelf" onclick="confirmDeleteCurrentShelf()"  
+          class="admin-only-el hidden font-sans text-[11px] px-2.5 py-0.5 rounded-full border border-rust/40 text-rust hover:bg-rust hover:text-white transition">  
+          移除書架  
+        </button>  
+        <button onclick="startGuidedTour()" class="font-sans text-goldDark hover:text-ink underline transition font-medium">  
+          重新導覽  
+        </button>  
+      </div>  
+  
+      <div class="flex flex-wrap items-center gap-2">  
+        <!-- Owner Actions: Import & Share Read-Only Link -->  
+        <div id="stage-owner-actions" class="flex flex-wrap items-center gap-1.5 sm:gap-2">  
+          <button id="tour-target-import" onclick="openImportModal()"  
+            class="px-3 py-1.5 rounded-full bg-ink text-paper border border-gold/50 text-xs font-medium hover:bg-forest transition flex items-center gap-1.5 shadow-sm">  
+            <svg class="w-3.5 h-3.5 text-gold" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">  
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />  
+            </svg>  
+            <span>匯入 / 新增書籍</span>  
+          </button>  
+  
+          <button id="tour-target-share" onclick="copyShareLink()"  
+            class="px-3 py-1.5 rounded-full bg-surface/90 border border-gold/50 text-ink text-xs font-medium hover:bg-ink hover:text-paper transition flex items-center gap-1.5">  
+            <svg class="w-3.5 h-3.5 text-goldDark" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">  
+              <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />  
+            </svg>  
+            <span>分享此書櫃（訪客唯讀）</span>  
+          </button>  
+        </div>  
+  
+        <!-- Quick Status Filter -->  
+        <div class="flex items-center gap-1 bg-surface/80 p-0.5 rounded-full border border-gold/35">  
+          <button onclick="setShelfFilter('all')" data-filter="all" class="shelf-filter-btn active px-2.5 py-1 rounded-full text-xs font-medium bg-ink text-paper shadow-sm transition-all">全部</button>  
+          <button onclick="setShelfFilter('available')" data-filter="available" class="shelf-filter-btn px-2.5 py-1 rounded-full text-xs font-medium text-forest hover:bg-forest/10 transition-all">在架上</button>  
+          <button onclick="setShelfFilter('lent')" data-filter="lent" class="shelf-filter-btn px-2.5 py-1 rounded-full text-xs font-medium text-rust hover:bg-rust/10 transition-all">借出中</button>  
+        </div>  
+      </div>  
+    </div>  
+  
+    <!-- Interactive Stripe Press 3D Spine-to-Cover Stage with Fine-Line Mucha Pedestal Backdrop -->  
+    <div id="tour-target-stage" class="relative w-full flex-1 flex flex-col items-center justify-center my-1 stage-3d-responsive overflow-hidden rounded-2xl">  
+  
+      <!-- Day / Night Shelf Ledge & Fine-Line Alphonse Mucha Pedestal Backdrop -->  
+      <div id="bookshelf-atmosphere-layer" class="mucha-stage-backdrop bookshelf-day-ledge text-gold/45 transition-all duration-300">  
+        <svg viewBox="0 0 800 350" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full max-w-[780px] h-auto max-h-full">  
+          <path d="M 130 336 A 270 270 0 0 1 670 336" stroke="currentColor" stroke-width="1.15" />  
+          <path d="M 148 336 A 252 252 0 0 1 652 336" stroke="currentColor" stroke-width="0.65" stroke-dasharray="4 4" />  
+          <path d="M 215 336 A 185 185 0 0 1 585 336" stroke="currentColor" stroke-width="0.8" stroke-opacity="0.7" />  
+          <line x1="400" y1="336" x2="400" y2="66" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.55" />  
+          <line x1="400" y1="336" x2="265" y2="102" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.45" />  
+          <line x1="400" y1="336" x2="535" y2="102" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.45" />  
+          <line x1="400" y1="336" x2="166" y2="201" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.4" />  
+          <line x1="400" y1="336" x2="634" y2="201" stroke="currentColor" stroke-width="0.6" stroke-opacity="0.4" />  
+          <circle cx="400" cy="66" r="5.5" stroke="currentColor" stroke-width="1.1" />  
+          <circle cx="400" cy="66" r="2" fill="currentColor" />  
+          <circle cx="265" cy="102" r="3.5" stroke="currentColor" stroke-width="0.9" />  
+          <circle cx="535" cy="102" r="3.5" stroke="currentColor" stroke-width="0.9" />  
+          <circle cx="166" cy="201" r="3.5" stroke="currentColor" stroke-width="0.9" />  
+          <circle cx="634" cy="201" r="3.5" stroke="currentColor" stroke-width="0.9" />  
+          <path d="M 70 336 C 110 336, 130 305, 165 305 C 190 305, 202 324, 188 336" stroke="currentColor" stroke-width="0.95" />  
+          <path d="M 730 336 C 690 336, 670 305, 635 305 C 610 305, 598 324, 612 336" stroke="currentColor" stroke-width="0.95" />  
+          <line x1="40" y1="336" x2="760" y2="336" stroke="currentColor" stroke-width="1.2" />  
+          <line x1="90" y1="332" x2="710" y2="332" stroke="currentColor" stroke-width="0.55" stroke-opacity="0.7" />  
+        </svg>  
+      </div>  
+  
+      <!-- Left & Right Navigation Medallions -->  
+      <button onclick="stepFocusedBook(-1)"  
+        class="hidden md:flex absolute left-1 lg:left-2 z-20 w-10 h-10 rounded-full bg-surface/95 border border-gold/60 shadow-md items-center justify-center text-ink hover:bg-ink hover:text-gold transition"  
+        aria-label="上一本書籍">  
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">  
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />  
+        </svg>  
+      </button>  
+  
+      <!-- 3D Perspective Scroll Track -->  
+      <div id="bookshelf-track"  
+        class="shelf-viewport w-full overflow-x-auto no-scrollbar py-2.5 sm:py-3 flex items-center cursor-grab active:cursor-grabbing select-none relative z-10">  
+      </div>  
+  
+      <button onclick="stepFocusedBook(1)"  
+        class="hidden md:flex absolute right-1 lg:right-2 z-20 w-10 h-10 rounded-full bg-surface/95 border border-gold/60 shadow-md items-center justify-center text-ink hover:bg-ink hover:text-gold transition"  
+        aria-label="下一本書籍">  
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">  
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />  
+        </svg>  
+      </button>  
+  
+      <!-- Active Focused Book Plaque -->  
+      <div id="active-book-plaque"  
+        class="w-full max-w-2xl mx-auto mt-1 px-4 py-2.5 rounded-2xl bg-surface/90 border border-gold/40 shadow-sm relative z-20">  
+      </div>  
+    </div>  
+  
+    <!-- Bottom Beginner Sandbox Strip ("清空書架" & "載入範例清單 / 撤回範例書單" & "導出此書單") -->  
+    <div id="tour-target-bottom-sandbox" class="mt-2.5 pt-2.5 border-t border-gold/35 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-inkMuted">  
+      <div class="text-[11px] text-inkMuted">  
+        滑鼠滾輪或左右滑動書背旋轉展閱 · 點擊中央書封檢視詳情與借閱狀態  
+      </div>  
+      <div id="tour-target-demo-controls" class="admin-only-el flex flex-wrap items-center justify-center gap-3 px-3 py-1 rounded-full">  
+        <button onclick="confirmClearShelfBooks()" class="text-inkMuted underline hover:text-rust transition">  
+          清空書架  
+        </button>  
+        <span class="text-gold/60">|</span>  
+        <button id="btn-demo-books-toggle" onclick="handleDemoBooksButtonClick()" class="text-goldDark font-semibold underline hover:text-ink transition">  
+          載入範例清單  
+        </button>  
+        <span class="text-gold/60">|</span>  
+        <button onclick="openShelfExportModal()" class="text-forest font-semibold underline hover:text-ink transition">  
+          導出此書單  
+        </button>  
+      </div>  
+    </div>  
+  </main>  
+  
+  <!-- ==================== EDITORIAL FOOTER ==================== -->  
+  <footer class="mucha-footer-filigree w-full max-w-[100dvw] bg-paperDark/75 border-t border-gold/35 mt-2">  
+    <svg viewBox="0 0 1200 120" fill="none" xmlns="http://www.w3.org/2000/svg"  
+      class="pointer-events-none select-none absolute inset-x-0 bottom-0 w-full h-24 text-gold/25" preserveAspectRatio="none">  
+      <path d="M0 95 C 200 35, 400 115, 600 65 C 800 15, 1000 105, 1200 45" stroke="currentColor" stroke-width="1" />  
+      <path d="M0 108 C 240 62, 420 118, 600 82 C 780 46, 980 112, 1200 72" stroke="currentColor" stroke-width="0.7" stroke-dasharray="5 5" />  
+      <circle cx="300" cy="72" r="3" stroke="currentColor" stroke-width="0.8" />  
+      <circle cx="600" cy="65" r="4" stroke="currentColor" stroke-width="0.9" />  
+      <circle cx="900" cy="74" r="3" stroke="currentColor" stroke-width="0.8" />  
+    </svg>  
+  
+    <div class="relative z-10 max-w-[1440px] mx-auto px-4 sm:px-8 lg:px-10 py-5 flex flex-col sm:flex-row items-center justify-between gap-3.5 text-xs text-inkMuted">  
+      <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-center sm:text-left">  
+        <span class="font-serif font-bold text-sm text-ink">我的書房</span>  
+        <span class="hidden sm:inline text-gold">•</span>  
+        <span>個人數位藏書編目與親友借閱沙龍</span>  
+      </div>  
+  
+      <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-5 font-medium text-ink">  
+        <a id="footer-create-my-study-link" href="https://uploadmybookshelf.vercel.app/" target="_blank" rel="noopener noreferrer"  
+          class="hidden hover:text-goldDark transition items-center gap-1.5 px-2.5 py-1 rounded-full">  
+          <svg class="w-3.5 h-3.5 text-goldDark" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />  
+          </svg>  
+          <span>製作我的書房</span>  
+        </a>  
+  
+        <button onclick="openContactModal()" class="hover:text-goldDark transition flex items-center gap-1.5">  
+          <svg class="w-3.5 h-3.5 text-goldDark" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />  
+          </svg>  
+          <span>聯絡我</span>  
+        </button>  
+  
+        <a href="https://www.threads.com/@wearing_jade" target="_blank" rel="noopener noreferrer"  
+          class="hover:text-goldDark transition flex items-center gap-1.5">  
+          <svg class="w-3.5 h-3.5 text-goldDark" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />  
+          </svg>  
+          <span>JLPL</span>  
+        </a>  
+  
+        <button onclick="openFAQModal()" class="hover:text-goldDark transition flex items-center gap-1.5">  
+          <svg class="w-3.5 h-3.5 text-goldDark" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />  
+          </svg>  
+          <span>常見問題</span>  
+        </button>  
+  
+        <button onclick="openPrivacyModal()" class="text-inkMuted hover:text-ink transition font-normal">  
+          隱私與資料儲存說明  
+        </button>  
+      </div>  
+    </div>  
+  </footer>  
+  
+  <!-- ==================== SETTINGS MODAL ==================== -->  
+  <div id="settings-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">  
+    <div class="bg-paper border border-gold/50 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto overflow-x-hidden shadow-2xl">  
+      <div class="p-5 sm:p-6 border-b border-ink/10 flex items-center justify-between gap-2 bg-surface sticky top-0 z-20 shadow-sm">  
+        <div class="min-w-0">  
+          <span class="font-mono text-[11px] uppercase tracking-widest text-goldDark">APPEARANCE &amp; TYPOGRAPHY</span>  
+          <h3 id="settings-modal-title" class="font-serif text-xl sm:text-2xl font-bold text-ink truncate">書房外觀與字體設定</h3>  
+        </div>  
+        <button onclick="closeModal('settings-modal')"  
+          class="w-9 h-9 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition shrink-0">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+  
+      <div class="p-5 sm:p-6 space-y-6">  
+        <div class="space-y-2.5">  
+          <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted">日光 / 黑夜閱讀模式</label>  
+          <div class="grid grid-cols-2 gap-3">  
+            <button id="btn-scheme-day" onclick="setColorScheme('day')"  
+              class="p-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-2 transition">  
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />  
+              </svg>  
+              <span>日光模式 (Day)</span>  
+            </button>  
+            <button id="btn-scheme-night" onclick="setColorScheme('night')"  
+              class="p-3 rounded-xl border text-xs font-semibold flex items-center justify-center gap-2 transition">  
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />  
+              </svg>  
+              <span>黑夜模式 (Night)</span>  
+            </button>  
+          </div>  
+        </div>  
+  
+        <div class="admin-only-el space-y-2.5">  
+          <div class="flex flex-wrap items-center justify-between gap-2">  
+            <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted">全站預設色彩主題風格</label>  
+            <button onclick="closeModal('settings-modal'); openShelfThemeStudio();"  
+              class="px-3 py-1 rounded-full bg-ink text-gold border border-gold/50 text-[11px] font-medium hover:bg-forest hover:text-paper transition flex items-center gap-1.5">  
+              <span>開啟各書架主題橫向視窗（單一／全站套用）</span>  
+            </button>  
+          </div>  
+          <div id="theme-palette-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-2.5"></div>  
+        </div>  
+  
+        <div class="admin-only-el space-y-2.5 pt-2 border-t border-ink/10">  
+          <div class="flex items-center justify-between">  
+            <label class="text-xs font-semibold uppercase tracking-wider text-inkMuted">介面文字大小（自動適配螢幕比例）</label>  
+            <span id="font-scale-label" class="font-mono text-xs font-semibold text-goldDark">標準 (100%)</span>  
+          </div>  
+          <div class="grid grid-cols-4 gap-2">  
+            <button onclick="setFontScale(92)" data-scale="92" class="font-scale-btn py-2 rounded-lg border text-xs font-medium transition">精巧 92%</button>  
+            <button onclick="setFontScale(100)" data-scale="100" class="font-scale-btn py-2 rounded-lg border text-xs font-medium transition">標準 100%</button>  
+            <button onclick="setFontScale(108)" data-scale="108" class="font-scale-btn py-2 rounded-lg border text-xs font-medium transition">舒適 108%</button>  
+            <button onclick="setFontScale(116)" data-scale="116" class="font-scale-btn py-2 rounded-lg border text-xs font-medium transition">大字 116%</button>  
+          </div>  
+        </div>  
+  
+        <!-- Guest-Exclusive Reading Comfort & Isolation Controls -->  
+        <div id="guest-settings-panel" class="hidden space-y-4 pt-2 border-t border-ink/10">  
+          <div class="space-y-2">  
+            <div class="flex items-center justify-between">  
+              <label class="text-xs font-semibold uppercase tracking-wider text-inkMuted">訪客閱讀字級大小（僅套用於你的裝置）</label>  
+              <span id="guest-font-scale-label" class="font-mono text-xs font-semibold text-goldDark">標準 (100%)</span>  
+            </div>  
+            <div class="grid grid-cols-4 gap-2">  
+              <button onclick="setGuestFontScale(92)" data-guest-scale="92" class="guest-font-scale-btn py-2 rounded-lg border text-xs font-medium transition">精巧 92%</button>  
+              <button onclick="setGuestFontScale(100)" data-guest-scale="100" class="guest-font-scale-btn py-2 rounded-lg border text-xs font-medium transition">標準 100%</button>  
+              <button onclick="setGuestFontScale(108)" data-guest-scale="108" class="guest-font-scale-btn py-2 rounded-lg border text-xs font-medium transition">舒適 108%</button>  
+              <button onclick="setGuestFontScale(116)" data-guest-scale="116" class="guest-font-scale-btn py-2 rounded-lg border text-xs font-medium transition">大字 116%</button>  
+            </div>  
+          </div>  
+  
+          <div class="space-y-1.5">  
+            <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted">訪客閱讀字體偏好</label>  
+            <select id="select-guest-reading-font" onchange="setGuestReadingFont(this.value)"  
+              class="w-full px-3 py-2 rounded-lg border border-ink/20 bg-surface text-ink text-xs font-medium">  
+              <option value="inherit">跟隨書房主人預設字體</option>  
+              <option value="zh-yuwen">宇文天穹（典雅明楷 · 適合長文閱讀）</option>  
+              <option value="zh-fenyuan">粉圓體（清晰圓潤 · 輕鬆瀏覽）</option>  
+              <option value="zh-iansui">芫茜體（硬筆手寫 · 溫潤質感）</option>  
+            </select>  
+          </div>  
+  
+          <div class="p-3.5 rounded-xl bg-surface border border-gold/40 space-y-3 text-xs">  
+            <label class="flex items-center justify-between gap-2 cursor-pointer select-none">  
+              <div class="min-w-0">  
+                <span class="block font-semibold text-ink">借書單預設顯示迷你書封縮圖</span>  
+                <span class="block text-[11px] text-inkMuted mt-0.5">在借書單與匯出的 PNG 圖卡顯示小書封方便對照</span>  
+              </div>  
+              <input id="guest-settings-show-covers" type="checkbox" onchange="toggleLoanShowCovers(this.checked)"  
+                class="w-4 h-4 rounded border-ink/30 accent-[#28463B] shrink-0 cursor-pointer" />  
+            </label>  
+  
+            <div class="pt-2.5 border-t border-ink/10 flex flex-wrap items-center justify-between gap-2">  
+              <div class="min-w-0">  
+                <div class="font-semibold text-ink">訪客隱私隔離已啟用</div>  
+                <p class="text-[11px] text-inkMuted mt-0.5">你的收藏資料夾與借書單僅保存在目前裝置，不會改動主人書櫃。</p>  
+              </div>  
+              <button type="button" onclick="closeModal('settings-modal'); startGuidedTour();"  
+                class="px-3 py-1.5 rounded-lg bg-ink text-paper text-xs font-medium hover:bg-forest transition shrink-0">  
+                重看訪客導覽  
+              </button>  
+            </div>  
+          </div>  
+        </div>  
+  
+        <div class="admin-only-el space-y-4 pt-2 border-t border-ink/10">  
+          <div>  
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-inkMuted">多語系字體選擇（預設全免費開源字體）</h4>  
+            <p class="text-[11px] text-inkMuted mt-0.5">中文與英文字體獨立搭配；若匯入其他語言字體檔，系統將自動新增該語言的字體選單並同時生效。</p>  
+          </div>  
+  
+          <div id="language-font-selectors" class="grid grid-cols-1 sm:grid-cols-2 gap-3">  
+            <div class="p-3 rounded-xl bg-surface border border-ink/15 space-y-1.5 min-w-0">  
+              <label class="block text-xs font-semibold text-ink">中文字體 (Chinese)</label>  
+              <select id="select-zh-font" onchange="selectLanguageFont('zh', this.value)"  
+                class="w-full px-3 py-2 rounded-lg border border-ink/20 bg-paper text-ink text-xs font-medium"></select>  
+            </div>  
+  
+            <div class="p-3 rounded-xl bg-surface border border-ink/15 space-y-1.5 min-w-0">  
+              <label class="block text-xs font-semibold text-ink">英文字體 (English)</label>  
+              <select id="select-en-font" onchange="selectLanguageFont('en', this.value)"  
+                class="w-full px-3 py-2 rounded-lg border border-ink/20 bg-paper text-ink text-xs font-medium"></select>  
+            </div>  
+  
+            <div id="extra-lang-font-boxes" class="contents"></div>  
+          </div>  
+  
+          <div class="p-3.5 rounded-xl bg-paperDark/55 border border-dashed border-gold/60 space-y-2.5">  
+            <div class="text-xs font-semibold text-ink">匯入自訂字體檔（支援 .ttf / .otf / .woff / .woff2）</div>  
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">  
+              <select id="upload-font-lang" onchange="toggleCustomLangNameInput(this.value)"  
+                class="px-3 py-2 rounded-lg border border-ink/20 bg-surface text-ink text-xs font-medium">  
+                <option value="zh">套用至：中文</option>  
+                <option value="en">套用至：英文</option>  
+                <option value="ja">套用至：日文 (新增語言)</option>  
+                <option value="ko">套用至：韓文 (新增語言)</option>  
+                <option value="other">套用至：其他語言...</option>  
+              </select>  
+              <div id="custom-lang-label-wrap" class="hidden">  
+                <input id="custom-lang-label-input" type="text" placeholder="輸入語言名稱，如：法文"  
+                  class="w-full px-3 py-2 rounded-lg border border-ink/20 bg-surface text-ink text-xs" />  
+              </div>  
+              <label class="px-3 py-2 rounded-lg bg-ink text-paper text-xs font-medium text-center cursor-pointer hover:bg-forest transition">  
+                <span>選擇字體檔案</span>  
+                <input type="file" accept=".ttf,.otf,.woff,.woff2" onchange="handleCustomFontUpload(event)" class="hidden" />  
+              </label>  
+            </div>  
+          </div>  
+        </div>  
+  
+        <div class="admin-only-el space-y-2.5 pt-2 border-t border-ink/10">  
+          <div class="flex items-center justify-between">  
+            <label class="text-xs font-semibold uppercase tracking-wider text-inkMuted">借書之印樣式（滑鼠懸停可觸發鐳射紅光）</label>  
+            <span class="text-[11px] text-inkMuted">支援 PNG / SVG 透明去背印章</span>  
+          </div>  
+          <input id="custom-seal-file-input" type="file" accept="image/png,image/webp,image/svg+xml" onchange="handleCustomSealUpload(event)" class="hidden" />  
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">  
+            <button type="button" onclick="setSealStyle('square')" data-seal="square" class="seal-style-btn">  
+              <span class="w-8 h-8 border-2 border-[#9C4A3B] text-[#9C4A3B] font-serif font-bold text-[10px] flex items-center justify-center leading-none">借書<br>之印</span>  
+              <span>朱文方印</span>  
+            </button>  
+            <button type="button" onclick="setSealStyle('oval')" data-seal="oval" class="seal-style-btn">  
+              <span class="w-7 h-8 rounded-full border-2 border-[#9C4A3B] text-[#9C4A3B] font-serif font-bold text-[10px] flex items-center justify-center leading-none">書房<br>珍藏</span>  
+              <span>雅集橢圓印</span>  
+            </button>  
+            <button type="button" onclick="setSealStyle('inverse')" data-seal="inverse" class="seal-style-btn">  
+              <span class="w-8 h-8 bg-[#9C4A3B] text-[#FAF6ED] font-serif font-bold text-[10px] flex items-center justify-center leading-none">開卷<br>有益</span>  
+              <span>白文滿紅印</span>  
+            </button>  
+            <div data-seal="custom" onclick="handleCustomSealCardClick()" role="button" tabindex="0"  
+              onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();handleCustomSealCardClick();}"  
+              class="seal-style-btn cursor-pointer relative group">  
+              <span id="custom-seal-card-preview" class="w-8 h-8 border border-dashed border-goldDark text-goldDark font-mono text-[10px] flex items-center justify-center overflow-hidden rounded">  
+                +PNG  
+              </span>  
+              <span id="custom-seal-card-label" class="text-center leading-tight">自訂上傳 PNG 印章</span>  
+              <span id="custom-seal-reupload-badge" onclick="event.stopPropagation(); triggerCustomSealUpload();"  
+                class="hidden text-[10px] text-goldDark underline hover:text-ink">  
+                更換印章  
+              </span>  
+            </div>  
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== CONTACT MODAL ("聯絡我") ==================== -->  
+  <div id="contact-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">  
+    <div class="bg-paper border border-gold/50 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">  
+      <div class="flex items-center justify-between border-b border-ink/10 pb-3">  
+        <div>  
+          <span class="font-mono text-[10px] tracking-widest text-goldDark uppercase">GET IN TOUCH</span>  
+          <h3 class="font-serif text-xl font-bold text-ink">聯絡書房主人</h3>  
+        </div>  
+        <button onclick="closeModal('contact-modal')"  
+          class="w-8 h-8 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+      <p class="text-xs text-inkMuted leading-relaxed">  
+        如果你對書架上的書籍有借閱興趣、想交流閱讀心得，或有任何關於「我的書房」的想法，歡迎透過 Threads 聯繫交流。  
+      </p>  
+      <div class="p-3.5 rounded-xl bg-surface border border-gold/40 flex items-center justify-between gap-2 text-xs">  
+        <span class="font-mono text-ink truncate">Threads: @wearing_jade</span>  
+        <a href="https://www.threads.com/@wearing_jade" target="_blank" rel="noopener noreferrer"  
+          class="px-3 py-1.5 rounded-lg bg-ink text-paper font-medium hover:bg-forest transition shrink-0">  
+          前往 Threads  
+        </a>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== SHELF THEME STUDIO ==================== -->  
+  <div id="shelf-theme-studio-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">  
+    <div class="bg-paper border border-gold/60 rounded-2xl max-w-3xl w-full max-h-[88vh] flex flex-col overflow-hidden shadow-2xl">  
+      <div class="p-5 border-b border-gold/35 flex items-center justify-between bg-surface shrink-0">  
+        <div>  
+          <span class="font-mono text-[10px] tracking-widest text-goldDark uppercase">SHELF THEME STUDIO</span>  
+          <h3 class="font-serif text-xl font-bold text-ink">各書架色彩主題與即時預覽</h3>  
+        </div>  
+        <button onclick="closeShelfThemeStudio()"  
+          class="w-8 h-8 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+  
+      <div class="p-5 overflow-y-auto space-y-5 flex-1">  
+        <div class="space-y-2">  
+          <label class="block text-xs font-semibold text-inkMuted">1. 點選要切換預覽的書架：</label>  
+          <div id="studio-shelf-tabs" class="flex items-center gap-2 overflow-x-auto pb-1"></div>  
+        </div>  
+  
+        <div class="space-y-2">  
+          <label class="block text-xs font-semibold text-inkMuted">2. 選擇預覽色彩主題與日夜模式：</label>  
+          <div class="flex items-center gap-2 mb-2">  
+            <button onclick="previewStudioScheme('day')" id="studio-scheme-day"  
+              class="px-3 py-1 rounded-full border text-xs font-medium">日光模式</button>  
+            <button onclick="previewStudioScheme('night')" id="studio-scheme-night"  
+              class="px-3 py-1 rounded-full border text-xs font-medium">黑夜模式</button>  
+          </div>  
+          <div id="studio-theme-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2.5"></div>  
+        </div>  
+      </div>  
+  
+      <div class="p-4 sm:p-5 border-t border-gold/35 bg-surface shrink-0 shadow-md flex flex-wrap items-center justify-between gap-2">  
+        <button onclick="resetShelfCustomTheme()"  
+          class="px-3.5 py-2 rounded-lg border border-ink/20 text-xs font-medium text-inkMuted hover:text-ink transition">  
+          恢復跟隨全站預設  
+        </button>  
+        <div class="flex flex-wrap items-center gap-2">  
+          <button onclick="applyStudioThemeToCurrentShelf()"  
+            class="px-4 py-2 rounded-lg border border-ink bg-paper text-ink text-xs font-semibold hover:bg-ink hover:text-paper transition">  
+            套用至目前書架  
+          </button>  
+          <button onclick="applyStudioThemeToAllShelves()"  
+            class="px-4 py-2 rounded-lg bg-ink text-paper text-xs font-semibold hover:bg-forest transition">  
+            一鍵套用至所有書架  
+          </button>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== FAQ MODAL ("常見問題") ==================== -->  
+  <div id="faq-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">  
+    <div class="bg-paper border border-gold/50 rounded-2xl max-w-2xl w-full max-h-[88vh] overflow-y-auto shadow-2xl">  
+      <div class="p-5 sm:p-6 border-b border-gold/35 flex items-center justify-between bg-surface sticky top-0 z-20 shadow-md">  
+        <div>  
+          <span class="font-mono text-[10px] tracking-widest text-goldDark uppercase">FREQUENTLY ASKED QUESTIONS</span>  
+          <h3 class="font-serif text-2xl font-bold text-ink">常見問題與創作理念</h3>  
+        </div>  
+        <button onclick="closeModal('faq-modal')"  
+          class="w-9 h-9 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+  
+      <div class="p-6 space-y-4 text-xs sm:text-sm">  
+        <div class="p-4 rounded-xl bg-surface border border-gold/35 space-y-1.5">  
+          <h4 class="font-serif font-bold text-base text-ink">Q1. 「我的書房」的創作理念是什麼？</h4>  
+          <p class="text-inkMuted leading-relaxed">  
+            家裡的實體書與漫畫越買越多，常常連自己也忘記收過哪些書，更別說來家裡作客的朋友很難一眼翻遍所有書櫃。創作「我的書房」的初衷，是希望用像實體美術館一樣優雅的方式整理個人藏書，並透過一鍵分享單一唯讀書架，看看身邊的朋友對哪些書有興趣借閱——讓好書不只是靜靜躺在書櫃裡，而是成為與朋友開啟話題、延伸共同興趣與拓展友誼的橋樑。  
+          </p>  
+        </div>  
+  
+        <div class="p-4 rounded-xl bg-surface border border-gold/35 space-y-1.5">  
+          <h4 class="font-serif font-bold text-base text-ink">Q2. 訪客透過分享連結進入時，能看到其他書櫃嗎？</h4>  
+          <p class="text-inkMuted leading-relaxed">  
+            不能。書房主人點擊「分享此書櫃（訪客唯讀）」產生的連結會鎖定該單一書櫃，訪客開啟後會自動隱藏其他書櫃切換列，只能翻閱被分享的那一個書櫃；同時訪客建立的「收藏資料夾」與「借書單」也都獨立儲存在訪客自己的裝置本機，完全不影響書房主人。  
+          </p>  
+        </div>  
+  
+        <div class="p-4 rounded-xl bg-surface border border-gold/35 space-y-1.5">  
+          <h4 class="font-serif font-bold text-base text-ink">Q3. 拍封面建書時，歪斜拍到的桌面背景要怎麼裁成直板？</h4>  
+          <p class="text-inkMuted leading-relaxed">  
+            在「拍／上傳封面建書」列表中，只要點按封面縮圖或「✂ 拉直/修圖」按鈕，就能拖曳四個角落定點框住書封邊緣，系統會像文件掃描 App 一樣自動把透視斜角拉直為標準 2:3 封面並重新提取書背色。  
+          </p>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== PRIVACY & DATA STORAGE MODAL ==================== -->  
+  <div id="privacy-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">  
+    <div class="bg-paper border border-gold/50 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-3">  
+      <div class="flex items-center justify-between border-b border-ink/10 pb-3">  
+        <h3 class="font-serif text-lg font-bold text-ink">隱私與本機資料儲存說明</h3>  
+        <button onclick="closeModal('privacy-modal')"  
+          class="w-8 h-8 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+      <p class="text-xs text-inkMuted leading-relaxed">  
+        本網站尊重閱讀隱私：書房主人與訪客在各自儀器建立的收藏記錄、收藏資料夾與借書單皆獨立儲存於各自裝置瀏覽器的本機空間（localStorage）內，彼此互不覆蓋；書房主人亦可隨時透過「匯出 books.json」將書目備份保存。  
+      </p>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== SLIDE-OVER CATALOGUE DRAWER ==================== -->  
+  <div id="catalogue-drawer-overlay" onclick="toggleCatalogueDrawer(false)"  
+    class="fixed inset-0 z-40 modal-backdrop hidden transition-opacity"></div>  
+  
+  <aside id="catalogue-drawer"  
+    class="fixed top-0 right-0 z-50 h-full w-full max-w-xl bg-paper border-l border-ink/15 shadow-2xl transform translate-x-full transition-transform duration-300 ease-out flex flex-col overflow-x-hidden">  
+    <div class="p-5 sm:p-6 border-b border-ink/10 flex items-center justify-between gap-2 bg-paperDark/50">  
+      <div class="min-w-0">  
+        <span class="font-mono text-[11px] uppercase tracking-widest text-goldDark">COMPLETE INDEX</span>  
+        <h3 id="catalogue-drawer-title" class="font-serif text-xl sm:text-2xl font-bold text-ink truncate">總清單目錄</h3>  
+      </div>  
+      <div class="flex items-center gap-2 shrink-0">  
+        <button onclick="toggleCatalogueDrawer(false); openImportModal();"  
+          class="admin-only-el px-3 py-1.5 rounded-full bg-ink text-paper text-xs font-medium hover:bg-forest transition">  
+          + 加入書籍  
+        </button>  
+        <button onclick="toggleCatalogueDrawer(false)"  
+          class="w-9 h-9 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+    </div>  
+  
+    <div class="p-4 sm:p-5 border-b border-ink/10 space-y-3 bg-surface/65">  
+      <div class="relative">  
+        <input id="catalogue-search" type="text" oninput="renderCatalogueList()"  
+          placeholder="搜尋書名、作者、ISBN 或借閱人..."  
+          class="w-full pl-10 pr-4 py-2.5 rounded-lg bg-paper border border-ink/20 text-sm text-ink placeholder:text-inkMuted/60 focus:outline-none focus:border-ink" />  
+        <svg class="w-4 h-4 text-inkMuted absolute left-3.5 top-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />  
+        </svg>  
+      </div>  
+      <div class="flex flex-wrap items-center justify-between gap-2 text-xs">  
+        <div class="flex flex-wrap gap-2">  
+          <select id="catalogue-cat-filter" onchange="renderCatalogueList()"  
+            class="px-3 py-1.5 rounded-md border border-ink/20 bg-paper font-medium text-ink">  
+            <option value="all">所有類型</option>  
+            <option value="書籍">僅書籍</option>  
+            <option value="漫畫">僅漫畫</option>  
+          </select>  
+          <select id="catalogue-status-filter" onchange="renderCatalogueList()"  
+            class="px-3 py-1.5 rounded-md border border-ink/20 bg-paper font-medium text-ink">  
+            <option value="all">所有館藏狀態</option>  
+            <option value="available">在架上 (Available)</option>  
+            <option value="lent">借出中 (Lent Out)</option>  
+            <option value="archived">已下架 (Archived)</option>  
+          </select>  
+        </div>  
+  
+        <div class="flex items-center gap-3">  
+          <span id="catalogue-swipe-hint" class="admin-only-el text-[11px] text-inkMuted">向左滑動項目可刪除</span>  
+          <button onclick="toggleCatalogueSelectAll()" class="text-xs text-goldDark hover:text-ink font-medium underline">  
+            全選 / 取消全選  
+          </button>  
+        </div>  
+      </div>  
+  
+      <div id="catalogue-batch-bar" class="hidden p-2.5 rounded-xl bg-ink text-paper flex flex-wrap items-center justify-between gap-2 text-xs">  
+        <span>已勾選 <strong id="batch-selected-count" class="text-gold font-mono">0</strong> 本書籍</span>  
+        <div class="flex flex-wrap items-center gap-1.5">  
+          <button onclick="batchAddToSaved()" class="px-2.5 py-1 rounded bg-gold text-ink font-semibold hover:opacity-90">  
+            加入收藏  
+          </button>  
+          <button onclick="batchAddToLoan()" class="px-2.5 py-1 rounded bg-forest text-paper font-medium hover:opacity-90">  
+            加入借書單  
+          </button>  
+          <button onclick="confirmBatchDeleteSelected()" class="admin-only-el px-2.5 py-1 rounded bg-rust text-white font-medium hover:opacity-90">  
+            刪除所選  
+          </button>  
+        </div>  
+      </div>  
+    </div>  
+  
+    <div id="catalogue-list-container" class="flex-1 overflow-y-auto px-4 sm:px-6 divide-y divide-ink/10"></div>  
+  </aside>  
+  
+  <!-- ==================== BOOK DETAIL MODAL ==================== -->  
+  <div id="book-detail-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">  
+    <div class="bg-paper border border-gold/50 rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto overflow-x-hidden shadow-2xl">  
+      <div class="p-4 sm:p-5 border-b border-ink/10 flex items-center justify-between gap-2 bg-surface sticky top-0 z-20 shadow-sm">  
+        <div class="min-w-0">  
+          <span class="font-mono text-[10px] tracking-widest text-goldDark uppercase">ARCHIVE RECORD</span>  
+          <h3 class="font-serif text-xl font-bold text-ink truncate">書籍詳情與館藏狀態</h3>  
+        </div>  
+        <button onclick="closeModal('book-detail-modal')"  
+          class="w-8 h-8 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition shrink-0">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+      <div id="book-detail-content" class="p-5 sm:p-6"></div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== IMPORT / ADD BOOKS MODAL ==================== -->  
+  <div id="import-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-3 sm:p-4">  
+    <div class="bg-paper border border-gold/50 rounded-2xl max-w-3xl w-full max-h-[92vh] overflow-y-auto overflow-x-hidden shadow-2xl">  
+      <div class="p-4 sm:p-5 border-b border-ink/10 flex items-center justify-between gap-2 bg-surface sticky top-0 z-20 shadow-sm">  
+        <div class="min-w-0">  
+          <span class="font-mono text-[10px] tracking-widest text-goldDark uppercase">ACQUISITION DESK</span>  
+          <h3 class="font-serif text-lg sm:text-2xl font-bold text-ink truncate">匯入 / 新增書籍至書架</h3>  
+        </div>  
+        <button onclick="closeImportModal()"  
+          class="w-9 h-9 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition shrink-0">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+  
+      <div class="flex border-b border-ink/10 px-4 sm:px-6 bg-surface/45 text-xs sm:text-sm font-medium overflow-x-auto no-scrollbar">  
+        <button onclick="switchImportTab('cover')" data-tab="cover"  
+          class="import-tab-btn py-3 px-3.5 border-b-2 border-ink text-ink font-semibold whitespace-nowrap">  
+          1. 拍／上傳封面建書（最多 10 本）  
+        </button>  
+        <button onclick="switchImportTab('isbn')" data-tab="isbn"  
+          class="import-tab-btn py-3 px-3.5 border-b-2 border-transparent text-inkMuted hover:text-ink whitespace-nowrap">  
+          2. ISBN 輔助查詢  
+        </button>  
+        <button onclick="switchImportTab('batch')" data-tab="batch"  
+          class="import-tab-btn py-3 px-3.5 border-b-2 border-transparent text-inkMuted hover:text-ink whitespace-nowrap">  
+          3. Goodreads / CSV / JSON  
+        </button>  
+        <button onclick="switchImportTab('manual')" data-tab="manual"  
+          class="import-tab-btn py-3 px-3.5 border-b-2 border-transparent text-inkMuted hover:text-ink whitespace-nowrap">  
+          4. 手動填寫  
+        </button>  
+      </div>  
+  
+      <div class="p-4 sm:p-6">  
+        <!-- TAB 1: COVER-FIRST BATCH UPLOAD / CAMERA CAPTURE -->  
+        <div id="tab-panel-cover" class="space-y-4">  
+          <div class="p-3.5 sm:p-4 rounded-xl border border-gold/50 bg-surface/85 space-y-2.5">  
+            <div class="flex flex-wrap items-center justify-between gap-2">  
+              <div class="min-w-0">  
+                <h4 class="font-semibold text-sm flex flex-wrap items-center gap-2 text-ink">  
+                  <svg class="w-4 h-4 text-goldDark shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />  
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />  
+                  </svg>  
+                  <span>直接拍書封或批次選取封面圖（無需認識 ISBN）</span>  
+                  <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-forest/15 text-forest">UP TO 10</span>  
+                </h4>  
+                <p class="text-xs text-inkMuted mt-1 leading-relaxed">  
+                  點按封面縮圖或「剪裁拉直」可拖曳四個角點去除背景並拉直成直板；系統自動提取書背色，亦可選填 ISBN 一鍵補全書名與大綱。  
+                </p>  
+              </div>  
+            </div>  
+  
+            <div class="flex flex-wrap items-center gap-2 pt-0.5">  
+              <label class="px-3.5 py-2 rounded-lg bg-ink text-paper text-xs font-medium hover:bg-forest transition cursor-pointer flex items-center gap-1.5 shadow-sm">  
+                <svg class="w-4 h-4 text-gold shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />  
+                </svg>  
+                <span>批次選取封面（最多 10 張）</span>  
+                <input id="cover-batch-files-input" type="file" accept="image/*" multiple onchange="handleCoverBatchUpload(event)" class="hidden" />  
+              </label>  
+  
+              <label class="px-3.5 py-2 rounded-lg border border-ink/25 bg-paper text-ink text-xs font-medium hover:bg-paperDark transition cursor-pointer flex items-center gap-1.5">  
+                <svg class="w-4 h-4 text-goldDark shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />  
+                </svg>  
+                <span>相機拍攝書封</span>  
+                <input id="cover-camera-single-input" type="file" accept="image/*" capture="environment" onchange="handleCoverBatchUpload(event)" class="hidden" />  
+              </label>  
+  
+              <span id="cover-batch-counter" class="font-mono text-xs text-inkMuted ml-auto">已準備 0 / 10 本</span>  
+            </div>  
+          </div>  
+  
+          <div id="cover-batch-queue-container" class="hidden space-y-3">  
+            <div class="flex flex-wrap items-center justify-between gap-2">  
+              <span class="text-xs font-semibold text-ink">待入櫃封面草稿（每張右上角皆可直接刪除誤傳圖片）</span>  
+              <button type="button" onclick="clearCoverBatchQueue()" class="text-xs text-rust font-medium hover:underline">  
+                清空全部草稿  
+              </button>  
+            </div>  
+  
+            <div id="cover-batch-list" class="space-y-2.5 max-h-[46vh] overflow-y-auto pr-0.5"></div>  
+  
+            <div class="pt-2 border-t border-ink/10 flex flex-wrap items-center justify-end gap-2">  
+              <button type="button" onclick="commitCoverBatchToShelf()"  
+                class="px-5 py-2.5 rounded-lg bg-forest text-paper text-xs sm:text-sm font-semibold hover:opacity-95 transition shadow-md flex items-center gap-1.5">  
+                <span>一鍵全數加入目前書架</span>  
+              </button>  
+            </div>  
+          </div>  
+        </div>  
+  
+        <!-- TAB 2: OPTIONAL ISBN HELPER -->  
+        <div id="tab-panel-isbn" class="hidden space-y-5">  
+          <div class="p-4 rounded-xl border border-ink/15 bg-surface/80 space-y-3">  
+            <div class="flex flex-wrap items-center justify-between gap-2">  
+              <div>  
+                <h4 class="font-semibold text-sm flex items-center gap-2 text-ink">  
+                  <span>相機掃描 ISBN 條碼（輔助快速對照）</span>  
+                  <span class="font-mono text-[10px] px-2 py-0.5 rounded bg-gold/20 text-goldDark">OPTIONAL</span>  
+                </h4>  
+                <p class="text-xs text-inkMuted mt-0.5">部分繁中或漫畫 ISBN 若外部資料庫缺漏，系統仍會建立骨架書目供你補填</p>  
+              </div>  
+              <button id="btn-toggle-scanner" type="button" onclick="toggleBarcodeScanner()"  
+                class="px-3.5 py-2 rounded-lg bg-ink text-paper text-xs font-medium hover:bg-ink/85 transition shrink-0">  
+                開啟鏡頭掃描  
+              </button>  
+            </div>  
+  
+            <div id="scanner-container" class="hidden rounded-lg overflow-hidden border border-ink/20 bg-black">  
+              <div id="qr-reader" class="w-full min-h-[210px]"></div>  
+              <div class="p-2.5 bg-ink text-paper text-xs font-mono flex flex-wrap items-center justify-between gap-2">  
+                <span id="scanner-status-text">等待對準條碼 (EAN-13 / ISBN)...</span>  
+                <button type="button" onclick="toggleBarcodeScanner()" class="text-gold underline">關閉相機</button>  
+              </div>  
+            </div>  
+          </div>  
+  
+          <div class="space-y-2">  
+            <label class="block text-xs font-semibold uppercase tracking-wider text-inkMuted">  
+              輸入單筆或大量 ISBN（每行一組）  
+            </label>  
+            <textarea id="isbn-batch-input" rows="4"  
+              placeholder="範例：&#10;9789861756332&#10;9780735211292"  
+              class="w-full p-3 rounded-xl border border-ink/20 bg-surface text-ink font-mono text-sm focus:outline-none focus:border-ink"></textarea>  
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-1">  
+              <button type="button" onclick="fillSampleISBNs()"  
+                class="text-xs text-goldDark hover:underline font-medium">  
+                + 填入測試 ISBN 範例  
+              </button>  
+              <button type="button" onclick="fetchBatchISBNs()" id="btn-fetch-isbn"  
+                class="px-5 py-2.5 rounded-lg bg-ink text-paper text-xs sm:text-sm font-medium hover:bg-ink/85 transition flex items-center gap-2">  
+                <span>查詢並匯入書房</span>  
+              </button>  
+            </div>  
+          </div>  
+  
+          <div id="isbn-fetch-log" class="hidden p-3.5 rounded-xl bg-paperDark/70 border border-ink/10 font-mono text-xs space-y-1.5 max-h-40 overflow-y-auto">  
+          </div>  
+        </div>  
+  
+        <!-- TAB 3: GOODREADS / CSV / JSON -->  
+        <div id="tab-panel-batch" class="hidden space-y-5">  
+          <div class="p-5 rounded-xl border border-dashed border-ink/30 bg-surface/70 text-center space-y-3">  
+            <div class="w-10 h-10 rounded-full bg-gold/15 text-goldDark mx-auto flex items-center justify-center font-bold">  
+              CSV  
+            </div>  
+            <div>  
+              <h4 class="font-semibold text-sm text-ink">匯入 Goodreads 匯出檔 / 自訂 CSV / JSON 備份</h4>  
+              <p class="text-xs text-inkMuted mt-1">  
+                支援 Goodreads `goodreads_library_export.csv` 或本系統備份的 `books.json`  
+              </p>  
+            </div>  
+            <input type="file" id="batch-file-input" accept=".csv,.json" onchange="handleBatchFileUpload(event)"  
+              class="block mx-auto text-xs text-inkMuted file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-medium file:bg-ink file:text-paper hover:file:bg-ink/85 cursor-pointer" />  
+            <div class="pt-2">  
+              <button onclick="downloadCSVTemplate()" class="text-xs text-goldDark underline">  
+                下載標準 CSV 匯入範本  
+              </button>  
+            </div>  
+          </div>  
+  
+          <div class="p-4 rounded-xl bg-paperDark/60 border border-ink/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">  
+            <div>  
+              <h5 class="font-semibold text-sm text-ink">GitHub 靜態同步備份 (`books.json`)</h5>  
+              <p class="text-xs text-inkMuted mt-0.5">將目前所有藏書與借出狀態匯出為 JSON 檔，方便上傳至 GitHub 倉庫保存。</p>  
+            </div>  
+            <button onclick="exportBooksJSON()"  
+              class="px-4 py-2 rounded-lg border border-ink bg-surface text-ink hover:bg-ink hover:text-paper transition text-xs font-medium shrink-0">  
+              匯出 books.json  
+            </button>  
+          </div>  
+        </div>  
+  
+        <!-- TAB 4: MANUAL ENTRY -->  
+        <div id="tab-panel-manual" class="hidden">  
+          <form id="manual-book-form" onsubmit="handleManualBookSubmit(event)" class="space-y-4">  
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">  
+              <div>  
+                <label class="block text-xs font-semibold text-ink mb-1.5">書名 / 漫畫名稱 *</label>  
+                <input type="text" name="title" id="manual-title-input" required placeholder="請輸入書名，例如：原子習慣"  
+                  class="w-full px-3.5 py-2.5 rounded-lg border border-ink/30 bg-surface text-ink placeholder:text-inkMuted/60 text-sm focus:outline-none focus:ring-2 focus:ring-gold focus:border-ink" />  
+              </div>  
+              <div>  
+                <label class="block text-xs font-semibold text-ink mb-1.5">作者 *</label>  
+                <input type="text" name="author" required placeholder="請輸入作者，例如：James Clear"  
+                  class="w-full px-3.5 py-2.5 rounded-lg border border-ink/30 bg-surface text-ink placeholder:text-inkMuted/60 text-sm focus:outline-none focus:ring-2 focus:ring-gold focus:border-ink" />  
+              </div>  
+              <div>  
+                <label class="block text-xs font-semibold text-ink mb-1.5">類型分類</label>  
+                <select name="category" class="w-full px-3.5 py-2.5 rounded-lg border border-ink/30 bg-surface text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold focus:border-ink">  
+                  <option value="書籍">書籍 (Book)</option>  
+                  <option value="漫畫">漫畫 (Manga)</option>  
+                </select>  
+              </div>  
+              <div>  
+                <label class="block text-xs font-semibold text-ink mb-1.5">冊數 / 版本（選填）</label>  
+                <input type="text" name="volume" placeholder="例如：全 1-13 卷、精裝版"  
+                  class="w-full px-3.5 py-2.5 rounded-lg border border-ink/30 bg-surface text-ink placeholder:text-inkMuted/60 text-sm focus:outline-none focus:ring-2 focus:ring-gold focus:border-ink" />  
+              </div>  
+              <div>  
+                <label class="block text-xs font-semibold text-ink mb-1.5">ISBN 編號（選填）</label>  
+                <input type="text" name="isbn" placeholder="例如：9789861756332"  
+                  class="w-full px-3.5 py-2.5 rounded-lg border border-ink/30 bg-surface text-ink font-mono text-sm focus:outline-none focus:ring-2 focus:ring-gold focus:border-ink" />  
+              </div>  
+              <div>  
+                <label class="block text-xs font-semibold text-ink mb-1.5">書背顏色</label>  
+                <input type="color" name="spineColor" value="#28463B"  
+                  class="h-10 w-20 rounded-lg border border-ink/30 bg-surface cursor-pointer p-1" />  
+              </div>  
+            </div>  
+            <div>  
+              <label class="block text-xs font-semibold text-ink mb-1.5">封面圖片網址（選填）</label>  
+              <input type="url" name="coverUrl" placeholder="https://..."  
+                class="w-full px-3.5 py-2.5 rounded-lg border border-ink/30 bg-surface text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold focus:border-ink" />  
+            </div>  
+            <div>  
+              <label class="block text-xs font-semibold text-ink mb-1.5">內容簡介 / 備註（選填）</label>  
+              <textarea name="synopsis" rows="3" placeholder="輸入書籍簡介或個人閱讀筆記..."  
+                class="w-full px-3.5 py-2.5 rounded-lg border border-ink/30 bg-surface text-ink text-sm focus:outline-none focus:ring-2 focus:ring-gold focus:border-ink"></textarea>  
+            </div>  
+            <div class="flex justify-end gap-2 pt-2">  
+              <button type="button" onclick="closeImportModal()" class="px-4 py-2 rounded-lg border border-ink/20 text-xs font-medium text-ink">  
+                取消  
+              </button>  
+              <button type="submit" class="px-5 py-2 rounded-lg bg-ink text-paper text-xs font-semibold hover:bg-forest transition">  
+                加入目前書架  
+              </button>  
+            </div>  
+          </form>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== PERSPECTIVE SCAN CROPPER & PHOTO RETOUCH MODAL ==================== -->  
+  <div id="perspective-crop-modal" class="fixed inset-0 z-[60] modal-backdrop hidden items-center justify-center p-3 sm:p-4">  
+    <div class="bg-paper border-2 border-gold rounded-2xl max-w-2xl w-full max-h-[94vh] flex flex-col overflow-hidden shadow-2xl">  
+      <div class="p-4 sm:p-5 border-b border-ink/10 flex items-center justify-between gap-2 bg-surface shrink-0">  
+        <div class="min-w-0">  
+          <span class="font-mono text-[10px] tracking-widest text-goldDark uppercase">SCAN CROP &amp; PHOTO RETOUCH</span>  
+          <h3 class="font-serif text-lg sm:text-xl font-bold text-ink truncate">封面定點拉直與光線對比度修圖</h3>  
+        </div>  
+        <button onclick="closePerspectiveCropModal()"  
+          class="w-8 h-8 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition shrink-0">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+  
+      <div class="p-3 sm:p-4 bg-[#1A1613] flex-1 flex flex-col items-center justify-center overflow-hidden relative select-none">  
+        <canvas id="perspective-crop-canvas"></canvas>  
+        <p class="text-[11px] text-[#F4EFE4]/80 mt-2 text-center px-2">  
+          拖曳四個金色圓點對準書封四角去除背景，並可調整下方亮度與對比度改善室內拍攝光線  
+        </p>  
+      </div>  
+  
+      <!-- Brightness / Contrast / Saturation Sliders -->  
+      <div class="px-4 py-3 bg-paperDark/70 border-t border-ink/10 space-y-2.5 shrink-0">  
+        <div class="flex flex-wrap items-center justify-between gap-2">  
+          <span class="text-xs font-semibold text-ink">光線與清晰度微調</span>  
+          <div class="flex items-center gap-2">  
+            <button type="button" onclick="applyScanEnhancePreset()"  
+              class="px-2.5 py-1 rounded-md bg-gold/25 border border-gold/60 text-ink text-[11px] font-medium hover:bg-ink hover:text-gold transition">  
+              一鍵自動增亮提對比  
+            </button>  
+            <button type="button" onclick="resetCropperFilters()"  
+              class="px-2.5 py-1 rounded-md border border-ink/20 bg-surface text-inkMuted text-[11px] hover:text-ink transition">  
+              重設調色  
+            </button>  
+          </div>  
+        </div>  
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">  
+          <label class="flex flex-col gap-1">  
+            <div class="flex justify-between text-[11px] text-inkMuted">  
+              <span>光線亮度</span>  
+              <span id="crop-val-brightness" class="font-mono text-ink">100%</span>  
+            </div>  
+            <input id="crop-slider-brightness" type="range" min="60" max="150" value="100"  
+              oninput="updateCropperFilter('brightness', this.value)"  
+              class="w-full accent-[#9A7836] cursor-pointer" />  
+          </label>  
+          <label class="flex flex-col gap-1">  
+            <div class="flex justify-between text-[11px] text-inkMuted">  
+              <span>對比度</span>  
+              <span id="crop-val-contrast" class="font-mono text-ink">100%</span>  
+            </div>  
+            <input id="crop-slider-contrast" type="range" min="60" max="160" value="100"  
+              oninput="updateCropperFilter('contrast', this.value)"  
+              class="w-full accent-[#9A7836] cursor-pointer" />  
+          </label>  
+          <label class="flex flex-col gap-1">  
+            <div class="flex justify-between text-[11px] text-inkMuted">  
+              <span>色彩飽和度</span>  
+              <span id="crop-val-saturate" class="font-mono text-ink">100%</span>  
+            </div>  
+            <input id="crop-slider-saturate" type="range" min="70" max="140" value="100"  
+              oninput="updateCropperFilter('saturate', this.value)"  
+              class="w-full accent-[#9A7836] cursor-pointer" />  
+          </label>  
+        </div>  
+      </div>  
+  
+      <div class="p-3.5 sm:p-4 border-t border-ink/10 bg-surface flex flex-wrap items-center justify-between gap-2 shrink-0">  
+        <div class="flex items-center gap-2">  
+          <button type="button" onclick="resetPerspectiveCorners()"  
+            class="px-3 py-1.5 rounded-lg border border-ink/25 bg-paper text-ink text-xs font-medium hover:bg-paperDark transition">  
+            重設四角範圍  
+          </button>  
+          <button type="button" onclick="restoreOriginalDraftCover()"  
+            class="px-3 py-1.5 rounded-lg border border-ink/20 text-inkMuted text-xs hover:text-ink transition">  
+            還原未剪裁原圖  
+          </button>  
+        </div>  
+        <div class="flex items-center gap-2">  
+          <button type="button" onclick="closePerspectiveCropModal()"  
+            class="px-3.5 py-2 rounded-lg border border-ink/20 text-xs font-medium text-ink">  
+            取消  
+          </button>  
+          <button type="button" onclick="applyPerspectiveCrop()"  
+            class="px-4 py-2 rounded-lg bg-forest text-paper text-xs font-semibold hover:opacity-95 transition shadow-md flex items-center gap-1.5">  
+            <span>確認拉直並套用封面</span>  
+          </button>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== MODAL A: "我的收藏" ==================== -->  
+  <div id="saved-folders-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-3 sm:p-4">  
+    <div class="bg-paper border border-ink/15 rounded-2xl max-w-2xl w-full max-h-[88vh] overflow-y-auto overflow-x-hidden shadow-2xl">  
+      <div class="p-4 sm:p-6 border-b border-ink/10 flex items-center justify-between gap-2 bg-surface sticky top-0 z-20 shadow-sm">  
+        <div class="min-w-0 flex-1">  
+          <span id="saved-role-tag" class="block font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-goldDark truncate">OWNER SAVED COLLECTIONS</span>  
+          <h3 class="font-serif text-xl sm:text-2xl font-bold text-ink truncate">我的收藏資料夾</h3>  
+        </div>  
+        <button onclick="closeModal('saved-folders-modal')"  
+          class="w-9 h-9 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition shrink-0">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+  
+      <div class="p-4 sm:p-6 space-y-4 w-full min-w-0">  
+        <!-- Create New Saved Folder Bar -->  
+        <div class="flex items-center gap-2 w-full min-w-0">  
+          <input id="new-saved-folder-name" type="text" placeholder="輸入新資料夾名稱，例如：週末必讀、推理小說..."  
+            class="flex-1 min-w-0 px-3.5 py-2 rounded-lg border border-ink/20 bg-surface text-xs text-ink focus:outline-none focus:border-ink" />  
+          <button onclick="createSavedFolder()"  
+            class="px-3.5 py-2 rounded-lg bg-ink text-paper text-xs font-medium hover:bg-forest transition shrink-0 whitespace-nowrap">  
+            + 新增資料夾  
+          </button>  
+        </div>  
+  
+        <div class="space-y-3 w-full min-w-0">  
+          <!-- Horizontal Scrollable Pills so many folders never overflow modal width -->  
+          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 w-full" id="saved-folder-pills"></div>  
+  
+          <div id="saved-folder-manage-bar" class="p-3 sm:p-3.5 rounded-xl bg-paperDark/55 border border-gold/35 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 w-full min-w-0">  
+            <div class="flex items-center gap-2 flex-1 min-w-0 w-full">  
+              <span class="text-xs text-inkMuted shrink-0 whitespace-nowrap">名稱：</span>  
+              <input id="rename-saved-folder-input" type="text"  
+                class="flex-1 min-w-0 w-full px-2.5 py-1.5 rounded border border-ink/20 bg-surface text-xs font-medium text-ink focus:outline-none focus:border-ink" />  
+              <button onclick="renameActiveSavedFolder()"  
+                class="px-3 py-1.5 rounded bg-gold text-[#261E18] text-xs font-semibold hover:bg-goldDark hover:text-white transition shrink-0 whitespace-nowrap">  
+                更名  
+              </button>  
+            </div>  
+            <button id="btn-delete-saved-folder" onclick="confirmDeleteActiveSavedFolder()"  
+              class="px-3 py-1.5 rounded border border-rust/40 text-rust text-xs font-medium hover:bg-rust hover:text-white transition shrink-0 whitespace-nowrap self-end sm:self-auto">  
+              刪除資料夾  
+            </button>  
+          </div>  
+        </div>  
+  
+        <div class="border border-ink/15 rounded-xl bg-surface/85 p-3.5 sm:p-4 space-y-2 max-h-64 overflow-y-auto overflow-x-hidden w-full min-w-0">  
+          <div id="saved-folder-books-list" class="divide-y divide-ink/10 w-full min-w-0"></div>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== MODAL B: "借書單" ==================== -->  
+  <div id="loan-slip-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">  
+    <div id="loan-slip-dialog" class="bg-paper border border-ink/15 rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto overflow-x-hidden shadow-2xl">  
+      <div class="p-5 sm:p-6 border-b border-ink/10 flex items-center justify-between gap-2 bg-surface sticky top-0 z-20 shadow-sm">  
+        <div class="min-w-0">  
+          <span class="font-mono text-[11px] uppercase tracking-widest text-goldDark">LOAN REQUEST &amp; HISTORY</span>  
+          <h3 class="font-serif text-xl sm:text-2xl font-bold text-ink truncate">借書申請</h3>  
+        </div>  
+        <button onclick="closeModal('loan-slip-modal')"  
+          class="w-9 h-9 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition shrink-0">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+  
+      <div class="px-6 pt-3 border-b border-ink/10 bg-surface/80 flex items-center gap-2">  
+        <button id="tab-loan-current" onclick="switchLoanModalTab('current')"  
+          class="px-4 py-2.5 text-xs sm:text-sm font-semibold border-b-2 border-ink text-ink transition">  
+          目前借書單  
+        </button>  
+        <button id="tab-loan-history" onclick="switchLoanModalTab('history')"  
+          class="px-4 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-inkMuted hover:text-ink transition">  
+          過往選書記錄 (<span id="loan-history-count">0</span>)  
+        </button>  
+      </div>  
+  
+      <div id="loan-view-current" class="p-5 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">  
+        <div class="lg:col-span-5 space-y-4 min-w-0">  
+          <div class="flex items-center justify-between">  
+            <span class="text-xs font-semibold text-ink">已選入借書單的書籍：</span>  
+            <button onclick="confirmClearLoanSlip()" class="text-xs text-rust hover:underline">  
+              清空借書單  
+            </button>  
+          </div>  
+  
+          <div class="border border-ink/15 rounded-xl bg-surface/85 p-3 space-y-2 max-h-48 overflow-y-auto">  
+            <div id="loan-books-list" class="divide-y divide-ink/10"></div>  
+          </div>  
+  
+          <div id="owner-signature-box" class="p-4 rounded-xl bg-gold/10 border border-gold/45 space-y-2">  
+            <div class="flex items-center justify-between gap-2">  
+              <label class="block text-xs font-semibold text-ink">書房主人署名（顯示於借書單提示語）</label>  
+              <span class="font-mono text-[10px] text-goldDark">HOST SIGNATURE</span>  
+            </div>  
+            <input id="owner-name-input" type="text" placeholder="輸入你的名字或書房主人稱呼（留空則顯示「書房主人」）"  
+              oninput="updateOwnerDisplayName(this.value)"  
+              class="w-full px-3.5 py-2 rounded-lg border border-gold/50 text-xs bg-surface text-ink" />  
+          </div>  
+  
+          <div class="p-3.5 rounded-xl bg-surface/90 border border-ink/15 space-y-2.5">  
+            <div>  
+              <label class="block text-xs font-semibold text-ink mb-1">借閱人署名（顯示於借書單上）</label>  
+              <input id="guest-signature-input" type="text" value="愛看書的朋友" oninput="renderExLibrisPreview()"  
+                class="w-full px-3.5 py-2 rounded-lg border border-ink/20 text-xs bg-paper text-ink" />  
+            </div>  
+            <label class="flex items-center justify-between gap-2 pt-2 border-t border-ink/10 cursor-pointer select-none">  
+              <div class="min-w-0">  
+                <span class="block text-xs font-semibold text-ink">借書單顯示迷你書封縮圖</span>  
+                <span class="block text-[11px] text-inkMuted">開啟後每本書旁顯示小型封面，方便快速辨認版本</span>  
+              </div>  
+              <input id="toggle-loan-show-covers" type="checkbox" onchange="toggleLoanShowCovers(this.checked)"  
+                class="w-4 h-4 rounded border-ink/30 accent-[#28463B] shrink-0 cursor-pointer" />  
+            </label>  
+          </div>  
+  
+          <div id="friend-loan-reconcile-box" class="admin-only-el p-3.5 rounded-xl bg-surface/90 border border-gold/45 space-y-2.5">  
+            <div class="flex items-center justify-between gap-2">  
+              <span class="text-xs font-semibold text-ink">匯入朋友借書圖片／清單對帳</span>  
+              <span class="font-mono text-[10px] text-goldDark">RECONCILE</span>  
+            </div>  
+            <textarea id="friend-loan-import-text" rows="2" oninput="renderFriendLoanCandidates()"  
+              placeholder="貼上朋友傳來的借書文字清單，或上傳借書單截圖／文字檔..."  
+              class="w-full p-2.5 rounded-lg border border-ink/20 bg-paper text-xs text-ink"></textarea>  
+            <div class="flex flex-wrap items-center justify-between gap-2">  
+              <label class="text-[11px] text-goldDark underline cursor-pointer hover:text-ink">  
+                <span>匯入圖片 / 文字檔</span>  
+                <input type="file" accept="image/*,.txt,.json" onchange="handleFriendLoanFile(event)" class="hidden" />  
+              </label>  
+              <div class="flex items-center gap-1.5">  
+                <button type="button" onclick="reconcileFriendLoan(false)"  
+                  class="px-2.5 py-1 rounded-lg border border-ink/25 bg-paper text-ink text-[11px] font-medium hover:bg-paperDark transition">  
+                  僅統計不改狀態  
+                </button>  
+                <button type="button" onclick="reconcileFriendLoan(true)"  
+                  class="px-2.5 py-1 rounded-lg bg-rust text-white text-[11px] font-semibold hover:opacity-90 transition">  
+                  勾選借出並更新狀態  
+                </button>  
+              </div>  
+            </div>  
+            <div id="friend-loan-match-list" class="hidden space-y-1.5 pt-1.5 border-t border-ink/10 text-xs max-h-36 overflow-y-auto"></div>  
+          </div>  
+        </div>  
+  
+        <div class="lg:col-span-7 flex flex-col justify-between space-y-4 min-w-0">  
+          <div class="px-4 sm:px-5 py-3.5 rounded-xl bg-gold/15 border border-gold text-ink flex items-start gap-3 shadow-sm">  
+            <svg class="w-5 h-5 text-goldDark shrink-0 mt-0.5" fill="none" stroke="currentColor" stroke-width="1.9" viewBox="0 0 24 24">  
+              <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />  
+            </svg>  
+            <div class="text-xs sm:text-sm min-w-0">  
+              <p id="loan-prompt-headline" class="font-bold text-ink">「請把清單分享給書房主人」</p>  
+              <p class="text-inkMuted mt-0.5 text-xs">  
+                匯出或複製清單時，系統會自動保存一筆至「過往選書記錄」方便日後查閱。  
+              </p>  
+            </div>  
+          </div>  
+  
+          <div class="flex justify-center bg-paperDark/70 p-4 sm:p-6 rounded-xl border border-ink/10">  
+            <div id="ex-libris-card" class="ex-libris-frame w-full max-w-md p-6 sm:p-8 relative">  
+              <div class="text-center border-b border-[#261E18]/20 pb-4 mb-4 px-2">  
+                <div class="font-mono text-[9px] sm:text-[10px] tracking-[0.18em] sm:tracking-[0.22em] text-[#9A7836] uppercase mb-1">  
+                  LOAN REQUEST · 我的書房借書單  
+                </div>  
+                <h4 id="ex-libris-shelf-title" class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#261E18]">  
+                  借書申請單  
+                </h4>  
+                <div class="mt-2.5 flex flex-col items-center justify-center gap-1 font-mono text-[11px] text-[#6B5D52]">  
+                  <div id="ex-libris-date">DATE: 2026.11.24</div>  
+                  <div>READER: <strong id="ex-libris-guest-name" class="text-[#261E18]">愛看書的朋友</strong></div>  
+                </div>  
+              </div>  
+  
+              <ol id="ex-libris-book-items" class="space-y-2.5 text-xs sm:text-sm min-h-[120px] mb-6 text-[#261E18] px-1"></ol>  
+  
+              <div class="pt-3.5 px-1 border-t border-[#261E18]/20 flex items-center justify-between gap-4 text-[10px] font-mono text-[#6B5D52]">  
+                <div class="min-w-0 flex-1 pr-1">  
+                  <p id="ex-libris-share-msg" class="text-[#261E18] font-sans font-semibold text-xs leading-snug">  
+                    請把清單分享給書房主人  
+                  </p>  
+                  <p class="mt-1 tracking-wider">CURATED FROM PRIVATE STUDY ARCHIVE</p>  
+                </div>  
+                <div id="ex-libris-seal-container" class="shrink-0"></div>  
+              </div>  
+            </div>  
+          </div>  
+  
+          <div class="flex flex-wrap items-center justify-end gap-2.5">  
+            <button onclick="copyWishListText()"  
+              class="px-4 py-2.5 rounded-lg border border-ink bg-surface text-ink hover:bg-ink hover:text-paper transition text-xs font-medium flex items-center gap-1.5">  
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />  
+              </svg>  
+              <span>複製文字清單</span>  
+            </button>  
+            <button onclick="downloadExLibrisImage()"  
+              class="px-5 py-2.5 rounded-lg bg-ink text-paper hover:bg-forest transition text-xs font-medium flex items-center gap-1.5 shadow-md">  
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />  
+              </svg>  
+              <span>下載借書單圖片 (PNG)</span>  
+            </button>  
+          </div>  
+        </div>  
+      </div>  
+  
+      <div id="loan-view-history" class="hidden p-6 space-y-4">  
+        <div class="flex items-center justify-between">  
+          <p class="text-xs text-inkMuted">每次複製或下載借書單時會自動留存紀錄，可隨時重溫或一鍵載入至目前借書單。</p>  
+          <button onclick="confirmClearLoanHistory()" class="text-xs text-rust hover:underline">  
+            清除全部記錄  
+          </button>  
+        </div>  
+        <div id="loan-history-list" class="space-y-3 max-h-[55vh] overflow-y-auto"></div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== MODAL C: "導出此書單" (SHELF CATALOGUE EXPORT MODAL) ==================== -->  
+  <div id="shelf-export-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-3 sm:p-4">  
+    <div id="shelf-export-dialog" class="bg-paper border border-gold/55 rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto overflow-x-hidden shadow-2xl">  
+      <div class="p-4 sm:p-6 border-b border-ink/10 flex items-center justify-between gap-2 bg-surface sticky top-0 z-20 shadow-sm">  
+        <div class="min-w-0">  
+          <span class="font-mono text-[10px] sm:text-[11px] uppercase tracking-widest text-goldDark">SHELF CATALOGUE EXPORT</span>  
+          <h3 class="font-serif text-xl sm:text-2xl font-bold text-ink truncate">導出目前書架藏書清單</h3>  
+        </div>  
+        <button onclick="closeModal('shelf-export-modal')"  
+          class="w-9 h-9 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition shrink-0">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+  
+      <div class="p-4 sm:p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">  
+        <!-- Left Column: Filter & Display Options -->  
+        <div class="lg:col-span-5 space-y-4 min-w-0">  
+          <div class="p-4 rounded-xl bg-surface/90 border border-ink/15 space-y-3">  
+            <div class="flex items-center justify-between">  
+              <span class="text-xs font-bold text-ink">匯出範圍篩選</span>  
+              <span id="shelf-export-count-badge" class="font-mono text-[11px] px-2 py-0.5 rounded-full bg-ink text-paper">0 本</span>  
+            </div>  
+            <select id="shelf-export-status-filter" onchange="renderShelfExportPreview()"  
+              class="w-full px-3 py-2 rounded-lg border border-ink/20 bg-paper text-xs font-medium text-ink">  
+              <option value="all">全部藏書（在架上 + 借出中 + 已下架）</option>  
+              <option value="available">僅匯出「在架上」書籍</option>  
+              <option value="lent">僅匯出「借出中」書籍</option>  
+            </select>  
+  
+            <label class="flex items-center justify-between gap-2 pt-2.5 border-t border-ink/10 cursor-pointer select-none">  
+              <div class="min-w-0">  
+                <span class="block text-xs font-semibold text-ink">顯示迷你書封縮圖</span>  
+                <span class="block text-[11px] text-inkMuted">在典藏書單預覽與 PNG 圖卡顯示小書封</span>  
+              </div>  
+              <input id="toggle-shelf-export-covers" type="checkbox" checked onchange="renderShelfExportPreview()"  
+                class="w-4 h-4 rounded border-ink/30 accent-[#28463B] shrink-0 cursor-pointer" />  
+            </label>  
+  
+            <label class="flex items-center justify-between gap-2 pt-2.5 border-t border-ink/10 cursor-pointer select-none">  
+              <div class="min-w-0">  
+                <span class="block text-xs font-semibold text-ink">顯示 ISBN 與冊數資訊</span>  
+                <span class="block text-[11px] text-inkMuted">方便自行整理至 Notion、試算表或閱讀筆記</span>  
+              </div>  
+              <input id="toggle-shelf-export-isbn" type="checkbox" checked onchange="renderShelfExportPreview()"  
+                class="w-4 h-4 rounded border-ink/30 accent-[#28463B] shrink-0 cursor-pointer" />  
+            </label>  
+          </div>  
+  
+          <div class="p-4 rounded-xl bg-gold/10 border border-gold/45 space-y-2">  
+            <label class="block text-xs font-semibold text-ink">書房主人署名（顯示於典藏書單）</label>  
+            <input id="shelf-export-owner-input" type="text" placeholder="輸入書房主人稱呼（留空則顯示「書房主人」）"  
+              oninput="updateOwnerDisplayName(this.value); renderShelfExportPreview();"  
+              class="w-full px-3.5 py-2 rounded-lg border border-gold/50 text-xs bg-surface text-ink" />  
+          </div>  
+  
+          <div class="p-3.5 rounded-xl bg-paperDark/60 border border-ink/10 text-xs text-inkMuted leading-relaxed">  
+            可一鍵複製純文字書單貼到外部筆記軟體記錄，或下載與借書單同款的新藝術典藏圖卡（PNG）保存備份。  
+          </div>  
+        </div>  
+  
+        <!-- Right Column: Ex-Libris Style Archive Card Preview & Export Actions -->  
+        <div class="lg:col-span-7 flex flex-col justify-between space-y-4 min-w-0">  
+          <div class="flex justify-center bg-paperDark/70 p-4 sm:p-6 rounded-xl border border-ink/10">  
+            <div id="shelf-export-card" class="ex-libris-frame w-full max-w-md p-6 sm:p-8 relative">  
+              <div class="text-center border-b border-[#261E18]/20 pb-4 mb-4 px-2">  
+                <div class="font-mono text-[9px] sm:text-[10px] tracking-[0.18em] sm:tracking-[0.22em] text-[#9A7836] uppercase mb-1">  
+                  ARCHIVE CATALOGUE · 我的書房藏書錄  
+                </div>  
+                <h4 id="shelf-export-card-title" class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#261E18]">  
+                  主書房典藏 · 藏書清單  
+                </h4>  
+                <div class="mt-2.5 flex flex-col items-center justify-center gap-1 font-mono text-[11px] text-[#6B5D52]">  
+                  <div id="shelf-export-card-date">DATE: 2026.11.24 · TOTAL: 0 VOLS</div>  
+                  <div>CURATOR: <strong id="shelf-export-card-owner" class="text-[#261E18]">書房主人</strong></div>  
+                </div>  
+              </div>  
+  
+              <ol id="shelf-export-book-items" class="space-y-2.5 text-xs sm:text-sm min-h-[120px] mb-6 text-[#261E18] px-1"></ol>  
+  
+              <div class="pt-3.5 px-1 border-t border-[#261E18]/20 flex items-center justify-between gap-4 text-[10px] font-mono text-[#6B5D52]">  
+                <div class="min-w-0 flex-1 pr-1">  
+                  <p class="text-[#261E18] font-sans font-semibold text-xs leading-snug">  
+                    私人書房典藏編目存檔  
+                  </p>  
+                  <p class="mt-1 tracking-wider">PRIVATE STUDY ARCHIVE RECORD</p>  
+                </div>  
+                <div id="shelf-export-seal-container" class="shrink-0"></div>  
+              </div>  
+            </div>  
+          </div>  
+  
+          <div class="flex flex-wrap items-center justify-end gap-2.5">  
+            <button onclick="copyShelfExportText()"  
+              class="px-4 py-2.5 rounded-lg border border-ink bg-surface text-ink hover:bg-ink hover:text-paper transition text-xs font-medium flex items-center gap-1.5">  
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                <path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />  
+              </svg>  
+              <span>複製文字清單</span>  
+            </button>  
+            <button onclick="downloadShelfExportImage()"  
+              class="px-5 py-2.5 rounded-lg bg-ink text-paper hover:bg-forest transition text-xs font-medium flex items-center gap-1.5 shadow-md">  
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />  
+              </svg>  
+              <span>下載書單圖片 (PNG)</span>  
+            </button>  
+          </div>  
+        </div>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== CREATE NEW BOOKSHELF MODAL ==================== -->  
+  <div id="create-shelf-modal" class="fixed inset-0 z-50 modal-backdrop hidden items-center justify-center p-4">  
+    <div class="bg-paper border border-gold/60 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">  
+      <div class="flex items-center justify-between">  
+        <div>  
+          <span class="font-mono text-[10px] tracking-widest text-goldDark uppercase">NEW BOOKSHELF</span>  
+          <h3 class="font-serif text-xl font-bold text-ink">建立新的專屬書架</h3>  
+        </div>  
+        <button onclick="closeModal('create-shelf-modal')"  
+          class="w-8 h-8 rounded-full border border-ink/20 flex items-center justify-center text-ink hover:bg-ink hover:text-paper transition">  
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+          </svg>  
+        </button>  
+      </div>  
+      <p class="text-xs text-inkMuted leading-relaxed">  
+        建立獨立書架來分類「漫畫專區」、「進修書房」或「週末休閒」，建立後會自動儲存在你的裝置中並可單獨分享給朋友。  
+      </p>  
+      <div class="space-y-2">  
+        <label class="block text-xs font-semibold text-ink">書架名稱 *</label>  
+        <input id="new-shelf-name-input" type="text" placeholder="例如：漫畫收藏櫃、設計與藝術..."  
+          class="w-full px-3.5 py-2.5 rounded-lg border border-ink/25 bg-surface text-sm text-ink focus:outline-none focus:ring-2 focus:ring-gold" />  
+      </div>  
+      <div class="flex justify-end gap-2 pt-2">  
+        <button onclick="closeModal('create-shelf-modal')" class="px-4 py-2 rounded-lg border border-ink/20 text-xs font-medium text-ink">  
+          取消  
+        </button>  
+        <button onclick="submitCreateShelf()" class="px-5 py-2 rounded-lg bg-ink text-paper text-xs font-medium hover:bg-forest transition">  
+          建立空白書架  
+        </button>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== STEP-BY-STEP INTERACTIVE SPOTLIGHT COACHMARK ==================== -->  
+  <div id="guided-tour-popover"  
+    class="fixed z-[65] hidden max-w-xs sm:max-w-sm w-[calc(100vw-2rem)] max-h-[82dvh] overflow-y-auto bg-paper border-2 border-gold rounded-2xl p-4 sm:p-5 shadow-2xl text-ink">  
+    <div class="flex items-center justify-between mb-1.5">  
+      <span id="tour-step-badge" class="font-mono text-[10px] tracking-widest px-2 py-0.5 rounded-full bg-ink text-gold">  
+        STEP 1 / 4  
+      </span>  
+      <button onclick="endGuidedTour()" class="text-xs text-inkMuted hover:text-ink">跳過導覽</button>  
+    </div>  
+    <h4 id="tour-step-title" class="font-serif font-bold text-base sm:text-lg text-ink mt-1">標題</h4>  
+    <p id="tour-step-desc" class="text-xs text-inkMuted leading-relaxed mt-1.5">說明內容</p>  
+    <div class="mt-4 pt-3 border-t border-gold/30 flex items-center justify-between gap-2">  
+      <button id="tour-prev-btn" onclick="stepGuidedTour(-1)"  
+        class="px-3 py-1.5 rounded-lg border border-ink/20 text-xs font-medium text-ink hover:bg-paperDark transition">  
+        上一步  
+      </button>  
+      <div class="flex items-center gap-2">  
+        <a id="tour-guest-cta-btn" href="https://uploadmybookshelf.vercel.app/" target="_blank" rel="noopener noreferrer"  
+          class="hidden px-3.5 py-1.5 rounded-lg bg-gold text-[#261E18] text-xs font-semibold hover:bg-goldDark hover:text-white transition">  
+          前往建立我的書房  
+        </a>  
+        <button id="tour-next-btn" onclick="stepGuidedTour(1)"  
+          class="px-4 py-1.5 rounded-lg bg-ink text-paper text-xs font-medium hover:bg-forest transition">  
+          下一步  
+        </button>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== GLOBAL SECONDARY DELETE & DEMO CHOICE CONFIRMATION MODAL ==================== -->  
+  <div id="confirm-modal" class="fixed inset-0 z-[70] modal-backdrop hidden items-center justify-center p-4">  
+    <div class="bg-paper border-2 border-rust/45 rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">  
+      <div class="flex items-start gap-3">  
+        <div class="w-9 h-9 rounded-full bg-rust/15 text-rust flex items-center justify-center shrink-0">  
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />  
+          </svg>  
+        </div>  
+        <div class="min-w-0 flex-1">  
+          <h4 id="confirm-modal-title" class="font-serif font-bold text-lg text-ink">確認刪除</h4>  
+          <p id="confirm-modal-message" class="text-xs text-inkMuted leading-relaxed mt-1">  
+            此操作無法復原，確定要繼續嗎？  
+          </p>  
+          <div id="confirm-modal-details" class="hidden mt-2.5 p-2.5 rounded-lg bg-surface border border-rust/30 text-[11px] text-ink space-y-1 max-h-32 overflow-y-auto"></div>  
+        </div>  
+      </div>  
+      <div class="flex justify-end gap-2 pt-2">  
+        <button id="confirm-modal-cancel-btn" onclick="closeModal('confirm-modal')"  
+          class="px-4 py-2 rounded-lg border border-ink/20 text-xs font-medium text-ink hover:bg-paperDark transition">  
+          取消  
+        </button>  
+        <button id="confirm-modal-action-btn"  
+          class="px-4 py-2 rounded-lg bg-rust text-white text-xs font-semibold hover:opacity-90 transition">  
+          確定刪除  
+        </button>  
+      </div>  
+    </div>  
+  </div>  
+  
+  <!-- ==================== CENTERED TOAST NOTIFICATION ==================== -->  
+  <div id="toast-container" class="fixed inset-x-0 top-1/2 -translate-y-1/2 z-[80] flex flex-col items-center gap-2 pointer-events-none px-4"></div>  
+  
+  <!-- ==================== APPLICATION LOGIC ==================== -->  
+  <script>  
+    const DEFAULT_SHELVES = [  
+      { id: 'shelf-main', name: '主書房典藏', isDefault: true, customTheme: null, customScheme: null }  
+    ];  
+  
+    const DEFAULT_BOOKS = [  
+      {  
+        id: 'bk-1',  
+        shelfId: 'shelf-main',  
+        isDemo: true,  
+        demoEdited: false,  
+        title: 'The Making of Prince of Persia',  
+        author: 'Jordan Mechner',  
+        category: '書籍',  
+        volume: 'Hardcover',  
+        isbn: '9781953953230',  
+        coverUrl: 'https://covers.openlibrary.org/b/isbn/9781953953230-L.jpg',  
+        spineColor: '#9C4A3B',  
+        status: 'available',  
+        borrower: '',  
+        borrowDate: '',  
+        history: [],  
+        synopsis: '收錄《波斯王子》創作者 Jordan Mechner 1985 至 1993 年間的珍貴開發手稿與日記，呈現經典遊戲誕生的幕後歷程。'  
+      },  
+      {  
+        id: 'bk-2',  
+        shelfId: 'shelf-main',  
+        isDemo: true,  
+        demoEdited: false,  
+        title: 'Atomic Habits 原子習慣',  
+        author: 'James Clear',  
+        category: '書籍',  
+        volume: '繁體中文版',  
+        isbn: '9780735211292',  
+        coverUrl: 'https://covers.openlibrary.org/b/isbn/9780735211292-L.jpg',  
+        spineColor: '#28463B',  
+        status: 'lent',  
+        borrower: '林子軒',  
+        borrowDate: '2026-11-12',  
+        history: [  
+          { borrower: '林子軒', borrowDate: '2026-11-12', returnDate: '' }  
+        ],  
+        synopsis: '每天都進步 1%，一年後你會進步 37 倍。一套系統化建立好習慣、戒除壞習慣的實用指南。'  
+      },  
+      {  
+        id: 'bk-3',  
+        shelfId: 'shelf-main',  
+        isDemo: true,  
+        demoEdited: false,  
+        title: '葬送的芙莉蓮',  
+        author: '山田鐘人 / 阿部司',  
+        category: '漫畫',  
+        volume: '全 1-13 卷',  
+        isbn: '9784098501809',  
+        coverUrl: 'https://covers.openlibrary.org/b/isbn/9784098501809-L.jpg',  
+        spineColor: '#5B4B6A',  
+        status: 'available',  
+        borrower: '',  
+        borrowDate: '',  
+        history: [],  
+        synopsis: '打倒魔王之後的勇者一行人，精靈魔法使芙莉蓮踏上重新認識人類與時間意義的溫柔旅程。'  
+      },  
+      {  
+        id: 'bk-4',  
+        shelfId: 'shelf-main',  
+        isDemo: true,  
+        demoEdited: false,  
+        title: 'Working in Public',  
+        author: 'Nadia Eghbal',  
+        category: '書籍',  
+        volume: 'Stripe Press',  
+        isbn: '9780578675862',  
+        coverUrl: 'https://covers.openlibrary.org/b/isbn/9780578675862-L.jpg',  
+        spineColor: '#2E4057',  
+        status: 'archived',  
+        borrower: '',  
+        borrowDate: '',  
+        history: [],  
+        synopsis: '深入剖析現代開源軟體生態的經濟結構與創作者文化轉變。'  
+      }  
+    ];  
+  
+    const THEMES = {  
+      mucha: {  
+        name: '慕夏新藝術 (Art Nouveau)',  
+        desc: '羊皮紙暖金與拜占庭祖母綠',  
+        swatch: ['#F4EFE4', '#C5A059', '#28463B'],  
+        day: {  
+          paper: '244 239 228', paperDark: '232 223 206', surface: '252 249 242',  
+          ink: '38 30 24', inkMuted: '107 93 82', accent: '197 160 89', accentDark: '154 120 54',  
+          forest: '40 70 59', rust: '156 74 59', plum: '91 75 106'  
+        },  
+        night: {  
+          paper: '26 22 19', paperDark: '36 30 26', surface: '44 37 32',  
+          ink: '242 235 222', inkMuted: '176 164 148', accent: '212 175 102', accentDark: '226 192 124',  
+          forest: '88 158 130', rust: '214 114 96', plum: '156 138 176'  
+        }  
+      },  
+      taisho: {  
+        name: '日本大正浪漫 (Taishō Roman)',  
+        desc: '和紙米白、矢絣葡萄紫與椿紅',  
+        swatch: ['#F5EFEA', '#7A3E5C', '#B8434E'],  
+        day: {  
+          paper: '247 242 238', paperDark: '236 226 220', surface: '254 251 249',  
+          ink: '48 28 38', inkMuted: '108 82 95', accent: '204 82 94', accentDark: '166 54 66',  
+          forest: '62 104 94', rust: '196 72 84', plum: '134 72 102'  
+        },  
+        night: {  
+          paper: '28 20 25', paperDark: '38 27 34', surface: '48 35 43',  
+          ink: '245 236 240', inkMuted: '182 160 171', accent: '224 108 119', accentDark: '238 134 144',  
+          forest: '96 160 146', rust: '224 108 119', plum: '176 112 144'  
+        }  
+      },  
+      forest: {  
+        name: '森系青苔 (Botanical Forest)',  
+        desc: '晨霧淺綠、苔蘚深林與原木暖棕',  
+        swatch: ['#EDF3EE', '#3B6E52', '#8C6239'],  
+        day: {  
+          paper: '241 246 242', paperDark: '226 236 228', surface: '250 253 251',  
+          ink: '26 44 34', inkMuted: '78 104 88', accent: '72 132 98', accentDark: '48 96 68',  
+          forest: '48 112 78', rust: '176 86 64', plum: '88 102 126'  
+        },  
+        night: {  
+          paper: '20 28 23', paperDark: '28 38 32', surface: '35 47 40',  
+          ink: '232 242 235', inkMuted: '156 178 164', accent: '104 176 136', accentDark: '132 198 160',  
+          forest: '104 176 136', rust: '214 118 96', plum: '142 158 184'  
+        }  
+      },  
+      ocean: {  
+        name: '靜謐海洋 (Quiet Ocean)',  
+        desc: '海鹽白沙、普魯士深藍與海沫青',  
+        swatch: ['#ECF2F5', '#2B5B78', '#3B7A82'],  
+        day: {  
+          paper: '240 245 248', paperDark: '224 234 240', surface: '250 253 254',  
+          ink: '22 40 54', inkMuted: '76 98 116', accent: '56 116 152', accentDark: '36 82 110',  
+          forest: '48 122 126', rust: '182 88 74', plum: '78 94 138'  
+        },  
+        night: {  
+          paper: '18 26 34', paperDark: '25 36 46', surface: '32 45 58',  
+          ink: '230 240 248', inkMuted: '150 172 190', accent: '98 164 204', accentDark: '128 188 224',  
+          forest: '88 172 176', rust: '216 118 104', plum: '138 156 204'  
+        }  
+      },  
+      sunset: {  
+        name: '黃昏彩霞 (Evening Glow)',  
+        desc: '晚霞杏桃、琥珀暮光與暮紫',  
+        swatch: ['#F7EFE9', '#C86D51', '#6E4E72'],  
+        day: {  
+          paper: '247 239 233', paperDark: '236 223 214', surface: '254 250 247',  
+          ink: '46 28 32', inkMuted: '118 92 96', accent: '200 109 81', accentDark: '164 82 56',  
+          forest: '62 98 86', rust: '188 76 62', plum: '110 78 114'  
+        },  
+        night: {  
+          paper: '30 21 24', paperDark: '40 29 33', surface: '50 37 42',  
+          ink: '246 236 232', inkMuted: '184 160 162', accent: '234 142 112', accentDark: '244 166 140',  
+          forest: '104 168 148', rust: '228 114 98', plum: '168 132 174'  
+        }  
+      }  
+    };  
+  
+    const BUILTIN_FONTS = {  
+      zh: [  
+        { id: 'zh-yuwen', label: '宇文天穹 (典雅文楷／明韻 · 預設首選)', css: '"Yuwen Tianqiong", "宇文天穹", "LXGW WenKai TC", "Noto Serif TC", serif' },  
+        { id: 'zh-fenyuan', label: '粉圓體 (jf open 粉圓 · 免費開源)', css: '"jf-openhuninn", "Noto Sans TC", sans-serif' },  
+        { id: 'zh-iansui', label: '芫茜體 (Iansui · 免費開源硬筆楷書)', css: '"Iansui", "LXGW WenKai TC", sans-serif' }  
+      ],  
+      en: [  
+        { id: 'en-lora', label: 'Lora (免費編輯襯線字體)', css: '"Lora", Georgia, serif' },  
+        { id: 'en-georgia', label: 'Georgia (經典書籍襯線字體)', css: 'Georgia, "Times New Roman", serif' },  
+        { id: 'en-miama', label: 'Miama (優雅花體手寫風格)', css: '"Miama", "Great Vibes", cursive' }  
+      ]  
+    };  
+  
+    const SHARED_STORAGE_KEYS = {  
+      SHELVES: 'my_study_shelves_v4',  
+      ACTIVE_SHELF: 'my_study_active_shelf_v4',  
+      BOOKS: 'my_study_books_v4',  
+      OWNER_NAME: 'my_study_owner_name_v4',  
+      TUTORIAL_HOST_SEEN: 'my_study_tutorial_host_seen_v4',  
+      TUTORIAL_GUEST_SEEN: 'my_study_tutorial_guest_seen_v4',  
+      SETTINGS: 'my_study_settings_v4'  
+    };  
+  
+    function getRoleStorageKey(baseKey) {  
+      return `${baseKey}_${state.mode}`;  
+    }  
+  
+    let state = {  
+      mode: 'admin',  
+      isSingleShelfLocked: false,  
+      lockedShelfId: null,  
+      shelves: [],  
+      activeShelfId: 'shelf-main',  
+      shelfFilter: 'all',  
+      books: [],  
+      filteredBooks: [],  
+      focusedIndex: 0,  
+      ownerName: '',  
+      savedFolders: [{ id: 'saved-default', name: '收藏', bookIds: [] }],  
+      activeSavedFolderId: 'saved-default',  
+      loanBookIds: [],  
+      loanHistory: [],  
+      loanShowCovers: true,  
+      guestPreferences: {  
+        fontScale: 100,  
+        readingFont: 'inherit'  
+      },  
+      selectedCatalogueIds: [],  
+      coverBatchDrafts: [],  
+      cropperState: {  
+        draftId: null,  
+        img: null,  
+        displayWidth: 0,  
+        displayHeight: 0,  
+        corners: [],  
+        draggingIdx: -1,  
+        brightness: 100,  
+        contrast: 100,  
+        saturate: 100  
+      },  
+      settings: {  
+        theme: 'mucha',  
+        scheme: 'day',  
+        fontScale: 100,  
+        sealStyle: 'square',  
+        customSealDataUrl: '',  
+        selectedFonts: {  
+          zh: 'zh-yuwen',  
+          en: 'en-lora'  
+        },  
+        customFonts: []  
+      },  
+      studioPreviewTheme: null,  
+      studioPreviewScheme: null,  
+      isStudioOpen: false,  
+      html5QrCode: null,  
+      isScanning: false,  
+      lastScannedCode: '',  
+      isDraggingShelf: false,  
+      tourStepIndex: -1,  
+      _tourPromptAfterEnd: false,  
+      _tourTimers: [],  
+      _tourRafId: null  
+    };  
+  
+    function loadSharedState() {  
+      try {  
+        const rawShelves = localStorage.getItem(SHARED_STORAGE_KEYS.SHELVES);  
+        state.shelves = rawShelves ? JSON.parse(rawShelves) : JSON.parse(JSON.stringify(DEFAULT_SHELVES));  
+        if (!Array.isArray(state.shelves) || state.shelves.length === 0) {  
+          state.shelves = JSON.parse(JSON.stringify(DEFAULT_SHELVES));  
+        }  
+  
+        const savedActiveShelf = localStorage.getItem(SHARED_STORAGE_KEYS.ACTIVE_SHELF);  
+        state.activeShelfId = (savedActiveShelf && state.shelves.some(s => s.id === savedActiveShelf))  
+          ? savedActiveShelf  
+          : state.shelves[0].id;  
+  
+        const savedBooks = localStorage.getItem(SHARED_STORAGE_KEYS.BOOKS);  
+        if (savedBooks !== null) {  
+          const parsed = JSON.parse(savedBooks);  
+          state.books = Array.isArray(parsed)  
+            ? parsed.map(b => ({ ...b, shelfId: b.shelfId || state.shelves[0].id }))  
+            : [];  
+        } else {  
+          state.books = JSON.parse(JSON.stringify(DEFAULT_BOOKS));  
+        }  
+  
+        state.ownerName = localStorage.getItem(SHARED_STORAGE_KEYS.OWNER_NAME) || '';  
+  
+        const rawSettings = localStorage.getItem(SHARED_STORAGE_KEYS.SETTINGS);  
+        if (rawSettings) {  
+          const parsedSet = JSON.parse(rawSettings);  
+          state.settings = {  
+            ...state.settings,  
+            ...parsedSet,  
+            selectedFonts: { ...state.settings.selectedFonts, ...(parsedSet.selectedFonts || {}) },  
+            customFonts: Array.isArray(parsedSet.customFonts) ? parsedSet.customFonts : []  
+          };  
+        }  
+      } catch (err) {  
+        state.shelves = JSON.parse(JSON.stringify(DEFAULT_SHELVES));  
+        state.books = JSON.parse(JSON.stringify(DEFAULT_BOOKS));  
+      }  
+    }  
+  
+    function loadRolePersonalData() {  
+      try {  
+        const rawSavedFolders = localStorage.getItem(getRoleStorageKey('saved_folders_v4'));  
+        if (rawSavedFolders) {  
+          const parsedFolders = JSON.parse(rawSavedFolders);  
+          state.savedFolders = (Array.isArray(parsedFolders) && parsedFolders.length > 0)  
+            ? parsedFolders  
+            : [{ id: 'saved-default', name: '收藏', bookIds: [] }];  
+        } else {  
+          state.savedFolders = [{ id: 'saved-default', name: '收藏', bookIds: [] }];  
+        }  
+        state.activeSavedFolderId = state.savedFolders[0].id;  
+  
+        const rawLoanIds = localStorage.getItem(getRoleStorageKey('loan_ids_v4'));  
+        state.loanBookIds = rawLoanIds ? JSON.parse(rawLoanIds) : [];  
+        if (!Array.isArray(state.loanBookIds)) state.loanBookIds = [];  
+  
+        const rawLoanHist = localStorage.getItem(getRoleStorageKey('loan_history_v4'));  
+        state.loanHistory = rawLoanHist ? JSON.parse(rawLoanHist) : [];  
+        if (!Array.isArray(state.loanHistory)) state.loanHistory = [];  
+  
+        const rawShowCovers = localStorage.getItem(getRoleStorageKey('loan_show_covers_v4'));  
+        state.loanShowCovers = rawShowCovers === null ? true : rawShowCovers === '1';  
+  
+        const rawGuestPrefs = localStorage.getItem('my_study_guest_prefs_v4');  
+        if (rawGuestPrefs) {  
+          state.guestPreferences = { ...state.guestPreferences, ...JSON.parse(rawGuestPrefs) };  
+        }  
+      } catch (e) {  
+        state.savedFolders = [{ id: 'saved-default', name: '收藏', bookIds: [] }];  
+        state.activeSavedFolderId = 'saved-default';  
+        state.loanBookIds = [];  
+        state.loanHistory = [];  
+        state.loanShowCovers = true;  
+      }  
+    }  
+  
+    function saveState() {  
+      try {  
+        localStorage.setItem(SHARED_STORAGE_KEYS.SHELVES, JSON.stringify(state.shelves));  
+        if (!state.isSingleShelfLocked) {  
+          localStorage.setItem(SHARED_STORAGE_KEYS.ACTIVE_SHELF, state.activeShelfId);  
+        }  
+        localStorage.setItem(SHARED_STORAGE_KEYS.BOOKS, JSON.stringify(state.books));  
+        localStorage.setItem(SHARED_STORAGE_KEYS.OWNER_NAME, state.ownerName || '');  
+        localStorage.setItem(SHARED_STORAGE_KEYS.SETTINGS, JSON.stringify(state.settings));  
+  
+        localStorage.setItem(getRoleStorageKey('saved_folders_v4'), JSON.stringify(state.savedFolders));  
+        localStorage.setItem(getRoleStorageKey('loan_ids_v4'), JSON.stringify(state.loanBookIds));  
+        localStorage.setItem(getRoleStorageKey('loan_history_v4'), JSON.stringify(state.loanHistory));  
+        localStorage.setItem(getRoleStorageKey('loan_show_covers_v4'), state.loanShowCovers ? '1' : '0');  
+        localStorage.setItem('my_study_guest_prefs_v4', JSON.stringify(state.guestPreferences));  
+      } catch (err) {  
+        console.warn('儲存至 localStorage 時發生異常:', err);  
+      }  
+    }  
+  
+    function getActiveShelfObj() {  
+      return state.shelves.find(s => s.id === state.activeShelfId) || state.shelves[0];  
+    }  
+  
+    function getBooksInActiveShelf() {  
+      const targetShelfId = (state.mode === 'guest' && state.isSingleShelfLocked && state.lockedShelfId)  
+        ? state.lockedShelfId  
+        : state.activeShelfId;  
+      return state.books.filter(b => b.shelfId === targetShelfId);  
+    }  
+  
+    function isBookSavedInAnyFolder(bookId) {  
+      return state.savedFolders.some(f => Array.isArray(f.bookIds) && f.bookIds.includes(bookId));  
+    }  
+  
+    function getOwnerSharePromptText() {  
+      const name = (state.ownerName || '').trim();  
+      return name ? `請把清單分享給書房主人（${name}）` : '請把清單分享給書房主人';  
+    }  
+  
+    function updateOwnerDisplayName(val) {  
+      state.ownerName = val;  
+      saveState();  
+      renderExLibrisPreview();  
+    }  
+  
+    function openConfirmModal({ title, message, detailsHTML = '', confirmLabel = '確定', cancelLabel = '取消', onConfirm, onCancel }) {  
+      const modal = document.getElementById('confirm-modal');  
+      const titleEl = document.getElementById('confirm-modal-title');  
+      const msgEl = document.getElementById('confirm-modal-message');  
+      const detailsEl = document.getElementById('confirm-modal-details');  
+      const actionBtn = document.getElementById('confirm-modal-action-btn');  
+      const cancelBtn = document.getElementById('confirm-modal-cancel-btn');  
+      if (!modal) return;  
+  
+      titleEl.textContent = title || '確認操作';  
+      msgEl.textContent = message || '確定要繼續嗎？';  
+      if (detailsHTML) {  
+        detailsEl.innerHTML = detailsHTML;  
+        detailsEl.classList.remove('hidden');  
+      } else {  
+        detailsEl.innerHTML = '';  
+        detailsEl.classList.add('hidden');  
+      }  
+  
+      actionBtn.textContent = confirmLabel;  
+      cancelBtn.textContent = cancelLabel;  
+  
+      actionBtn.onclick = () => {  
+        closeModal('confirm-modal');  
+        if (typeof onConfirm === 'function') onConfirm();  
+      };  
+      cancelBtn.onclick = () => {  
+        closeModal('confirm-modal');  
+        if (typeof onCancel === 'function') onCancel();  
+      };  
+  
+      modal.classList.remove('hidden');  
+      modal.classList.add('flex');  
+    }  
+  
+    function openContactModal() {  
+      const modal = document.getElementById('contact-modal');  
+      if (modal) {  
+        modal.classList.remove('hidden');  
+        modal.classList.add('flex');  
+      }  
+    }  
+  
+    function openFAQModal() {  
+      const modal = document.getElementById('faq-modal');  
+      if (modal) {  
+        modal.classList.remove('hidden');  
+        modal.classList.add('flex');  
+      }  
+    }  
+  
+    function openPrivacyModal() {  
+      const modal = document.getElementById('privacy-modal');  
+      if (modal) {  
+        modal.classList.remove('hidden');  
+        modal.classList.add('flex');  
+      }  
+    }  
+  
+    function renderShelfTabs() {  
+      const container = document.getElementById('shelf-tabs-container');  
+      const shelvesBar = document.getElementById('tour-target-shelves');  
+      const lockedBanner = document.getElementById('single-shelf-locked-banner');  
+      const lockedNameEl = document.getElementById('locked-shelf-display-name');  
+      const delShelfBtn = document.getElementById('btn-delete-current-shelf');  
+  
+      const activeShelf = getActiveShelfObj();  
+      const isLockedGuest = state.mode === 'guest' && state.isSingleShelfLocked;  
+  
+      if (shelvesBar) {  
+        shelvesBar.classList.toggle('hidden', isLockedGuest);  
+        shelvesBar.classList.toggle('flex', !isLockedGuest);  
+      }  
+      if (lockedBanner) {  
+        lockedBanner.classList.toggle('hidden', !isLockedGuest);  
+        lockedBanner.classList.toggle('flex', isLockedGuest);  
+        if (lockedNameEl && activeShelf) lockedNameEl.textContent = activeShelf.name;  
+      }  
+  
+      if (delShelfBtn) {  
+        const canDelete = state.mode === 'admin' && state.shelves.length > 1 && activeShelf && !activeShelf.isDefault;  
+        delShelfBtn.classList.toggle('hidden', !canDelete);  
+      }  
+  
+      if (!container) return;  
+      container.innerHTML = state.shelves.map(s => {  
+        const active = s.id === state.activeShelfId;  
+        return `  
+          <button onclick="switchBookshelf('${s.id}')"  
+            class="px-3 py-1 rounded-full text-xs font-medium transition ${  
+              active ? 'bg-ink text-paper shadow-sm' : 'bg-surface/85 border border-gold/35 text-ink hover:border-ink'  
+            }">  
+            ${escapeHTML(s.name)}  
+          </button>  
+        `;  
+      }).join('');  
+    }  
+  
+    function switchBookshelf(shelfId) {  
+      if (state.mode === 'guest' && state.isSingleShelfLocked) return;  
+      if (!state.shelves.some(s => s.id === shelfId)) return;  
+      state.activeShelfId = shelfId;  
+      state.focusedIndex = 0;  
+      state.selectedCatalogueIds = [];  
+      applyAppearanceSettings();  
+      saveState();  
+      renderAll();  
+    }  
+  
+    function openCreateShelfModal() {  
+      if (state.mode === 'guest') return;  
+      const input = document.getElementById('new-shelf-name-input');  
+      if (input) input.value = '';  
+      const modal = document.getElementById('create-shelf-modal');  
+      if (modal) {  
+        modal.classList.remove('hidden');  
+        modal.classList.add('flex');  
+      }  
+    }  
+  
+    function submitCreateShelf() {  
+      const input = document.getElementById('new-shelf-name-input');  
+      const name = (input ? input.value : '').trim();  
+      if (!name) {  
+        showToast('請輸入書架名稱', true);  
+        return;  
+      }  
+      const newShelf = {  
+        id: 'shelf-' + Date.now(),  
+        name,  
+        isDefault: false,  
+        customTheme: null,  
+        customScheme: null  
+      };  
+      state.shelves.push(newShelf);  
+      state.activeShelfId = newShelf.id;  
+      state.focusedIndex = 0;  
+      applyAppearanceSettings();  
+      saveState();  
+      renderAll();  
+      closeModal('create-shelf-modal');  
+      showToast(`已建立新書架「${name}」`);  
+    }  
+  
+    function confirmDeleteCurrentShelf() {  
+      const shelf = getActiveShelfObj();  
+      if (!shelf || shelf.isDefault || state.shelves.length <= 1) return;  
+      openConfirmModal({  
+        title: `移除書架「${shelf.name}」？`,  
+        message: '移除此書架將一併清空該書架內的書籍，確定要繼續嗎？',  
+        confirmLabel: '確定移除書架',  
+        onConfirm: () => {  
+          state.books = state.books.filter(b => b.shelfId !== shelf.id);  
+          state.shelves = state.shelves.filter(s => s.id !== shelf.id);  
+          state.activeShelfId = state.shelves[0].id;  
+          state.focusedIndex = 0;  
+          applyAppearanceSettings();  
+          saveState();  
+          renderAll();  
+          showToast(`已移除書架「${shelf.name}」`);  
+        }  
+      });  
+    }  
+  
+    function confirmClearShelfBooks() {  
+      const shelf = getActiveShelfObj();  
+      const shelfBooks = getBooksInActiveShelf();  
+      if (!shelf || shelfBooks.length === 0) {  
+        showToast('目前書架已經是空的');  
+        return;  
+      }  
+      openConfirmModal({  
+        title: `清空「${shelf.name}」的所有書籍？`,  
+        message: `確定要移除此書架上的全部 ${shelfBooks.length} 本書籍嗎？此操作無法復原。`,  
+        confirmLabel: '確定清空書架',  
+        onConfirm: () => {  
+          const ids = shelfBooks.map(b => b.id);  
+          removeBooksByIds(ids);  
+          state.focusedIndex = 0;  
+          showToast(`已清空「${shelf.name}」`);  
+        }  
+      });  
+    }  
+  
+    function switchLoanModalTab(tabKey) {  
+      const curView = document.getElementById('loan-view-current');  
+      const histView = document.getElementById('loan-view-history');  
+      const curTab = document.getElementById('tab-loan-current');  
+      const histTab = document.getElementById('tab-loan-history');  
+      if (!curView || !histView) return;  
+  
+      const isCur = tabKey === 'current';  
+      curView.classList.toggle('hidden', !isCur);  
+      histView.classList.toggle('hidden', isCur);  
+  
+      if (curTab && histTab) {  
+        curTab.className = isCur  
+          ? 'px-4 py-2.5 text-xs sm:text-sm font-semibold border-b-2 border-ink text-ink transition'  
+          : 'px-4 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-inkMuted hover:text-ink transition';  
+        histTab.className = !isCur  
+          ? 'px-4 py-2.5 text-xs sm:text-sm font-semibold border-b-2 border-ink text-ink transition'  
+          : 'px-4 py-2.5 text-xs sm:text-sm font-medium border-b-2 border-transparent text-inkMuted hover:text-ink transition';  
+      }  
+      if (!isCur) renderLoanHistoryList();  
+    }  
+  
+    function confirmClearLoanSlip() {  
+      if (state.loanBookIds.length === 0) return;  
+      openConfirmModal({  
+        title: '清空目前借書單？',  
+        message: '確定要清空目前借書單中的所有書籍嗎？',  
+        confirmLabel: '確定清空',  
+        onConfirm: () => {  
+          state.loanBookIds = [];  
+          saveState();  
+          renderAll();  
+          renderLoanSlipBooksAndPreview();  
+          showToast('已清空借書單');  
+        }  
+      });  
+    }  
+  
+    function handleFriendLoanFile(event) {  
+      const file = event.target.files[0];  
+      if (!file) return;  
+      if (file.type.startsWith('image/')) {  
+        showToast('已載入借書圖片，請在上方文字欄勾選或輸入朋友選借的書名進行對帳');  
+        renderFriendLoanCandidates(true);  
+      } else {  
+        const reader = new FileReader();  
+        reader.onload = (e) => {  
+          const ta = document.getElementById('friend-loan-import-text');  
+          if (ta) {  
+            ta.value = e.target.result || '';  
+            renderFriendLoanCandidates();  
+          }  
+        };  
+        reader.readAsText(file);  
+      }  
+      event.target.value = '';  
+    }  
+  
+    function renderFriendLoanCandidates(showAll = false) {  
+      const ta = document.getElementById('friend-loan-import-text');  
+      const listEl = document.getElementById('friend-loan-match-list');  
+      if (!listEl) return;  
+      const rawText = (ta ? ta.value : '').trim().toLowerCase();  
+      const shelfBooks = getBooksInActiveShelf();  
+  
+      if (!rawText && !showAll) {  
+        listEl.classList.add('hidden');  
+        listEl.innerHTML = '';  
+        return;  
+      }  
+  
+      const matched = showAll  
+        ? shelfBooks  
+        : shelfBooks.filter(b => rawText.includes(b.title.toLowerCase()));  
+  
+      listEl.classList.remove('hidden');  
+      if (matched.length === 0) {  
+        listEl.innerHTML = `<div class="text-[11px] text-inkMuted py-1">未自動比對到完全相符的書名，可嘗試縮短關鍵字。</div>`;  
+        return;  
+      }  
+  
+      listEl.innerHTML = matched.map(b => `  
+        <label class="flex items-center justify-between gap-2 py-1 px-1.5 rounded hover:bg-paperDark/60 cursor-pointer">  
+          <span class="flex items-center gap-1.5 min-w-0">  
+            <input type="checkbox" checked value="${b.id}" class="friend-reconcile-cb rounded border-ink/30" />  
+            <span class="truncate font-medium text-ink">${escapeHTML(b.title)}</span>  
+          </span>  
+          <span class="font-mono text-[10px] text-inkMuted shrink-0">${b.status === 'available' ? '在架上' : '已借出'}</span>  
+        </label>  
+      `).join('');  
+    }  
+  
+    function reconcileFriendLoan(markAsLent) {  
+      const checkedBoxes = Array.from(document.querySelectorAll('.friend-reconcile-cb:checked'));  
+      if (checkedBoxes.length === 0) {  
+        showToast('請先輸入或勾選要對帳的書籍', true);  
+        return;  
+      }  
+      const borrower = (document.getElementById('guest-signature-input').value || '').trim() || '親友借閱';  
+      const today = new Date().toISOString().split('T')[0];  
+  
+      if (markAsLent) {  
+        checkedBoxes.forEach(cb => {  
+          const book = state.books.find(b => b.id === cb.value);  
+          if (book) {  
+            book.status = 'lent';  
+            book.borrower = borrower;  
+            book.borrowDate = today;  
+            if (book.isDemo) book.demoEdited = true;  
+            if (!Array.isArray(book.history)) book.history = [];  
+            book.history.push({ borrower, borrowDate: today, returnDate: '' });  
+          }  
+        });  
+        saveState();  
+        renderAll();  
+        renderFriendLoanCandidates();  
+        showToast(`已將 ${checkedBoxes.length} 本書籍狀態更新為「借出中（${borrower}）」`);  
+      } else {  
+        showToast(`對帳完成：共比對出 ${checkedBoxes.length} 本書籍（未更動在架狀態）`);  
+      }  
+    }  
+  
+    function getResolvedShelfThemeAndScheme() {  
+      if (state.isStudioOpen && state.studioPreviewTheme) {  
+        return {  
+          theme: state.studioPreviewTheme,  
+          scheme: state.studioPreviewScheme || state.settings.scheme || 'day'  
+        };  
+      }  
+      const activeShelf = getActiveShelfObj();  
+      return {  
+        theme: (activeShelf && activeShelf.customTheme) ? activeShelf.customTheme : (state.settings.theme || 'mucha'),  
+        scheme: (state.mode === 'guest')  
+          ? (state.settings.scheme || 'day')  
+          : ((activeShelf && activeShelf.customScheme) ? activeShelf.customScheme : (state.settings.scheme || 'day'))  
+      };  
+    }  
+  
+    function applyBookshelfDayNightAtmosphere(scheme) {  
+      const atmosphereEl = document.getElementById('bookshelf-atmosphere-layer');  
+      if (!atmosphereEl) return;  
+      const isNight = scheme === 'night';  
+      atmosphereEl.classList.toggle('bookshelf-night-ledge', isNight);  
+      atmosphereEl.classList.toggle('bookshelf-day-ledge', !isNight);  
+      atmosphereEl.classList.toggle('text-gold/65', isNight);  
+      atmosphereEl.classList.toggle('text-gold/45', !isNight);  
+    }  
+  
+    function applyAppearanceSettings() {  
+      const resolved = getResolvedShelfThemeAndScheme();  
+      const themeObj = THEMES[resolved.theme] || THEMES.mucha;  
+      const palette = themeObj[resolved.scheme] || themeObj.day;  
+      const root = document.documentElement;  
+  
+      root.style.setProperty('--c-paper', palette.paper);  
+      root.style.setProperty('--c-paper-dark', palette.paperDark);  
+      root.style.setProperty('--c-surface', palette.surface);  
+      root.style.setProperty('--c-ink', palette.ink);  
+      root.style.setProperty('--c-ink-muted', palette.inkMuted);  
+      root.style.setProperty('--c-accent', palette.accent);  
+      root.style.setProperty('--c-accent-dark', palette.accentDark);  
+      root.style.setProperty('--c-forest', palette.forest);  
+      root.style.setProperty('--c-rust', palette.rust);  
+      root.style.setProperty('--c-plum', palette.plum);  
+  
+      const effectiveScale = state.mode === 'guest'  
+        ? (state.guestPreferences.fontScale || 100)  
+        : (state.settings.fontScale || 100);  
+      root.style.setProperty('--base-font-scale', `${effectiveScale}%`);  
+  
+      const styleTag = document.getElementById('dynamic-font-faces');  
+      if (styleTag) {  
+        styleTag.textContent = state.settings.customFonts.map(cf => `  
+          @font-face {  
+            font-family: '${cf.familyName}';  
+            src: url('${cf.dataUrl}');  
+            font-display: swap;  
+          }  
+        `).join('\n');  
+      }  
+  
+      const sel = state.settings.selectedFonts || {};  
+      const allZh = [...BUILTIN_FONTS.zh, ...state.settings.customFonts.filter(f => f.lang === 'zh').map(f => ({ id: f.id, css: `'${f.familyName}', sans-serif` }))];  
+      const allEn = [...BUILTIN_FONTS.en, ...state.settings.customFonts.filter(f => f.lang === 'en').map(f => ({ id: f.id, css: `'${f.familyName}', serif` }))];  
+  
+      let chosenZh = allZh.find(f => f.id === sel.zh) || allZh[0];  
+      if (state.mode === 'guest' && state.guestPreferences.readingFont && state.guestPreferences.readingFont !== 'inherit') {  
+        const guestZh = BUILTIN_FONTS.zh.find(f => f.id === state.guestPreferences.readingFont);  
+        if (guestZh) chosenZh = guestZh;  
+      }  
+      const chosenEn = allEn.find(f => f.id === sel.en) || allEn[0];  
+  
+      const extraLangKeys = Array.from(new Set(state.settings.customFonts.filter(f => f.lang !== 'zh' && f.lang !== 'en').map(f => f.lang)));  
+      const extraCssParts = extraLangKeys.map(langKey => {  
+        const fontsForLang = state.settings.customFonts.filter(f => f.lang === langKey);  
+        const chosenId = sel[langKey] || (fontsForLang[0] && fontsForLang[0].id);  
+        const chosenObj = fontsForLang.find(f => f.id === chosenId) || fontsForLang[0];  
+        return chosenObj ? `'${chosenObj.familyName}'` : '';  
+      }).filter(Boolean);  
+  
+      root.style.setProperty('--font-en-stack', chosenEn.css);  
+      root.style.setProperty('--font-zh-stack', chosenZh.css);  
+      root.style.setProperty('--font-extra-stack', extraCssParts.length > 0 ? extraCssParts.join(', ') : 'sans-serif');  
+  
+      applyBookshelfDayNightAtmosphere(resolved.scheme);  
+    }  
+  
+    function openSettingsModal() {  
+      renderSettingsModalUI();  
+      const modal = document.getElementById('settings-modal');  
+      modal.classList.remove('hidden');  
+      modal.classList.add('flex');  
+    }  
+  
+    function setColorScheme(scheme) {  
+      state.settings.scheme = scheme === 'night' ? 'night' : 'day';  
+      applyAppearanceSettings();  
+      saveState();  
+      renderSettingsModalUI();  
+    }  
+  
+    function setColorTheme(themeKey) {  
+      if (state.mode === 'guest') return;  
+      if (!THEMES[themeKey]) return;  
+      state.settings.theme = themeKey;  
+      applyAppearanceSettings();  
+      saveState();  
+      renderSettingsModalUI();  
+      showToast(`已套用全站預設主題「${THEMES[themeKey].name}」`);  
+    }  
+  
+    function setFontScale(scale) {  
+      if (state.mode === 'guest') return;  
+      state.settings.fontScale = Number(scale) || 100;  
+      applyAppearanceSettings();  
+      saveState();  
+      renderSettingsModalUI();  
+    }  
+  
+    function setGuestFontScale(scale) {  
+      state.guestPreferences.fontScale = Number(scale) || 100;  
+      applyAppearanceSettings();  
+      saveState();  
+      renderSettingsModalUI();  
+    }  
+  
+    function setGuestReadingFont(fontId) {  
+      state.guestPreferences.readingFont = fontId || 'inherit';  
+      applyAppearanceSettings();  
+      saveState();  
+      renderSettingsModalUI();  
+    }  
+  
+    function selectLanguageFont(langKey, fontId) {  
+      if (state.mode === 'guest') return;  
+      state.settings.selectedFonts[langKey] = fontId;  
+      applyAppearanceSettings();  
+      saveState();  
+    }  
+  
+    function toggleCustomLangNameInput(val) {  
+      const wrap = document.getElementById('custom-lang-label-wrap');  
+      if (wrap) wrap.classList.toggle('hidden', val !== 'other');  
+    }  
+  
+    function handleCustomFontUpload(event) {  
+      if (state.mode === 'guest') return;  
+      const file = event.target.files[0];  
+      if (!file) return;  
+      const langSelect = document.getElementById('upload-font-lang').value;  
+      const customLabel = (document.getElementById('custom-lang-label-input').value || '').trim();  
+      const langMap = { zh: '中文', en: '英文', ja: '日文', ko: '韓文' };  
+      const langKey = langSelect === 'other' ? ('custom_' + Date.now()) : langSelect;  
+      const langLabel = langSelect === 'other' ? (customLabel || '自訂語言') : (langMap[langSelect] || langSelect);  
+  
+      const reader = new FileReader();  
+      reader.onload = (e) => {  
+        const fontId = 'cf-' + Date.now();  
+        const familyName = 'CustomStudyFont_' + Date.now();  
+        const cleanName = file.name.replace(/\.[^/.]+$/, '');  
+  
+        state.settings.customFonts.push({  
+          id: fontId,  
+          lang: langKey,  
+          langLabel,  
+          label: cleanName,  
+          familyName,  
+          dataUrl: e.target.result  
+        });  
+        state.settings.selectedFonts[langKey] = fontId;  
+        applyAppearanceSettings();  
+        saveState();  
+        renderSettingsModalUI();  
+        event.target.value = '';  
+        showToast(`已匯入${langLabel}字體「${cleanName}」並套用`);  
+      };  
+      reader.readAsDataURL(file);  
+    }  
+  
+    function openShelfThemeStudio() {  
+      if (state.mode === 'guest') return;  
+      const resolved = getResolvedShelfThemeAndScheme();  
+      state.isStudioOpen = true;  
+      state.studioPreviewTheme = resolved.theme;  
+      state.studioPreviewScheme = resolved.scheme;  
+      renderShelfThemeStudioUI();  
+      const modal = document.getElementById('shelf-theme-studio-modal');  
+      modal.classList.remove('hidden');  
+      modal.classList.add('flex');  
+    }  
+  
+    function closeShelfThemeStudio() {  
+      state.isStudioOpen = false;  
+      state.studioPreviewTheme = null;  
+      state.studioPreviewScheme = null;  
+      applyAppearanceSettings();  
+      closeModal('shelf-theme-studio-modal');  
+    }  
+  
+    function selectStudioShelf(shelfId) {  
+      switchBookshelf(shelfId);  
+      const shelf = getActiveShelfObj();  
+      state.studioPreviewTheme = (shelf && shelf.customTheme) ? shelf.customTheme : (state.settings.theme || 'mucha');  
+      state.studioPreviewScheme = (shelf && shelf.customScheme) ? shelf.customScheme : (state.settings.scheme || 'day');  
+      applyAppearanceSettings();  
+      renderShelfThemeStudioUI();  
+    }  
+  
+    function previewStudioTheme(themeKey) {  
+      state.studioPreviewTheme = themeKey;  
+      applyAppearanceSettings();  
+      renderShelfThemeStudioUI();  
+    }  
+  
+    function previewStudioScheme(scheme) {  
+      state.studioPreviewScheme = scheme;  
+      applyAppearanceSettings();  
+      renderShelfThemeStudioUI();  
+    }  
+  
+    function applyStudioThemeToCurrentShelf() {  
+      const shelf = getActiveShelfObj();  
+      if (!shelf) return;  
+      shelf.customTheme = state.studioPreviewTheme;  
+      shelf.customScheme = state.studioPreviewScheme;  
+      saveState();  
+      renderShelfTabs();  
+      showToast(`已將主題套用至「${shelf.name}」`);  
+    }  
+  
+    function applyStudioThemeToAllShelves() {  
+      state.settings.theme = state.studioPreviewTheme || state.settings.theme;  
+      state.settings.scheme = state.studioPreviewScheme || state.settings.scheme;  
+      state.shelves.forEach(s => {  
+        s.customTheme = state.settings.theme;  
+        s.customScheme = state.settings.scheme;  
+      });  
+      saveState();  
+      renderShelfTabs();  
+      showToast('已一鍵將此主題套用至所有書架');  
+    }  
+  
+    function resetShelfCustomTheme() {  
+      const shelf = getActiveShelfObj();  
+      if (!shelf) return;  
+      shelf.customTheme = null;  
+      shelf.customScheme = null;  
+      state.studioPreviewTheme = state.settings.theme;  
+      state.studioPreviewScheme = state.settings.scheme;  
+      applyAppearanceSettings();  
+      saveState();  
+      renderShelfTabs();  
+      renderShelfThemeStudioUI();  
+      showToast(`「${shelf.name}」已恢復跟隨全站預設`);  
+    }  
+  
+    function renderShelfThemeStudioUI() {  
+      const tabsEl = document.getElementById('studio-shelf-tabs');  
+      const cardsEl = document.getElementById('studio-theme-cards');  
+      const dayBtn = document.getElementById('studio-scheme-day');  
+      const nightBtn = document.getElementById('studio-scheme-night');  
+  
+      if (tabsEl) {  
+        tabsEl.innerHTML = state.shelves.map(s => {  
+          const active = s.id === state.activeShelfId;  
+          return `  
+            <button onclick="selectStudioShelf('${s.id}')"  
+              class="px-3.5 py-1.5 rounded-full text-xs font-medium shrink-0 transition ${  
+                active ? 'bg-ink text-paper shadow-sm' : 'bg-surface border border-ink/20 text-ink hover:border-ink'  
+              }">  
+              ${escapeHTML(s.name)}  
+            </button>  
+          `;  
+        }).join('');  
+      }  
+  
+      if (dayBtn && nightBtn) {  
+        const isDay = (state.studioPreviewScheme || 'day') === 'day';  
+        dayBtn.className = isDay ? 'px-3 py-1 rounded-full bg-ink text-paper text-xs font-semibold' : 'px-3 py-1 rounded-full border border-ink/20 text-xs text-ink';  
+        nightBtn.className = !isDay ? 'px-3 py-1 rounded-full bg-ink text-gold text-xs font-semibold' : 'px-3 py-1 rounded-full border border-ink/20 text-xs text-ink';  
+      }  
+  
+      if (cardsEl) {  
+        cardsEl.innerHTML = Object.entries(THEMES).map(([key, t]) => {  
+          const active = state.studioPreviewTheme === key;  
+          return `  
+            <button onclick="previewStudioTheme('${key}')"  
+              class="p-3 rounded-xl border text-left transition flex items-center justify-between gap-2 ${  
+                active ? 'border-2 border-ink bg-surface shadow-sm' : 'border-ink/15 bg-surface/70 hover:bg-surface'  
+              }">  
+              <div class="min-w-0">  
+                <div class="text-xs font-bold text-ink truncate">${t.name}</div>  
+                <div class="text-[10px] text-inkMuted truncate">${t.desc}</div>  
+              </div>  
+              <div class="flex items-center -space-x-1 shrink-0">  
+                ${t.swatch.map(hex => `<span class="w-3.5 h-3.5 rounded-full border border-black/20" style="background-color:${hex}"></span>`).join('')}  
+              </div>  
+            </button>  
+          `;  
+        }).join('');  
+      }  
+    }  
+  
+    function quickToggleLoanBook(bookId) {  
+      const idx = state.loanBookIds.indexOf(bookId);  
+      if (idx >= 0) {  
+        state.loanBookIds.splice(idx, 1);  
+        showToast('已從借書單移除');  
+      } else {  
+        state.loanBookIds.push(bookId);  
+        showToast('已加入借書單');  
+      }  
+      saveState();  
+      renderAll();  
+    }  
+  
+    function openLoanSlipModal() {  
+      const ownerInput = document.getElementById('owner-name-input');  
+      const ownerBox = document.getElementById('owner-signature-box');  
+      const reconcileBox = document.getElementById('friend-loan-reconcile-box');  
+      const showCoversCb = document.getElementById('toggle-loan-show-covers');  
+      if (ownerInput) ownerInput.value = state.ownerName || '';  
+      if (ownerBox) ownerBox.classList.toggle('hidden', state.mode === 'guest');  
+      if (reconcileBox) reconcileBox.classList.toggle('hidden', state.mode === 'guest');  
+      if (showCoversCb) showCoversCb.checked = Boolean(state.loanShowCovers);  
+  
+      const countEl = document.getElementById('loan-history-count');  
+      if (countEl) countEl.textContent = String(state.loanHistory.length);  
+  
+      switchLoanModalTab('current');  
+      renderLoanSlipBooksAndPreview();  
+      const modal = document.getElementById('loan-slip-modal');  
+      const dialog = document.getElementById('loan-slip-dialog');  
+      modal.classList.remove('hidden');  
+      modal.classList.add('flex');  
+      // Always reset loan slip modal scroll position to top so header & preview start cleanly at top  
+      if (dialog) dialog.scrollTop = 0;  
+      requestAnimationFrame(() => {  
+        if (dialog) dialog.scrollTop = 0;  
+      });  
+    }  
+  
+    function toggleLoanShowCovers(checked) {  
+      state.loanShowCovers = Boolean(checked);  
+      saveState();  
+      const loanCb = document.getElementById('toggle-loan-show-covers');  
+      const guestSettingsCb = document.getElementById('guest-settings-show-covers');  
+      if (loanCb) loanCb.checked = state.loanShowCovers;  
+      if (guestSettingsCb) guestSettingsCb.checked = state.loanShowCovers;  
+      renderExLibrisPreview();  
+    }  
+  
+    function setSealStyle(styleKey) {  
+      if (state.mode === 'guest') return;  
+      state.settings.sealStyle = styleKey;  
+      saveState();  
+      renderSettingsModalUI();  
+      renderExLibrisPreview();  
+      showToast('已更新借書之印樣式');  
+    }  
+  
+    function triggerCustomSealUpload() {  
+      if (state.mode === 'guest') return;  
+      const input = document.getElementById('custom-seal-file-input');  
+      if (input) input.click();  
+    }  
+  
+    function handleCustomSealCardClick() {  
+      if (state.mode === 'guest') return;  
+      if (state.settings.customSealDataUrl && state.settings.sealStyle !== 'custom') {  
+        setSealStyle('custom');  
+      } else {  
+        triggerCustomSealUpload();  
+      }  
+    }  
+  
+    function handleCustomSealUpload(event) {  
+      if (state.mode === 'guest') return;  
+      const file = event.target.files[0];  
+      if (!file) return;  
+      const reader = new FileReader();  
+      reader.onload = (e) => {  
+        state.settings.customSealDataUrl = e.target.result;  
+        state.settings.sealStyle = 'custom';  
+        saveState();  
+        renderSettingsModalUI();  
+        renderExLibrisPreview();  
+        event.target.value = '';  
+        showToast('已上傳自訂 PNG 印章並套用');  
+      };  
+      reader.readAsDataURL(file);  
+    }  
+  
+    function setAppMode(newMode, showFeedback = true) {  
+      state.mode = newMode === 'guest' ? 'guest' : 'admin';  
+      const isGuest = state.mode === 'guest';  
+  
+      const pill = document.getElementById('island-active-pill');  
+      const btnAdmin = document.getElementById('btn-mode-admin');  
+      const btnGuest = document.getElementById('btn-mode-guest');  
+      const dotAdmin = document.getElementById('dot-admin');  
+      const dotGuest = document.getElementById('dot-guest');  
+  
+      if (pill && btnAdmin && btnGuest) {  
+        pill.style.transform = isGuest ? 'translateX(100%)' : 'translateX(0%)';  
+        btnAdmin.classList.toggle('text-white', !isGuest);  
+        btnAdmin.classList.toggle('text-white/60', isGuest);  
+        btnGuest.classList.toggle('text-white', isGuest);  
+        btnGuest.classList.toggle('text-white/60', !isGuest);  
+      }  
+      if (dotAdmin) dotAdmin.style.opacity = isGuest ? '0' : '1';  
+      if (dotGuest) dotGuest.style.opacity = isGuest ? '1' : '0';  
+  
+      document.querySelectorAll('.admin-only-el').forEach(el => {  
+        el.classList.toggle('hidden', isGuest);  
+      });  
+  
+      const ownerActions = document.getElementById('stage-owner-actions');  
+      if (ownerActions) {  
+        ownerActions.classList.toggle('hidden', isGuest);  
+        ownerActions.classList.toggle('flex', !isGuest);  
+      }  
+  
+      const footerCreateLink = document.getElementById('footer-create-my-study-link');  
+      if (footerCreateLink) {  
+        footerCreateLink.classList.toggle('hidden', !isGuest);  
+        footerCreateLink.classList.toggle('flex', isGuest);  
+      }  
+  
+      const savedRoleTag = document.getElementById('saved-role-tag');  
+      if (savedRoleTag) {  
+        savedRoleTag.textContent = isGuest  
+          ? 'GUEST SAVED COLLECTIONS (LOCAL DEVICE ONLY)'  
+          : 'OWNER SAVED COLLECTIONS';  
+      }  
+  
+      loadRolePersonalData();  
+      applyAppearanceSettings();  
+      renderAll();  
+  
+      if (showFeedback) {  
+        showToast(isGuest ? '已切換至「訪客模式」（收藏與借書單獨立儲存）' : '已切換回「主人模式」');  
+      }  
+    }  
+  
+    function copyShareLink() {  
+      const shelf = getActiveShelfObj();  
+      if (!shelf) return;  
+      const url = new URL(window.location.href);  
+      url.searchParams.set('mode', 'guest');  
+      url.searchParams.set('shelf', shelf.id);  
+      url.searchParams.set('single', '1');  
+      if (shelf.customTheme) url.searchParams.set('theme', shelf.customTheme);  
+      if (shelf.customScheme) url.searchParams.set('scheme', shelf.customScheme);  
+  
+      const shareStr = url.toString();  
+      const temp = document.createElement('textarea');  
+      temp.value = shareStr;  
+      document.body.appendChild(temp);  
+      temp.select();  
+      document.execCommand('copy');  
+      document.body.removeChild(temp);  
+  
+      showToast(`已複製「${shelf.name}」訪客唯讀分享連結！`);  
+    }  
+  
+    function setShelfFilter(filterKey) {  
+      state.shelfFilter = filterKey;  
+      state.focusedIndex = 0;  
+      document.querySelectorAll('.shelf-filter-btn').forEach(btn => {  
+        const active = btn.dataset.filter === filterKey;  
+        btn.className = active  
+          ? 'shelf-filter-btn active px-2.5 py-1 rounded-full text-xs font-medium bg-ink text-paper shadow-sm transition-all'  
+          : 'shelf-filter-btn px-2.5 py-1 rounded-full text-xs font-medium text-inkMuted hover:bg-ink/10 transition-all';  
+      });  
+      renderBookshelf();  
+    }  
+  
+    function getVisibleScopeBookSet() {  
+      const shelfBooks = getBooksInActiveShelf();  
+      return new Set(shelfBooks.map(b => b.id));  
+    }  
+  
+    function isBookInLoanSlip(bookId) {  
+      return state.loanBookIds.includes(bookId);  
+    }  
+  
+    function getStatusBadgeHTML(status) {  
+      if (status === 'lent') {  
+        return `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rust/15 text-rust border border-rust/30">借出中</span>`;  
+      }  
+      if (status === 'archived') {  
+        return `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-neutral-500/15 text-neutral-600 border border-neutral-400/30">已下架</span>`;  
+      }  
+      return `<span class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-forest/15 text-forest border border-forest/30">在架上</span>`;  
+    }  
+  
+    function updateStatsAndBadges() {  
+      const shelfBooks = getBooksInActiveShelf();  
+      const scopeSet = getVisibleScopeBookSet();  
+  
+      const total = shelfBooks.length;  
+      const available = shelfBooks.filter(b => b.status === 'available').length;  
+      const lent = shelfBooks.filter(b => b.status === 'lent').length;  
+      const archived = shelfBooks.filter(b => b.status === 'archived').length;  
+  
+      const elTotal = document.getElementById('stat-total');  
+      const elAvail = document.getElementById('stat-available');  
+      const elLent = document.getElementById('stat-lent');  
+      const elArch = document.getElementById('stat-archived');  
+      if (elTotal) elTotal.textContent = String(total);  
+      if (elAvail) elAvail.textContent = String(available);  
+      if (elLent) elLent.textContent = String(lent);  
+      if (elArch) elArch.textContent = String(archived);  
+  
+      const totalBadge = document.getElementById('total-books-badge');  
+      if (totalBadge) totalBadge.textContent = String(total);  
+  
+      const uniqueSavedIds = new Set();  
+      state.savedFolders.forEach(f => {  
+        (f.bookIds || []).forEach(id => {  
+          if (scopeSet.has(id)) uniqueSavedIds.add(id);  
+        });  
+      });  
+      const savedBadge = document.getElementById('saved-count-badge');  
+      if (savedBadge) savedBadge.textContent = String(uniqueSavedIds.size);  
+  
+      const validLoanCount = state.loanBookIds.filter(id => scopeSet.has(id)).length;  
+      const loanBadge = document.getElementById('loan-count-badge');  
+      if (loanBadge) loanBadge.textContent = String(validLoanCount);  
+  
+      updateDemoBooksToggleButton();  
+    }  
+  
+    function renderSettingsModalUI() {  
+      const isGuest = state.mode === 'guest';  
+      const titleEl = document.getElementById('settings-modal-title');  
+      if (titleEl) {  
+        titleEl.textContent = isGuest ? '訪客閱讀外觀與舒適度設定' : '書房外觀與字體設定';  
+      }  
+  
+      const scheme = state.settings.scheme || 'day';  
+      const btnDay = document.getElementById('btn-scheme-day');  
+      const btnNight = document.getElementById('btn-scheme-night');  
+      if (btnDay && btnNight) {  
+        btnDay.className = scheme === 'day'  
+          ? 'p-3 rounded-xl border-2 border-ink bg-ink text-paper text-xs font-semibold flex items-center justify-center gap-2 transition shadow-sm'  
+          : 'p-3 rounded-xl border border-ink/20 bg-surface text-ink text-xs font-medium flex items-center justify-center gap-2 hover:border-ink transition';  
+        btnNight.className = scheme === 'night'  
+          ? 'p-3 rounded-xl border-2 border-gold bg-ink text-gold text-xs font-semibold flex items-center justify-center gap-2 transition shadow-sm'  
+          : 'p-3 rounded-xl border border-ink/20 bg-surface text-ink text-xs font-medium flex items-center justify-center gap-2 hover:border-ink transition';  
+      }  
+  
+      const guestPanel = document.getElementById('guest-settings-panel');  
+      if (guestPanel) {  
+        guestPanel.classList.toggle('hidden', !isGuest);  
+      }  
+  
+      if (isGuest) {  
+        const gScale = Number(state.guestPreferences.fontScale) || 100;  
+        const gLabel = document.getElementById('guest-font-scale-label');  
+        const scaleNames = { 92: '精巧', 100: '標準', 108: '舒適', 116: '大字' };  
+        if (gLabel) gLabel.textContent = `${scaleNames[gScale] || '自訂'} (${gScale}%)`;  
+        document.querySelectorAll('.guest-font-scale-btn').forEach(btn => {  
+          const s = Number(btn.dataset.guestScale);  
+          btn.className = s === gScale  
+            ? 'guest-font-scale-btn py-2 rounded-lg border-2 border-ink bg-ink text-paper text-xs font-semibold transition'  
+            : 'guest-font-scale-btn py-2 rounded-lg border border-ink/20 bg-surface text-ink text-xs font-medium hover:border-ink transition';  
+        });  
+  
+        const gFontSelect = document.getElementById('select-guest-reading-font');  
+        if (gFontSelect) gFontSelect.value = state.guestPreferences.readingFont || 'inherit';  
+        const gShowCoversCb = document.getElementById('guest-settings-show-covers');  
+        if (gShowCoversCb) gShowCoversCb.checked = Boolean(state.loanShowCovers);  
+        return;  
+      }  
+  
+      const grid = document.getElementById('theme-palette-grid');  
+      if (grid) {  
+        grid.innerHTML = Object.entries(THEMES).map(([key, t]) => {  
+          const active = state.settings.theme === key;  
+          return `  
+            <button onclick="setColorTheme('${key}')"  
+              class="p-3 rounded-xl border text-left transition flex items-center justify-between gap-2 ${  
+                active ? 'border-2 border-ink bg-surface shadow-sm' : 'border-ink/15 bg-surface/65 hover:bg-surface'  
+              }">  
+              <div class="min-w-0">  
+                <div class="text-xs font-bold text-ink truncate">${t.name}</div>  
+                <div class="text-[11px] text-inkMuted truncate">${t.desc}</div>  
+              </div>  
+              <div class="flex items-center -space-x-1 shrink-0">  
+                ${t.swatch.map(hex => `<span class="w-4 h-4 rounded-full border border-black/20" style="background-color:${hex}"></span>`).join('')}  
+              </div>  
+            </button>  
+          `;  
+        }).join('');  
+      }  
+  
+      const currentScale = Number(state.settings.fontScale) || 100;  
+      const scaleLabel = document.getElementById('font-scale-label');  
+      const scaleNames = { 92: '精巧', 100: '標準', 108: '舒適', 116: '大字' };  
+      if (scaleLabel) scaleLabel.textContent = `${scaleNames[currentScale] || '自訂'} (${currentScale}%)`;  
+      document.querySelectorAll('.font-scale-btn').forEach(btn => {  
+        const s = Number(btn.dataset.scale);  
+        btn.className = s === currentScale  
+          ? 'font-scale-btn py-2 rounded-lg border-2 border-ink bg-ink text-paper text-xs font-semibold transition'  
+          : 'font-scale-btn py-2 rounded-lg border border-ink/20 bg-surface text-ink text-xs font-medium hover:border-ink transition';  
+      });  
+  
+      const zhSelect = document.getElementById('select-zh-font');  
+      const enSelect = document.getElementById('select-en-font');  
+      const extraBox = document.getElementById('extra-lang-font-boxes');  
+      const sel = state.settings.selectedFonts || {};  
+  
+      if (zhSelect) {  
+        const zhFonts = [  
+          ...BUILTIN_FONTS.zh,  
+          ...state.settings.customFonts.filter(f => f.lang === 'zh').map(f => ({ id: f.id, label: `${f.label} (已匯入)` }))  
+        ];  
+        zhSelect.innerHTML = zhFonts.map(f => `<option value="${f.id}" ${sel.zh === f.id ? 'selected' : ''}>${escapeHTML(f.label)}</option>`).join('');  
+      }  
+  
+      if (enSelect) {  
+        const enFonts = [  
+          ...BUILTIN_FONTS.en,  
+          ...state.settings.customFonts.filter(f => f.lang === 'en').map(f => ({ id: f.id, label: `${f.label} (已匯入)` }))  
+        ];  
+        enSelect.innerHTML = enFonts.map(f => `<option value="${f.id}" ${sel.en === f.id ? 'selected' : ''}>${escapeHTML(f.label)}</option>`).join('');  
+      }  
+  
+      if (extraBox) {  
+        const extraGroups = {};  
+        state.settings.customFonts.filter(f => f.lang !== 'zh' && f.lang !== 'en').forEach(f => {  
+          if (!extraGroups[f.lang]) extraGroups[f.lang] = { label: f.langLabel, items: [] };  
+          extraGroups[f.lang].items.push(f);  
+        });  
+        extraBox.innerHTML = Object.entries(extraGroups).map(([langKey, group]) => `  
+          <div class="p-3 rounded-xl bg-surface border border-gold/45 space-y-1.5 min-w-0">  
+            <label class="block text-xs font-semibold text-ink">${escapeHTML(group.label)} 字體</label>  
+            <select onchange="selectLanguageFont('${langKey}', this.value)"  
+              class="w-full px-3 py-2 rounded-lg border border-ink/20 bg-paper text-ink text-xs font-medium">  
+              ${group.items.map(item => `<option value="${item.id}" ${sel[langKey] === item.id ? 'selected' : ''}>${escapeHTML(item.label)}</option>`).join('')}  
+            </select>  
+          </div>  
+        `).join('');  
+      }  
+  
+      const activeSeal = state.settings.sealStyle || 'square';  
+      const hasCustomSeal = Boolean(state.settings.customSealDataUrl);  
+      const customPreview = document.getElementById('custom-seal-card-preview');  
+      const customLabel = document.getElementById('custom-seal-card-label');  
+      const reuploadBadge = document.getElementById('custom-seal-reupload-badge');  
+  
+      if (customPreview && customLabel && reuploadBadge) {  
+        if (hasCustomSeal) {  
+          customPreview.innerHTML = `<img src="${state.settings.customSealDataUrl}" alt="自訂印章" class="w-full h-full object-contain" />`;  
+          customLabel.textContent = '已自訂印章';  
+          reuploadBadge.classList.remove('hidden');  
+        } else {  
+          customPreview.textContent = '+PNG';  
+          customLabel.textContent = '自訂上傳 PNG 印章';  
+          reuploadBadge.classList.add('hidden');  
+        }  
+      }  
+  
+      document.querySelectorAll('.seal-style-btn').forEach(btn => {  
+        const isTarget = btn.dataset.seal === activeSeal;  
+        btn.className = isTarget  
+          ? 'seal-style-btn cursor-pointer p-2.5 rounded-xl border-2 border-ink bg-surface text-xs font-semibold flex flex-col items-center justify-center gap-1.5 transition shadow-sm'  
+          : 'seal-style-btn cursor-pointer p-2.5 rounded-xl border border-ink/15 bg-surface/65 text-xs font-medium text-inkMuted hover:text-ink flex flex-col items-center justify-center gap-1.5 transition';  
+      });  
+    }  
+  
+    function renderLoanSlipBooksAndPreview() {  
+      const listContainer = document.getElementById('loan-books-list');  
+      const scopeSet = getVisibleScopeBookSet();  
+      const validBooks = state.loanBookIds  
+        .filter(id => scopeSet.has(id))  
+        .map(id => state.books.find(b => b.id === id))  
+        .filter(Boolean);  
+  
+      if (validBooks.length === 0) {  
+        listContainer.innerHTML = `<div class="py-8 text-center text-xs text-inkMuted">借書單尚無書籍，請在書架或總清單點擊「+ 借書單」挑選想閱讀的書籍。</div>`;  
+      } else {  
+        listContainer.innerHTML = validBooks.map(book => `  
+          <div class="py-2 first:pt-0 last:pb-0 flex items-center justify-between gap-2 text-xs">  
+            <div class="min-w-0">  
+              <p class="font-serif font-bold text-ink truncate">${escapeHTML(book.title)}</p>  
+              <p class="text-[11px] text-inkMuted truncate">${escapeHTML(book.author)} · ${book.status === 'available' ? '在架上' : (book.status === 'lent' ? '借出中' : '已下架')}</p>  
+            </div>  
+            <button onclick="quickToggleLoanBook('${book.id}'); renderLoanSlipBooksAndPreview();"  
+              class="text-inkMuted hover:text-rust p-1.5 shrink-0" title="移出借書單">  
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+              </svg>  
+            </button>  
+          </div>  
+        `).join('');  
+      }  
+  
+      renderExLibrisPreview();  
+    }  
+  
+    function renderExLibrisPreview() {  
+      const activeShelf = getActiveShelfObj();  
+      const guestName = document.getElementById('guest-signature-input').value.trim() || '愛看書的朋友';  
+      const today = new Date().toISOString().split('T')[0].replace(/-/g, '.');  
+      const promptMsg = getOwnerSharePromptText();  
+  
+      const promptHeadline = document.getElementById('loan-prompt-headline');  
+      const shareMsgEl = document.getElementById('ex-libris-share-msg');  
+      if (promptHeadline) promptHeadline.textContent = `「${promptMsg}」`;  
+      if (shareMsgEl) shareMsgEl.textContent = promptMsg;  
+  
+      document.getElementById('ex-libris-shelf-title').textContent = `${activeShelf ? activeShelf.name : '我的書房'} · 借書單`;  
+      document.getElementById('ex-libris-date').textContent = `DATE: ${today}`;  
+      document.getElementById('ex-libris-guest-name').textContent = guestName;  
+  
+      const sealContainer = document.getElementById('ex-libris-seal-container');  
+      if (sealContainer) {  
+        sealContainer.innerHTML = getSealStampHTML();  
+      }  
+  
+      const scopeSet = getVisibleScopeBookSet();  
+      const validBooks = state.loanBookIds  
+        .filter(id => scopeSet.has(id))  
+        .map(id => state.books.find(b => b.id === id))  
+        .filter(Boolean);  
+  
+      const itemsListEl = document.getElementById('ex-libris-book-items');  
+      if (!itemsListEl) return;  
+  
+      if (validBooks.length === 0) {  
+        itemsListEl.innerHTML = `<li class="text-xs text-[#6B5D52] italic text-center py-8">（尚未挑選想借閱的書籍）</li>`;  
+        return;  
+      }  
+  
+      itemsListEl.innerHTML = validBooks.map((b, i) => {  
+        const fallbackCover = `https://placehold.co/84x120/${(b.spineColor || '#28463B').replace('#', '')}/FAF6ED?text=${encodeURIComponent(b.title.slice(0, 3))}`;  
+        return `  
+          <li class="flex items-center justify-between gap-2.5 border-b border-dashed border-[#261E18]/15 pb-2">  
+            <div class="flex items-center gap-2.5 min-w-0 flex-1">  
+              <span class="font-mono text-[11px] text-[#9A7836] shrink-0">${String(i + 1).padStart(2, '0')}.</span>  
+              ${state.loanShowCovers ? `  
+                <img src="${escapeHTML(b.coverUrl || fallbackCover)}"  
+                  alt="${escapeHTML(b.title)}"  
+                  onerror="this.onerror=null;this.src='${fallbackCover}';"  
+                  class="w-7 h-10 object-cover rounded-[3px] border border-[#261E18]/25 shadow-sm shrink-0 bg-[#E8DFCE]" />  
+              ` : ''}  
+              <div class="min-w-0 flex-1">  
+                <div class="font-serif font-bold text-[#261E18] leading-snug break-words">${escapeHTML(b.title)}</div>  
+                <div class="text-[11px] text-[#6B5D52] truncate">${escapeHTML(b.author)}${b.volume ? ` · ${escapeHTML(b.volume)}` : ''}</div>  
+              </div>  
+            </div>  
+            <span class="font-mono text-[10px] shrink-0 ${b.status === 'available' ? 'text-[#28463B]' : 'text-[#9C4A3B]'}">  
+              ${b.status === 'available' ? '[在架]' : '[借出中]'}  
+            </span>  
+          </li>  
+        `;  
+      }).join('');  
+    }  
+  
+    function getSealStampHTML() {  
+      const sealStyle = state.settings.sealStyle || 'square';  
+      const customUrl = state.settings.customSealDataUrl;  
+      if (sealStyle === 'custom' && customUrl) {  
+        return `  
+          <div class="ex-libris-seal w-12 h-12 rounded-md border border-[#9C4A3B]/40 p-0.5 flex items-center justify-center rotate-2" title="滑鼠懸停檢視印章光澤">  
+            <img src="${customUrl}" alt="專屬藏書印" class="w-full h-full object-contain" />  
+          </div>  
+        `;  
+      }  
+      if (sealStyle === 'oval') {  
+        return `  
+          <div class="ex-libris-seal w-10 h-12 rounded-full border-2 border-[#9C4A3B] text-[#9C4A3B] flex items-center justify-center font-serif font-bold text-xs leading-tight rotate-3" title="滑鼠懸停檢視印章光澤">  
+            書房<br>珍藏  
+          </div>  
+        `;  
+      }  
+      if (sealStyle === 'inverse') {  
+        return `  
+          <div class="ex-libris-seal w-11 h-11 rounded-sm bg-[#9C4A3B] border border-[#7F1D1D] text-[#FAF6ED] flex items-center justify-center font-serif font-bold text-xs leading-tight -rotate-2" title="滑鼠懸停檢視印章光澤">  
+            開卷<br>有益  
+          </div>  
+        `;  
+      }  
+      return `  
+        <div class="ex-libris-seal w-11 h-11 border-2 border-[#9C4A3B] text-[#9C4A3B] flex items-center justify-center font-serif font-bold text-xs leading-tight rotate-3" title="滑鼠懸停檢視印章光澤">  
+          借書<br>之印  
+        </div>  
+      `;  
+    }  
+  
+    // ==================== "導出此書單" (SHELF CATALOGUE EXPORT) ====================  
+    function openShelfExportModal() {  
+      const shelfBooks = getBooksInActiveShelf();  
+      if (shelfBooks.length === 0) {  
+        showToast('目前書架尚無書籍可導出', true);  
+        return;  
+      }  
+      const ownerInput = document.getElementById('shelf-export-owner-input');  
+      if (ownerInput) ownerInput.value = state.ownerName || '';  
+      const statusSel = document.getElementById('shelf-export-status-filter');  
+      if (statusSel) statusSel.value = 'all';  
+  
+      renderShelfExportPreview();  
+      const modal = document.getElementById('shelf-export-modal');  
+      const dialog = document.getElementById('shelf-export-dialog');  
+      modal.classList.remove('hidden');  
+      modal.classList.add('flex');  
+      if (dialog) dialog.scrollTop = 0;  
+    }  
+  
+    function getShelfExportFilteredBooks() {  
+      const shelfBooks = getBooksInActiveShelf();  
+      const filterVal = (document.getElementById('shelf-export-status-filter')?.value) || 'all';  
+      if (filterVal === 'all') return shelfBooks;  
+      return shelfBooks.filter(b => b.status === filterVal);  
+    }  
+  
+    function renderShelfExportPreview() {  
+      const activeShelf = getActiveShelfObj();  
+      const books = getShelfExportFilteredBooks();  
+      const showCovers = Boolean(document.getElementById('toggle-shelf-export-covers')?.checked);  
+      const showIsbn = Boolean(document.getElementById('toggle-shelf-export-isbn')?.checked);  
+      const ownerDisplay = (state.ownerName || '').trim() || '書房主人';  
+      const today = new Date().toISOString().split('T')[0].replace(/-/g, '.');  
+  
+      const badgeEl = document.getElementById('shelf-export-count-badge');  
+      if (badgeEl) badgeEl.textContent = `${books.length} 本`;  
+  
+      const titleEl = document.getElementById('shelf-export-card-title');  
+      if (titleEl) titleEl.textContent = `${activeShelf ? activeShelf.name : '我的書房'} · 藏書清單`;  
+  
+      const dateEl = document.getElementById('shelf-export-card-date');  
+      if (dateEl) dateEl.textContent = `DATE: ${today} · TOTAL: ${books.length} VOLS`;  
+  
+      const ownerEl = document.getElementById('shelf-export-card-owner');  
+      if (ownerEl) ownerEl.textContent = ownerDisplay;  
+  
+      const sealEl = document.getElementById('shelf-export-seal-container');  
+      if (sealEl) sealEl.innerHTML = getSealStampHTML();  
+  
+      const itemsEl = document.getElementById('shelf-export-book-items');  
+      if (!itemsEl) return;  
+  
+      if (books.length === 0) {  
+        itemsEl.innerHTML = `<li class="text-xs text-[#6B5D52] italic text-center py-6">（此篩選條件下尚無書籍）</li>`;  
+        return;  
+      }  
+  
+      itemsEl.innerHTML = books.map((b, i) => {  
+        const fallbackCover = `https://placehold.co/84x120/${(b.spineColor || '#28463B').replace('#', '')}/FAF6ED?text=${encodeURIComponent(b.title.slice(0, 3))}`;  
+        const metaParts = [b.author];  
+        if (showIsbn && b.volume) metaParts.push(b.volume);  
+        if (showIsbn && b.isbn) metaParts.push(`ISBN: ${b.isbn}`);  
+        const statusText = b.status === 'available' ? '[在架]' : (b.status === 'lent' ? `[借出:${b.borrower || '已借'}]` : '[下架]');  
+  
+        return `  
+          <li class="flex items-center justify-between gap-2.5 border-b border-dashed border-[#261E18]/15 pb-2">  
+            <div class="flex items-center gap-2.5 min-w-0 flex-1">  
+              <span class="font-mono text-[11px] text-[#9A7836] shrink-0">${String(i + 1).padStart(2, '0')}.</span>  
+              ${showCovers ? `  
+                <img src="${escapeHTML(b.coverUrl || fallbackCover)}"  
+                  alt="${escapeHTML(b.title)}"  
+                  onerror="this.onerror=null;this.src='${fallbackCover}';"  
+                  class="w-7 h-10 object-cover rounded-[3px] border border-[#261E18]/25 shadow-sm shrink-0 bg-[#E8DFCE]" />  
+              ` : ''}  
+              <div class="min-w-0 flex-1">  
+                <div class="font-serif font-bold text-[#261E18] leading-snug break-words">${escapeHTML(b.title)}</div>  
+                <div class="text-[11px] text-[#6B5D52] truncate">${escapeHTML(metaParts.join(' · '))}</div>  
+              </div>  
+            </div>  
+            <span class="font-mono text-[10px] shrink-0 ${b.status === 'available' ? 'text-[#28463B]' : 'text-[#9C4A3B]'}">  
+              ${statusText}  
+            </span>  
+          </li>  
+        `;  
+      }).join('');  
+    }  
+  
+    function copyShelfExportText() {  
+      const books = getShelfExportFilteredBooks();  
+      if (books.length === 0) {  
+        showToast('目前篩選條件下沒有可複製的書籍', true);  
+        return;  
+      }  
+      const activeShelf = getActiveShelfObj();  
+      const showIsbn = Boolean(document.getElementById('toggle-shelf-export-isbn')?.checked);  
+      const ownerDisplay = (state.ownerName || '').trim() || '書房主人';  
+      const today = new Date().toISOString().split('T')[0];  
+  
+      const lines = [  
+        `【我的書房 · 藏書清單存檔】`,  
+        `書架：${activeShelf ? activeShelf.name : '我的書房'}（策展人：${ownerDisplay} · ${today}）`,  
+        `共計：${books.length} 本`,  
+        `------------------------`,  
+        ...books.map((b, i) => {  
+          const st = b.status === 'available' ? '在架上' : (b.status === 'lent' ? `借出中${b.borrower ? '（' + b.borrower + '）' : ''}` : '已下架');  
+          const extra = showIsbn ? [b.volume, b.isbn ? `ISBN:${b.isbn}` : ''].filter(Boolean).join(' / ') : '';  
+          return `${i + 1}. 《${b.title}》 — ${b.author}${extra ? ` [${extra}]` : ''}（${st}）`;  
+        }),  
+        `------------------------`  
+      ];  
+  
+      const temp = document.createElement('textarea');  
+      temp.value = lines.join('\n');  
+      document.body.appendChild(temp);  
+      temp.select();  
+      document.execCommand('copy');  
+      document.body.removeChild(temp);  
+  
+      showToast(`已複製「${activeShelf ? activeShelf.name : '書架'}」共 ${books.length} 本書目文字清單！`);  
+    }  
+  
+    async function downloadShelfExportImage() {  
+      const books = getShelfExportFilteredBooks();  
+      if (books.length === 0) {  
+        showToast('目前篩選條件下沒有可匯出的書籍', true);  
+        return;  
+      }  
+      const activeShelf = getActiveShelfObj();  
+      const card = document.getElementById('shelf-export-card');  
+      try {  
+        const canvas = await html2canvas(card, {  
+          scale: 2,  
+          backgroundColor: '#FAF6ED',  
+          useCORS: true  
+        });  
+        const link = document.createElement('a');  
+        link.download = `我的書房-${activeShelf ? activeShelf.name : '藏書清單'}-${Date.now()}.png`;  
+        link.href = canvas.toDataURL('image/png');  
+        link.click();  
+        showToast('典藏書單圖片 (PNG) 已生成並下載！');  
+      } catch (err) {  
+        showToast('圖片生成失敗，請改用「複製文字清單」', true);  
+      }  
+    }  
+  
+    function recordLoanSelectionSnapshot(validBooks, guestName, methodLabel) {  
+      if (!validBooks || validBooks.length === 0) return;  
+      const now = new Date();  
+      const timestamp = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;  
+      state.loanHistory.unshift({  
+        id: 'hist-' + Date.now(),  
+        timestamp,  
+        guestName,  
+        method: methodLabel,  
+        books: validBooks.map(b => ({ id: b.id, title: b.title, author: b.author }))  
+      });  
+      if (state.loanHistory.length > 30) state.loanHistory.length = 30;  
+      saveState();  
+      const countEl = document.getElementById('loan-history-count');  
+      if (countEl) countEl.textContent = String(state.loanHistory.length);  
+    }  
+  
+    function renderLoanHistoryList() {  
+      const container = document.getElementById('loan-history-list');  
+      if (!container) return;  
+  
+      if (state.loanHistory.length === 0) {  
+        container.innerHTML = `<div class="py-12 text-center text-xs text-inkMuted">尚無過往選書記錄，當你複製或下載借書單後會自動留存於此。</div>`;  
+        return;  
+      }  
+  
+      container.innerHTML = state.loanHistory.map((rec, idx) => `  
+        <div class="p-4 rounded-xl bg-surface/90 border border-ink/15 space-y-2">  
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-ink/10 pb-2">  
+            <div class="flex items-center gap-2 text-xs">  
+              <span class="font-mono text-[11px] px-2 py-0.5 rounded bg-paperDark text-ink">${rec.timestamp}</span>  
+              <span class="font-semibold text-ink">借閱人：${escapeHTML(rec.guestName)}</span>  
+              <span class="text-[11px] text-goldDark">(${escapeHTML(rec.method)})</span>  
+            </div>  
+            <div class="flex items-center gap-2">  
+              <button onclick="restoreLoanHistoryRecord(${idx})"  
+                class="px-2.5 py-1 rounded bg-forest/15 text-forest text-xs font-medium hover:bg-forest hover:text-paper transition">  
+                載入至借書單  
+              </button>  
+              <button onclick="confirmDeleteLoanHistoryItem(${idx})"  
+                class="text-inkMuted hover:text-rust p-1">  
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+                </svg>  
+              </button>  
+            </div>  
+          </div>  
+          <ul class="text-xs text-ink space-y-1">  
+            ${rec.books.map((b, i) => `  
+              <li><span class="font-mono text-goldDark mr-1">${i + 1}.</span> <strong>${escapeHTML(b.title)}</strong> — <span class="text-inkMuted">${escapeHTML(b.author)}</span></li>  
+            `).join('')}  
+          </ul>  
+        </div>  
+      `).join('');  
+    }  
+  
+    function restoreLoanHistoryRecord(idx) {  
+      const rec = state.loanHistory[idx];  
+      if (!rec) return;  
+      const scopeSet = getVisibleScopeBookSet();  
+      const existingIds = rec.books  
+        .map(b => b.id)  
+        .filter(id => scopeSet.has(id));  
+      state.loanBookIds = Array.from(new Set([...state.loanBookIds, ...existingIds]));  
+      saveState();  
+      renderAll();  
+      switchLoanModalTab('current');  
+      showToast('已將該筆過往選書載入目前借書單');  
+    }  
+  
+    function confirmDeleteLoanHistoryItem(idx) {  
+      openConfirmModal({  
+        title: '刪除此筆選書記錄？',  
+        message: '確定要移除這筆過往選書記錄嗎？',  
+        confirmLabel: '確定刪除',  
+        onConfirm: () => {  
+          state.loanHistory.splice(idx, 1);  
+          saveState();  
+          renderLoanHistoryList();  
+          document.getElementById('loan-history-count').textContent = String(state.loanHistory.length);  
+        }  
+      });  
+    }  
+  
+    function confirmClearLoanHistory() {  
+      if (state.loanHistory.length === 0) return;  
+      openConfirmModal({  
+        title: '清除全部過往選書記錄？',  
+        message: '確定要清空所有歷史選書記錄嗎？此操作無法復原。',  
+        confirmLabel: '全部清除',  
+        onConfirm: () => {  
+          state.loanHistory = [];  
+          saveState();  
+          renderLoanHistoryList();  
+          document.getElementById('loan-history-count').textContent = '0';  
+          showToast('已清除全部過往選書記錄');  
+        }  
+      });  
+    }  
+  
+    function copyWishListText() {  
+      const guestName = document.getElementById('guest-signature-input').value.trim() || '朋友';  
+      const scopeSet = getVisibleScopeBookSet();  
+      const validBooks = state.loanBookIds  
+        .filter(id => scopeSet.has(id))  
+        .map(id => state.books.find(b => b.id === id))  
+        .filter(Boolean);  
+  
+      if (validBooks.length === 0) {  
+        showToast('請先在借書單中加入至少一本書！', true);  
+        return;  
+      }  
+  
+      const activeShelf = getActiveShelfObj();  
+      const promptMsg = getOwnerSharePromptText();  
+      const lines = [  
+        `【我的書房 · 借書單】`,  
+        `書架：${activeShelf ? activeShelf.name : '我的書房'}（借閱人：${guestName}）`,  
+        `------------------------`,  
+        ...validBooks.map((b, i) => `${i + 1}. 《${b.title}》 — ${b.author} (${b.status === 'available' ? '在架上' : (b.status === 'lent' ? '借出中' : '已下架')})`),  
+        `------------------------`,  
+        `${promptMsg}`  
+      ];  
+  
+      const temp = document.createElement('textarea');  
+      temp.value = lines.join('\n');  
+      document.body.appendChild(temp);  
+      temp.select();  
+      document.execCommand('copy');  
+      document.body.removeChild(temp);  
+  
+      recordLoanSelectionSnapshot(validBooks, guestName, '複製文字');  
+      showToast(`已複製文字清單！${promptMsg}`);  
+    }  
+  
+    async function downloadExLibrisImage() {  
+      const scopeSet = getVisibleScopeBookSet();  
+      const validBooks = state.loanBookIds  
+        .filter(id => scopeSet.has(id))  
+        .map(id => state.books.find(b => b.id === id))  
+        .filter(Boolean);  
+  
+      if (validBooks.length === 0) {  
+        showToast('請先在借書單中加入至少一本書！', true);  
+        return;  
+      }  
+  
+      const card = document.getElementById('ex-libris-card');  
+      const guestName = document.getElementById('guest-signature-input').value.trim() || '朋友';  
+      const promptMsg = getOwnerSharePromptText();  
+      try {  
+        const canvas = await html2canvas(card, {  
+          scale: 2,  
+          backgroundColor: '#FAF6ED',  
+          useCORS: true  
+        });  
+        const link = document.createElement('a');  
+        link.download = `我的書房-借書單-${Date.now()}.png`;  
+        link.href = canvas.toDataURL('image/png');  
+        link.click();  
+        recordLoanSelectionSnapshot(validBooks, guestName, '下載圖片');  
+        showToast(`借書單圖片已下載！${promptMsg}`);  
+      } catch (err) {  
+        showToast('圖片生成失敗，請改用「複製文字清單」', true);  
+      }  
+    }  
+  
+    function closeModal(id) {  
+      const modal = document.getElementById(id);  
+      if (modal) {  
+        modal.classList.add('hidden');  
+        modal.classList.remove('flex');  
+      }  
+    }  
+  
+    function escapeHTML(str) {  
+      if (!str) return '';  
+      return String(str)  
+        .replace(/&/g, '&amp;')  
+        .replace(/</g, '&lt;')  
+        .replace(/>/g, '&gt;')  
+        .replace(/"/g, '&quot;');  
+    }  
+  
+    function showToast(message, isError = false) {  
+      const container = document.getElementById('toast-container');  
+      container.className = 'fixed inset-x-0 top-1/2 -translate-y-1/2 z-[80] flex flex-col items-center gap-2 pointer-events-none px-4';  
+      container.innerHTML = '';  
+  
+      const toast = document.createElement('div');  
+      toast.className = `px-5 py-3 rounded-2xl shadow-2xl border text-xs sm:text-sm font-medium transition-all transform scale-95 opacity-0 text-center max-w-xs ${  
+        isError ? 'bg-rust text-white border-rust' : 'bg-ink/95 text-paper border-gold/60 backdrop-blur-md'  
+      }`;  
+      toast.textContent = message;  
+      container.appendChild(toast);  
+  
+      requestAnimationFrame(() => {  
+        toast.classList.remove('scale-95', 'opacity-0');  
+        toast.classList.add('scale-100', 'opacity-100');  
+      });  
+  
+      setTimeout(() => {  
+        toast.classList.add('opacity-0', 'scale-95');  
+        setTimeout(() => toast.remove(), 260);  
+      }, 1600);  
+    }  
+  
+    function renderAll() {  
+      renderShelfTabs();  
+      renderBookshelf();  
+      updateStatsAndBadges();  
+      const drawer = document.getElementById('catalogue-drawer');  
+      if (drawer && !drawer.classList.contains('translate-x-full')) {  
+        renderCatalogueList();  
+      }  
+    }  
+  
+    function renderBookshelf() {  
+      const track = document.getElementById('bookshelf-track');  
+      if (!track) return;  
+  
+      const shelfBooks = getBooksInActiveShelf();  
+      state.filteredBooks = shelfBooks.filter(b => {  
+        if (state.shelfFilter === 'all') return true;  
+        if (state.shelfFilter === 'available' || state.shelfFilter === 'lent' || state.shelfFilter === 'archived') {  
+          return b.status === state.shelfFilter;  
+        }  
+        return b.category === state.shelfFilter;  
+      });  
+  
+      if (state.filteredBooks.length === 0) {  
+        const isGuest = state.mode === 'guest';  
+        track.innerHTML = `  
+          <div class="w-full flex flex-col items-center justify-center py-6 px-4">  
+            <div onclick="${isGuest ? '' : 'openImportModal()'}"  
+              class="book-3d-card-size rounded-xl border-2 border-dashed border-goldDark/65 bg-surface/80 flex flex-col items-center justify-center p-5 text-center gap-2.5 ${isGuest ? '' : 'cursor-pointer hover:bg-surface hover:border-ink transition group'}">  
+              <div class="w-11 h-11 rounded-full bg-gold/20 text-goldDark flex items-center justify-center group-hover:bg-ink group-hover:text-gold transition">  
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />  
+                </svg>  
+              </div>  
+              <p class="font-serif font-bold text-sm text-ink">${isGuest ? '此書架目前尚無公開書籍' : '空白書架 · 點擊新增書籍'}</p>  
+              <p class="text-[11px] text-inkMuted leading-relaxed">  
+                ${isGuest ? '書房主人尚未在此書櫃擺放藏書。' : '支援拍／上傳封面（含透視拉直）、掃描 ISBN、批次匯入或點擊下方「載入範例清單」試玩'}  
+              </p>  
+            </div>  
+          </div>  
+        `;  
+        renderActiveBookPlaque(null);  
+        return;  
+      }  
+  
+      if (state.focusedIndex >= state.filteredBooks.length) {  
+        state.focusedIndex = Math.max(0, state.filteredBooks.length - 1);  
+      }  
+  
+      const spacer = `<div class="shrink-0 w-[38vw] sm:w-[42vw]"></div>`;  
+      const booksHTML = state.filteredBooks.map((book, idx) => {  
+        const isArchived = book.status === 'archived';  
+        const fallbackCover = `https://placehold.co/320x480/${(book.spineColor || '#28463B').replace('#', '')}/FAF6ED?text=${encodeURIComponent(book.title.slice(0, 10))}`;  
+        const spineBg = book.spineColor || '#28463B';  
+        return `  
+          <div class="book-node shrink-0 flex items-center justify-center" data-index="${idx}">  
+            <div class="book-3d-pivot book-3d-card-size cursor-pointer rounded-r-lg shadow-xl"  
+              onclick="handleBookNodeClick(${idx}, '${book.id}')">  
+              <div class="book-spine" style="background-color:${escapeHTML(spineBg)};color:#FAF6ED;">  
+                <span class="font-mono text-[9px] tracking-widest uppercase opacity-80">${escapeHTML(book.category === '漫畫' ? 'MANGA' : 'BOOK')}</span>  
+                <span class="font-serif font-bold text-xs tracking-wider truncate max-h-36" style="writing-mode:vertical-rl;">${escapeHTML(book.title)}</span>  
+                <span class="font-mono text-[9px] opacity-75">${String(idx + 1).padStart(2, '0')}</span>  
+              </div>  
+              <div class="book-pages"></div>  
+              <div class="relative w-full h-full rounded-r-lg overflow-hidden border border-ink/20 bg-surface">  
+                <img src="${escapeHTML(book.coverUrl || fallbackCover)}"  
+                  alt="${escapeHTML(book.title)}"  
+                  draggable="false"  
+                  onerror="this.onerror=null;this.src='${fallbackCover}';"  
+                  class="w-full h-full object-cover ${isArchived ? 'grayscale opacity-45' : ''}" />  
+                <div class="book-cover-sheen"></div>  
+                ${isArchived ? `  
+                  <div class="book-archived-mask absolute inset-0 flex items-center justify-center">  
+                    <span class="px-2.5 py-0.5 rounded bg-black/65 text-white text-[11px] font-medium">已下架</span>  
+                  </div>  
+                ` : ''}  
+              </div>  
+            </div>  
+          </div>  
+        `;  
+      }).join('');  
+  
+      track.innerHTML = spacer + booksHTML + spacer;  
+      requestAnimationFrame(() => {  
+        scrollToBookIndex(state.focusedIndex, false);  
+        update3DShelfPhysics();  
+      });  
+    }  
+  
+    function handleBookNodeClick(index, bookId) {  
+      if (state.isDraggingShelf) return;  
+      if (state.focusedIndex !== index) {  
+        scrollToBookIndex(index, true);  
+      } else {  
+        openBookDetail(bookId);  
+      }  
+    }  
+  
+    function scrollToBookIndex(index, smooth = true) {  
+      const track = document.getElementById('bookshelf-track');  
+      if (!track || state.filteredBooks.length === 0) return;  
+      const clamped = Math.max(0, Math.min(state.filteredBooks.length - 1, index));  
+      const nodes = track.querySelectorAll('.book-node');  
+      const targetNode = nodes[clamped];  
+      if (!targetNode) return;  
+  
+      const trackRect = track.getBoundingClientRect();  
+      const nodeCenter = targetNode.offsetLeft + (targetNode.offsetWidth / 2);  
+      const desiredScrollLeft = nodeCenter - (trackRect.width / 2);  
+      track.scrollTo({  
+        left: Math.max(0, desiredScrollLeft),  
+        behavior: smooth ? 'smooth' : 'auto'  
+      });  
+    }  
+  
+    function stepFocusedBook(delta) {  
+      if (state.filteredBooks.length === 0) return;  
+      const next = Math.max(0, Math.min(state.filteredBooks.length - 1, state.focusedIndex + delta));  
+      scrollToBookIndex(next, true);  
+    }  
+  
+    function update3DShelfPhysics() {  
+      const track = document.getElementById('bookshelf-track');  
+      if (!track || state.filteredBooks.length === 0) return;  
+  
+      const trackRect = track.getBoundingClientRect();  
+      const viewportCenter = track.scrollLeft + (trackRect.width / 2);  
+      const nodes = track.querySelectorAll('.book-node');  
+  
+      let closestIdx = 0;  
+      let minDist = Infinity;  
+  
+      nodes.forEach((node, idx) => {  
+        const nodeCenter = node.offsetLeft + (node.offsetWidth / 2);  
+        const normOffset = (nodeCenter - viewportCenter) / Math.max(160, trackRect.width * 0.34);  
+        const clampedOffset = Math.max(-2.2, Math.min(2.2, normOffset));  
+        const absOffset = Math.abs(clampedOffset);  
+  
+        if (absOffset < minDist) {  
+          minDist = absOffset;  
+          closestIdx = idx;  
+        }  
+  
+        const pivot = node.querySelector('.book-3d-pivot');  
+        const scale = Math.max(0.76, 1.08 - absOffset * 0.14);  
+        const rotateY = -clampedOffset * 28;  
+        const translateZ = Math.max(-140, -absOffset * 56);  
+        const sideMargin = Math.max(6, 26 - absOffset * 9);  
+  
+        node.style.marginLeft = `${sideMargin}px`;  
+        node.style.marginRight = `${sideMargin}px`;  
+        node.style.zIndex = String(Math.round(50 - absOffset * 18));  
+  
+        if (pivot) {  
+          pivot.style.transform = `translateZ(${translateZ}px) rotateY(${rotateY}deg) scale(${scale})`;  
+          pivot.style.boxShadow = absOffset < 0.45  
+            ? '0 22px 38px -12px rgba(0, 0, 0, 0.42)'  
+            : '0 10px 20px -10px rgba(0, 0, 0, 0.25)';  
+        }  
+      });  
+  
+      if (state.focusedIndex !== closestIdx) {  
+        state.focusedIndex = closestIdx;  
+        renderActiveBookPlaque(state.filteredBooks[closestIdx] || null);  
+      } else if (!document.getElementById('active-book-plaque').innerHTML.trim()) {  
+        renderActiveBookPlaque(state.filteredBooks[closestIdx] || null);  
+      }  
+    }  
+  
+    function renderActiveBookPlaque(book) {  
+      const plaque = document.getElementById('active-book-plaque');  
+      if (!plaque) return;  
+  
+      if (!book) {  
+        plaque.innerHTML = `<p class="text-xs text-inkMuted">此書架目前沒有符合篩選條件的書籍</p>`;  
+        return;  
+      }  
+  
+      const saved = isBookSavedInAnyFolder(book.id);  
+      const inLoan = isBookInLoanSlip(book.id);  
+  
+      plaque.innerHTML = `  
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-2.5 text-left">  
+          <div class="min-w-0 flex-1 text-center sm:text-left">  
+            <div class="flex flex-wrap items-center justify-center sm:justify-start gap-1.5 mb-0.5">  
+              ${getStatusBadgeHTML(book.status)}  
+              <span class="font-mono text-[10px] text-goldDark">${escapeHTML(book.category)}${book.volume ? ' · ' + escapeHTML(book.volume) : ''}</span>  
+              ${state.mode === 'admin' && book.status === 'lent' && book.borrower  
+                ? `<span class="text-[11px] text-rust font-medium">借閱人：${escapeHTML(book.borrower)}</span>` : ''}  
+            </div>  
+            <h3 class="font-serif font-bold text-base sm:text-lg text-ink truncate">${escapeHTML(book.title)}</h3>  
+            <p class="text-xs text-inkMuted truncate">${escapeHTML(book.author)}</p>  
+          </div>  
+  
+          <div class="flex flex-wrap items-center justify-center gap-1.5 shrink-0">  
+            <button onclick="openBookDetail('${book.id}')"  
+              class="px-3 py-1.5 rounded-full border border-ink/25 bg-paper text-ink text-xs font-medium hover:bg-ink hover:text-paper transition">  
+              ${state.mode === 'admin' ? '詳情 / 管理' : '書籍詳情'}  
+            </button>  
+            <button onclick="quickToggleSaveDefault('${book.id}')"  
+              class="px-3 py-1.5 rounded-full border text-xs font-medium transition ${  
+                saved ? 'bg-gold/25 border-gold text-ink font-semibold' : 'border-gold/45 bg-surface text-ink hover:bg-gold/15'  
+              }">  
+              ${saved ? '★ 已收藏' : '+ 收藏'}  
+            </button>  
+            <button onclick="quickToggleLoanBook('${book.id}')"  
+              class="px-3 py-1.5 rounded-full border text-xs font-medium transition ${  
+                inLoan ? 'bg-forest text-paper border-forest font-semibold' : 'border-forest/45 bg-surface text-forest hover:bg-forest hover:text-paper'  
+              }">  
+              ${inLoan ? '✓ 已入借書單' : '+ 借書單'}  
+            </button>  
+          </div>  
+        </div>  
+      `;  
+    }  
+  
+    function getActiveShelfDemoBooks() {  
+      return state.books.filter(b => b.shelfId === state.activeShelfId && b.isDemo);  
+    }  
+  
+    function updateDemoBooksToggleButton() {  
+      const btn = document.getElementById('btn-demo-books-toggle');  
+      if (!btn) return;  
+      const demoBooks = getActiveShelfDemoBooks();  
+      btn.textContent = demoBooks.length > 0 ? '撤回範例書單' : '載入範例清單';  
+    }  
+  
+    function handleDemoBooksButtonClick() {  
+      const shelf = getActiveShelfObj();  
+      const demoBooks = getActiveShelfDemoBooks();  
+  
+      if (demoBooks.length === 0) {  
+        const additions = JSON.parse(JSON.stringify(DEFAULT_BOOKS)).map((b, i) => ({  
+          ...b,  
+          id: `${b.id}-demo-${Date.now()}-${i}`,  
+          shelfId: shelf.id,  
+          isDemo: true,  
+          demoEdited: false  
+        }));  
+        state.books.push(...additions);  
+        saveState();  
+        renderAll();  
+        showToast(`已附加 ${additions.length} 本範例書籍至「${shelf.name}」`);  
+        return;  
+      }  
+  
+      const affected = demoBooks.filter(b => {  
+        const hasHistory = Array.isArray(b.history) && b.history.length > 0;  
+        return Boolean(b.demoEdited) || b.status === 'lent' || Boolean(b.borrower) || hasHistory;  
+      });  
+  
+      const withdrawDemo = () => {  
+        const demoIds = new Set(demoBooks.map(b => b.id));  
+        state.books = state.books.filter(b => !demoIds.has(b.id));  
+        state.savedFolders.forEach(f => {  
+          f.bookIds = (f.bookIds || []).filter(id => !demoIds.has(id));  
+        });  
+        state.loanBookIds = state.loanBookIds.filter(id => !demoIds.has(id));  
+        state.focusedIndex = 0;  
+        saveState();  
+        renderAll();  
+        showToast('已撤回範例書單，保留你自建的藏書');  
+      };  
+  
+      if (affected.length > 0) {  
+        const detailsHTML = affected.map(b => {  
+          const reasons = [];  
+          if (b.status === 'lent' || b.borrower) reasons.push(`借出中${b.borrower ? `（${escapeHTML(b.borrower)}）` : ''}`);  
+          if (Array.isArray(b.history) && b.history.length > 0) reasons.push(`含 ${b.history.length} 筆借閱紀錄`);  
+          if (b.demoEdited) reasons.push('已修改資料或狀態');  
+          return `<div>• <strong>${escapeHTML(b.title)}</strong>：${reasons.join('、')}</div>`;  
+        }).join('');  
+  
+        openConfirmModal({  
+          title: '撤回範例書單 — 偵測到已編輯或借出紀錄',  
+          message: '以下範例書籍已有修改或借閱／借出紀錄，撤回範例書單將會一併移除這些項目，確定要撤回嗎？',  
+          detailsHTML,  
+          confirmLabel: '確定撤回',  
+          cancelLabel: '保留範例書單',  
+          onConfirm: withdrawDemo  
+        });  
+      } else {  
+        withdrawDemo();  
+      }  
+    }  
+  
+    // ==================== UPGRADED GUIDED TOUR ENGINE (FOUR-PANE BLUR, CONTOUR HIGHLIGHT & SYNCED SCROLL) ====================  
+    function clearTourTimers() {  
+      if (Array.isArray(state._tourTimers)) {  
+        state._tourTimers.forEach(t => clearTimeout(t));  
+      }  
+      state._tourTimers = [];  
+      if (state._tourRafId) {  
+        cancelAnimationFrame(state._tourRafId);  
+        state._tourRafId = null;  
+      }  
+    }  
+  
+    function clearTourVisualEffects() {  
+      document.querySelectorAll('.tour-blur-pane').forEach(el => el.remove());  
+      document.querySelectorAll('.tour-target-frame, .tour-ripple-ring').forEach(el => {  
+        el.classList.remove('tour-target-frame', 'tour-ripple-ring');  
+        el.style.borderRadius = '';  
+      });  
+    }  
+  
+    function setTourInteractionLock(locked) {  
+      document.body.classList.toggle('tour-active-lock', locked);  
+    }  
+  
+    function ensureWelcomeBackdrop(show) {  
+      let bd = document.getElementById('tour-welcome-backdrop');  
+      if (show) {  
+        if (!bd) {  
+          bd = document.createElement('div');  
+          bd.id = 'tour-welcome-backdrop';  
+          bd.className = 'tour-welcome-backdrop';  
+          document.body.appendChild(bd);  
+        }  
+      } else if (bd) {  
+        bd.remove();  
+      }  
+    }  
+  
+    // Renders Top / Bottom / Left / Right blur panes strictly OUTSIDE the target element's bounding box  
+    function renderFourPaneBlurAroundTarget(target, pad = 6) {  
+      document.querySelectorAll('.tour-blur-pane').forEach(el => el.remove());  
+      if (!target || target.classList.contains('hidden')) return;  
+  
+      const rect = target.getBoundingClientRect();  
+      if (rect.width <= 0 || rect.height <= 0) return;  
+  
+      const vw = window.innerWidth;  
+      const vh = window.innerHeight;  
+  
+      const top = Math.max(0, Math.floor(rect.top - pad));  
+      const bottom = Math.min(vh, Math.ceil(rect.bottom + pad));  
+      const left = Math.max(0, Math.floor(rect.left - pad));  
+      const right = Math.min(vw, Math.ceil(rect.right + pad));  
+  
+      const panes = [  
+        { x: 0, y: 0, w: vw, h: top },  
+        { x: 0, y: bottom, w: vw, h: Math.max(0, vh - bottom) },  
+        { x: 0, y: top, w: left, h: Math.max(0, bottom - top) },  
+        { x: right, y: top, w: Math.max(0, vw - right), h: Math.max(0, bottom - top) }  
+      ];  
+  
+      panes.forEach(p => {  
+        if (p.w < 1 || p.h < 1) return;  
+        const pane = document.createElement('div');  
+        pane.className = 'tour-blur-pane';  
+        pane.style.left = `${p.x}px`;  
+        pane.style.top = `${p.y}px`;  
+        pane.style.width = `${p.w}px`;  
+        pane.style.height = `${p.h}px`;  
+        document.body.appendChild(pane);  
+      });  
+    }  
+  
+    // Applies contour-hugging highlight that matches target's natural border-radius (no sharp boxy corners)  
+    function applyContourHighlight(target) {  
+      document.querySelectorAll('.tour-target-frame').forEach(el => {  
+        if (el !== target) {  
+          el.classList.remove('tour-target-frame');  
+          el.style.borderRadius = '';  
+        }  
+      });  
+      if (!target || target.classList.contains('hidden')) return;  
+  
+      const rect = target.getBoundingClientRect();  
+      const cs = getComputedStyle(target);  
+      const br = cs.borderRadius;  
+      const isCircleOrPill = br.includes('9999') || (Math.abs(rect.width - rect.height) < 6 && parseFloat(br) >= rect.width * 0.4);  
+  
+      target.classList.add('tour-target-frame');  
+      if (isCircleOrPill) {  
+        target.style.borderRadius = '9999px';  
+      } else if (br && br !== '0px') {  
+        target.style.borderRadius = br;  
+      } else {  
+        target.style.borderRadius = '12px';  
+      }  
+    }  
+  
+    function resetCoachmarkPositionStyles(pop) {  
+      pop.style.top = '';  
+      pop.style.bottom = '';  
+      pop.style.left = '';  
+      pop.style.right = '';  
+      pop.style.transform = '';  
+      pop.style.margin = '0';  
+    }  
+  
+    function centerCoachmarkStrictly(pop) {  
+      resetCoachmarkPositionStyles(pop);  
+      pop.style.top = '50%';  
+      pop.style.left = '50%';  
+      pop.style.transform = 'translate(-50%, -50%)';  
+    }  
+  
+    function getTourStepsForCurrentMode() {  
+      if (state.mode === 'guest') {  
+        return [  
+          {  
+            targetId: null,  
+            isWelcome: true,  
+            placeScreenCenter: true,  
+            title: '歡迎來到我的書房',  
+            desc: '這是一座精心整理的私人數位書櫃。你可以在這裡自在翻閱書架上的書籍與漫畫，把想看的書收入收藏或借書單，再分享給書房主人。'  
+          },  
+          {  
+            targetId: 'tour-target-stage',  
+            placeBelowHalf: true,  
+            title: '1. 翻閱書架與查看書籍狀態',  
+            desc: '左右滑動書背或點擊中央書封，即可查看書籍簡介與目前的「在架上／借出中／已下架」狀態，確認想看的書目前是否可供借閱。'  
+          },  
+          {  
+            targetId: 'tour-target-tools',  
+            placeScreenCenter: true,  
+            title: '2. 「我的收藏」分類與本機隱私隔離',  
+            desc: '你可以點擊上方工具列的「總清單」快速搜尋，或用「我的收藏」建立不同資料夾分類想看的書；你的收藏與借書單都只留在目前裝置，不會改動主人書櫃。'  
+          },  
+          {  
+            targetId: 'btn-header-loan-slip',  
+            isLoanSlipStep: true,  
+            placeScreenCenter: true,  
+            title: '3. 使用「借書單」挑選並分享給主人',  
+            desc: '已為你開啟「借書單」分頁：看到想借的書時點擊「+ 借書單」，再在此填寫你的署名、預覽借書單（可切換顯示迷你書封），最後複製文字清單或下載 PNG 圖卡傳給書房主人即可！'  
+          },  
+          {  
+            targetId: 'footer-create-my-study-link',  
+            placeScreenCenter: true,  
+            title: '4. 也想建立屬於你的虛擬書櫃嗎？',  
+            desc: '如果看完覺得很有趣，歡迎點擊下方的「製作我的書房」前往建立你自己的線上書架，與身邊的朋友分享藏書與閱讀交流！',  
+            showGuestCta: true  
+          }  
+        ];  
+      }  
+  
+      return [  
+        {  
+          targetId: null,  
+          isWelcome: true,  
+          placeScreenCenter: true,  
+          title: '歡迎來到我的書房',  
+          desc: '歡迎開啟你的私人數位藏書沙龍！這裡能幫你整理書籍與漫畫、追蹤借出紀錄，並把單一唯讀書架分享給朋友。接下來我們一步步認識操作位置。'  
+        },  
+        {  
+          targetId: 'tour-target-island',  
+          placeTopSafe: true,  
+          title: '1. 主人／訪客切換與外觀設定',  
+          desc: '中央靈動島可隨時在「主人」與「訪客」視角間切換；右側透明齒輪按鈕可調整日光／黑夜模式、色彩主題與中英文字體。'  
+        },  
+        {  
+          targetId: 'tour-target-shelves',  
+          placeTopSafe: true,  
+          title: '2. 多書架切換、新增與書架主題',  
+          desc: '你可以在這裡切換不同書架、點擊「+ 新增書架」建立專屬分類書架並自動記憶，或開啟「書架主題」為個別書架配色。'  
+        },  
+        {  
+          targetId: 'tour-target-tools',  
+          placeTopSafe: true,  
+          title: '3. 工具列：總清單、我的收藏與借書單',  
+          desc: '最左側是支援搜尋、多選與左滑刪除的「總清單」，接著是管理收藏資料夾的「我的收藏」，以及整理借書清單的「借書單」。'  
+        },  
+        {  
+          targetId: 'tour-target-import',  
+          placeTopSafe: true,  
+          title: '4. 匯入 / 新增書籍（支援封面拉直剪裁）',  
+          desc: '點擊這裡可直接拍攝或批次上傳最多 10 張封面建書、拖曳四點透視拉直斜拍封面，或使用 ISBN 一鍵補全書目資料。'  
+        },  
+        {  
+          targetId: 'tour-target-share',  
+          placeTopSafe: true,  
+          title: '5. 分享單一書櫃唯讀連結',  
+          desc: '點擊「分享此書櫃（訪客唯讀）」會複製鎖定目前書櫃的唯讀連結，訪客進入時會自動隱藏你的其他書櫃。'  
+        },  
+        {  
+          targetId: 'tour-target-demo-controls',  
+          scrollToBottom: true,  
+          placeAboveBottomTarget: true,  
+          title: '6. 底部書架工具：清空書架與載入／撤回範例清單',  
+          desc: '下方這組按鈕可一鍵「清空書架」，或點擊「載入範例清單」附加範例書體驗；載入後按鈕會變成「撤回範例書單」，方便隨時移除範例而不影響你自建的書。'  
+        },  
+        {  
+          targetId: 'btn-header-loan-slip',  
+          isLoanSlipStep: true,  
+          placeScreenCenter: true,  
+          title: '7. 借書單分頁與對帳匯出',  
+          desc: '目前已為你打開「借書單」分頁：你可以在此設定書房主人署名、預覽借書單（可切換顯示小型封面）、複製文字或下載 PNG，也能匯入朋友借書清單／圖片做狀態對帳。'  
+        },  
+        {  
+          targetId: 'tour-target-stage',  
+          isFinalOutOfFrameBlur: true,  
+          placeScreenCenter: true,  
+          title: '8. 建立你的書櫃吧',  
+          desc: '現在你可以自由滑動 3D 書架、拍下書封或匯入書單，打造專屬於你的個人線上藏書閣！',  
+          closeAllTabsToHome: true  
+        }  
+      ];  
+    }  
+  
+    function closeAllOverlaysToHome() {  
+      document.querySelectorAll('.modal-backdrop').forEach(el => {  
+        el.classList.add('hidden');  
+        el.classList.remove('flex');  
+      });  
+      const drawer = document.getElementById('catalogue-drawer');  
+      if (drawer) drawer.classList.add('translate-x-full');  
+      if (state.isStudioOpen) {  
+        state.isStudioOpen = false;  
+        state.studioPreviewTheme = null;  
+        state.studioPreviewScheme = null;  
+        applyAppearanceSettings();  
+      }  
+    }  
+  
+    function startGuidedTour(options = {}) {  
+      clearTourTimers();  
+      clearTourVisualEffects();  
+      state._tourPromptAfterEnd = Boolean(options.promptAfterEnd);  
+      closeAllOverlaysToHome();  
+      window.scrollTo({ top: 0, behavior: 'auto' });  
+      setTourInteractionLock(true);  
+      state.tourStepIndex = 0;  
+      renderGuidedTourStep();  
+    }  
+  
+    function stepGuidedTour(delta) {  
+      clearTourTimers();  
+      const steps = getTourStepsForCurrentMode();  
+      const prevStep = steps[state.tourStepIndex];  
+      const next = state.tourStepIndex + delta;  
+  
+      if (next >= steps.length) {  
+        endGuidedTour();  
+        return;  
+      }  
+  
+      const nextIdx = Math.max(0, next);  
+      const nextStep = steps[nextIdx];  
+  
+      // Close loan slip modal immediately whenever leaving the loan slip step (e.g. Guest Step 3 -> Step 4, or Host Step 7 -> Step 8 / Step 6)  
+      if (prevStep && prevStep.isLoanSlipStep && (!nextStep || !nextStep.isLoanSlipStep)) {  
+        closeModal('loan-slip-modal');  
+      }  
+  
+      // Whenever stepping backward, ensure any modal/drawer opened by later steps is closed unless the destination step opens it  
+      if (delta < 0 && (!nextStep || !nextStep.isLoanSlipStep)) {  
+        closeAllOverlaysToHome();  
+      }  
+  
+      // Leaving bottom-scrolled Step 6 -> smoothly return page to top only on Next / Prev click  
+      if (prevStep && prevStep.scrollToBottom && (!nextStep || !nextStep.scrollToBottom)) {  
+        document.body.classList.remove('tour-active-lock');  
+        window.scrollTo({ top: 0, behavior: 'smooth' });  
+      }  
+  
+      state.tourStepIndex = nextIdx;  
+      renderGuidedTourStep();  
+    }  
+  
+    function endGuidedTour() {  
+      clearTourTimers();  
+      const shouldPrompt = Boolean(state._tourPromptAfterEnd && state.mode === 'admin');  
+      state._tourPromptAfterEnd = false;  
+      state.tourStepIndex = -1;  
+      setTourInteractionLock(false);  
+      ensureWelcomeBackdrop(false);  
+      clearTourVisualEffects();  
+      closeAllOverlaysToHome();  
+  
+      const pop = document.getElementById('guided-tour-popover');  
+      if (pop) {  
+        pop.classList.add('hidden');  
+        resetCoachmarkPositionStyles(pop);  
+      }  
+  
+      try {  
+        const seenKey = state.mode === 'guest' ? SHARED_STORAGE_KEYS.TUTORIAL_GUEST_SEEN : SHARED_STORAGE_KEYS.TUTORIAL_HOST_SEEN;  
+        localStorage.setItem(seenKey, '1');  
+      } catch (e) {}  
+  
+      if (shouldPrompt) {  
+        setTimeout(() => openInitialDemoChoiceModal(), 220);  
+      }  
+    }  
+  
+    function openInitialDemoChoiceModal() {  
+      openConfirmModal({  
+        title: '導覽已完成 — 選擇你的初始書櫃',  
+        message: '示範書單已協助你體驗書架功能。接下來你想「保留示範書單」繼續參考，還是「領取空白書櫃」從零開始建立自己的藏書？',  
+        confirmLabel: '領取空白書櫃',  
+        cancelLabel: '保留示範書單',  
+        onConfirm: () => {  
+          const shelf = getActiveShelfObj();  
+          state.books = state.books.filter(b => !(b.shelfId === shelf.id && b.isDemo));  
+          state.focusedIndex = 0;  
+          saveState();  
+          renderAll();  
+          showToast('已為你準備空白書櫃，隨時可新增或匯入書籍！');  
+        },  
+        onCancel: () => {  
+          showToast('已保留示範書單，可隨時在底部「撤回範例書單」');  
+        }  
+      });  
+    }  
+  
+    function renderGuidedTourStep() {  
+      clearTourTimers();  
+      const steps = getTourStepsForCurrentMode();  
+      const step = steps[state.tourStepIndex];  
+      if (!step) return;  
+  
+      const pop = document.getElementById('guided-tour-popover');  
+      const badge = document.getElementById('tour-step-badge');  
+      const title = document.getElementById('tour-step-title');  
+      const desc = document.getElementById('tour-step-desc');  
+      const prevBtn = document.getElementById('tour-prev-btn');  
+      const nextBtn = document.getElementById('tour-next-btn');  
+      const guestCta = document.getElementById('tour-guest-cta-btn');  
+      if (!pop) return;  
+  
+      const totalSteps = steps.length;  
+      const isLastStep = state.tourStepIndex === totalSteps - 1;  
+  
+      badge.textContent = step.isWelcome  
+        ? `WELCOME · ${state.mode === 'guest' ? '訪客導覽' : '主人導覽'}`  
+        : `STEP ${state.tourStepIndex} / ${totalSteps - 1}`;  
+      title.textContent = step.title;  
+      desc.textContent = step.desc;  
+      prevBtn.style.visibility = state.tourStepIndex === 0 ? 'hidden' : 'visible';  
+      nextBtn.textContent = step.isWelcome ? '開始導覽' : (isLastStep ? '完成導覽' : '下一步');  
+      if (guestCta) guestCta.classList.toggle('hidden', !step.showGuestCta);  
+  
+      // CASE A: Loan Slip Modal Step (Guest Step 3 & Host Step 7)  
+      // Must show top of page & top of loan-slip modal, with ripple cue on header loan button first, then open loan modal  
+      if (step.isLoanSlipStep) {  
+        ensureWelcomeBackdrop(false);  
+        clearTourVisualEffects();  
+        closeAllOverlaysToHome();  
+  
+        document.body.classList.remove('tour-active-lock');  
+        window.scrollTo({ top: 0, behavior: 'auto' });  
+  
+        const loanBtn = document.getElementById('btn-header-loan-slip');  
+        if (loanBtn) {  
+          loanBtn.classList.add('tour-ripple-ring');  
+          renderFourPaneBlurAroundTarget(loanBtn, 6);  
+        }  
+  
+        // Show centered cue immediately while rippling header button, then open Loan Slip Modal smoothly  
+        pop.classList.remove('hidden', 'tour-welcome-card-glow');  
+        centerCoachmarkStrictly(pop);  
+  
+        const openTimer = setTimeout(() => {  
+          if (state.tourStepIndex < 0) return;  
+          if (loanBtn) loanBtn.classList.remove('tour-ripple-ring');  
+          clearTourVisualEffects();  
+  
+          openLoanSlipModal();  
+          const dialog = document.getElementById('loan-slip-dialog');  
+          if (dialog) dialog.scrollTop = 0;  
+  
+          pop.classList.remove('hidden');  
+          // Keep coachmark steadily centered in the viewport without jumping downward  
+          centerCoachmarkStrictly(pop);  
+          setTourInteractionLock(true);  
+        }, 620);  
+  
+        state._tourTimers.push(openTimer);  
+        return;  
+      }  
+  
+      // Close any open modal/drawer for non-loan steps  
+      if (step.closeAllTabsToHome || !step.isLoanSlipStep) {  
+        closeAllOverlaysToHome();  
+      }  
+  
+      // CASE B: Welcome Step (Step 0)  
+      if (step.isWelcome) {  
+        clearTourVisualEffects();  
+        ensureWelcomeBackdrop(true);  
+        setTourInteractionLock(true);  
+        pop.classList.remove('hidden');  
+        pop.classList.add('tour-welcome-card-glow');  
+        centerCoachmarkStrictly(pop);  
+        return;  
+      }  
+  
+      ensureWelcomeBackdrop(false);  
+      pop.classList.remove('tour-welcome-card-glow');  
+  
+      const target = step.targetId ? document.getElementById(step.targetId) : null;  
+  
+      // CASE C: Host Step 6 (Synchronized scroll down to bottom sandbox + real-time coachmark tracking, stays at bottom until Next/Prev)  
+      if (step.scrollToBottom && target) {  
+        document.body.classList.remove('tour-active-lock');  
+        pop.classList.remove('hidden');  
+  
+        // Start smooth scroll to bottom immediately while simultaneously showing & tracking the coachmark  
+        const targetBottomY = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);  
+        window.scrollTo({ top: targetBottomY, behavior: 'smooth' });  
+  
+        applyContourHighlight(target);  
+        positionCoachmark(pop, target, step);  
+        renderFourPaneBlurAroundTarget(target, 6);  
+  
+        const startTime = performance.now();  
+        const trackScrollFrame = (now) => {  
+          if (state.tourStepIndex < 0) return;  
+          const activeSteps = getTourStepsForCurrentMode();  
+          if (!activeSteps[state.tourStepIndex] || !activeSteps[state.tourStepIndex].scrollToBottom) return;  
+  
+          positionCoachmark(pop, target, step);  
+          renderFourPaneBlurAroundTarget(target, 6);  
+  
+          if (now - startTime < 680) {  
+            state._tourRafId = requestAnimationFrame(trackScrollFrame);  
+          } else {  
+            state._tourRafId = null;  
+            setTourInteractionLock(true);  
+          }  
+        };  
+        state._tourRafId = requestAnimationFrame(trackScrollFrame);  
+        return;  
+      }  
+  
+      // CASE D: Final Step 8 ("建立你的書櫃吧") — out-of-frame blur around the whole bookshelf stage + centered card  
+      if (step.isFinalOutOfFrameBlur) {  
+        setTourInteractionLock(true);  
+        pop.classList.remove('hidden');  
+        if (target && !target.classList.contains('hidden')) {  
+          applyContourHighlight(target);  
+          renderFourPaneBlurAroundTarget(target, 6);  
+        } else {  
+          clearTourVisualEffects();  
+          ensureWelcomeBackdrop(true);  
+        }  
+        centerCoachmarkStrictly(pop);  
+        return;  
+      }  
+  
+      // CASE E: Standard Target Steps (Steps 1-5 Host, Steps 1, 2, 4 Guest)  
+      setTourInteractionLock(true);  
+      pop.classList.remove('hidden');  
+  
+      if (target && !target.classList.contains('hidden')) {  
+        applyContourHighlight(target);  
+        renderFourPaneBlurAroundTarget(target, 6);  
+        positionCoachmark(pop, target, step);  
+      } else {  
+        clearTourVisualEffects();  
+        ensureWelcomeBackdrop(true);  
+        centerCoachmarkStrictly(pop);  
+      }  
+    }  
+  
+    function positionCoachmark(pop, target, step = {}) {  
+      resetCoachmarkPositionStyles(pop);  
+  
+      if (step.placeScreenCenter) {  
+        centerCoachmarkStrictly(pop);  
+        return;  
+      }  
+  
+      const rect = target.getBoundingClientRect();  
+      const popRect = pop.getBoundingClientRect();  
+      const popW = popRect.width || Math.min(360, window.innerWidth - 32);  
+      const popH = popRect.height || 185;  
+      const vw = window.innerWidth;  
+      const vh = window.innerHeight;  
+      const isMobile = vw < 640;  
+  
+      // Mobile-safe positioning for bottom-anchored Step 6 so the bottom controls stay 100% visible  
+      if (step.placeAboveBottomTarget) {  
+        const safeGap = isMobile ? 12 : 14;  
+        const maxAllowedTop = Math.max(12, rect.top - popH - safeGap);  
+        const topPos = Math.min(maxAllowedTop, vh - popH - 16);  
+        pop.style.top = `${Math.max(12, topPos)}px`;  
+        pop.style.left = '50%';  
+        pop.style.transform = 'translateX(-50%)';  
+        if (isMobile) {  
+          pop.style.maxHeight = `${Math.max(160, rect.top - 24)}px`;  
+        }  
+        return;  
+      } else {  
+        pop.style.maxHeight = '82dvh';  
+      }  
+  
+      if (step.placeBelowHalf) {  
+        const preferredTop = Math.max(vh * 0.54, rect.top + rect.height * 0.48);  
+        const topPos = Math.min(vh - popH - 16, Math.max(16, preferredTop));  
+        pop.style.top = `${topPos}px`;  
+        pop.style.left = '50%';  
+        pop.style.transform = 'translateX(-50%)';  
+        return;  
+      }  
+  
+      let top = rect.bottom + 14;  
+      if (top + popH > vh - 16) {  
+        top = Math.max(16, rect.top - popH - 14);  
+      }  
+  
+      if (isMobile) {  
+        pop.style.top = `${top}px`;  
+        pop.style.left = '50%';  
+        pop.style.transform = 'translateX(-50%)';  
+      } else {  
+        let left = rect.left + (rect.width / 2) - (popW / 2);  
+        left = Math.max(16, Math.min(vw - popW - 16, left));  
+        pop.style.top = `${top}px`;  
+        pop.style.left = `${left}px`;  
+      }  
+    }  
+  
+    function maybeShowFirstVisitOnboarding() {  
+      try {  
+        const seenKey = state.mode === 'guest' ? SHARED_STORAGE_KEYS.TUTORIAL_GUEST_SEEN : SHARED_STORAGE_KEYS.TUTORIAL_HOST_SEEN;  
+        const seen = localStorage.getItem(seenKey);  
+        if (!seen) {  
+          setTimeout(() => startGuidedTour({ promptAfterEnd: state.mode === 'admin' }), 420);  
+        }  
+      } catch (e) {}  
+    }  
+  
+    // ==================== COVER BATCH UPLOAD, PERSPECTIVE SCAN CROPPER & PHOTO RETOUCH ====================  
+    function handleCoverBatchUpload(event) {  
+      const files = Array.from(event.target.files || []);  
+      if (files.length === 0) return;  
+  
+      const remaining = 10 - state.coverBatchDrafts.length;  
+      if (remaining <= 0) {  
+        showToast('單次最多可批次上傳 10 本書籍封面', true);  
+        event.target.value = '';  
+        return;  
+      }  
+  
+      const selectedFiles = files.slice(0, remaining);  
+      if (files.length > remaining) {  
+        showToast(`已達單次 10 本上限，僅載入前 ${remaining} 張封面`);  
+      }  
+  
+      selectedFiles.forEach((file, idx) => {  
+        const reader = new FileReader();  
+        reader.onload = (e) => {  
+          const dataUrl = e.target.result;  
+          const cleanTitle = file.name.replace(/\.[^/.]+$/, '').replace(/[_-]+/g, ' ').trim() || `新藏書 #${state.coverBatchDrafts.length + 1}`;  
+          extractDominantColorFromImage(dataUrl, (hexColor) => {  
+            state.coverBatchDrafts.push({  
+              id: 'draft-' + Date.now() + '-' + idx + '-' + Math.random().toString(36).slice(2, 6),  
+              originalDataUrl: dataUrl,  
+              coverDataUrl: dataUrl,  
+              isCropped: false,  
+              title: cleanTitle,  
+              author: '待補作者',  
+              category: '書籍',  
+              volume: '',  
+              isbn: '',  
+              spineColor: hexColor || '#28463B',  
+              synopsis: ''  
+            });  
+            renderCoverBatchDrafts();  
+          });  
+        };  
+        reader.readAsDataURL(file);  
+      });  
+  
+      event.target.value = '';  
+    }  
+  
+    function extractDominantColorFromImage(dataUrl, callback) {  
+      const img = new Image();  
+      img.onload = () => {  
+        try {  
+          const canvas = document.createElement('canvas');  
+          canvas.width = 24;  
+          canvas.height = 36;  
+          const ctx = canvas.getContext('2d');  
+          ctx.drawImage(img, 0, 0, 24, 36);  
+          const data = ctx.getImageData(0, 0, 24, 36).data;  
+          let rSum = 0, gSum = 0, bSum = 0, count = 0;  
+          for (let i = 0; i < data.length; i += 16) {  
+            const r = data[i], g = data[i + 1], b = data[i + 2];  
+            const lum = 0.299 * r + 0.587 * g + 0.114 * b;  
+            if (lum > 28 && lum < 235) {  
+              rSum += r;  
+              gSum += g;  
+              bSum += b;  
+              count++;  
+            }  
+          }  
+          if (count === 0) {  
+            callback('#28463B');  
+            return;  
+          }  
+          const rAvg = Math.round(rSum / count);  
+          const gAvg = Math.round(gSum / count);  
+          const bAvg = Math.round(bSum / count);  
+          const hex = '#' + [rAvg, gAvg, bAvg].map(v => v.toString(16).padStart(2, '0')).join('');  
+          callback(hex);  
+        } catch (err) {  
+          callback('#28463B');  
+        }  
+      };  
+      img.onerror = () => callback('#28463B');  
+      img.src = dataUrl;  
+    }  
+  
+    function renderCoverBatchDrafts() {  
+      const counter = document.getElementById('cover-batch-counter');  
+      const container = document.getElementById('cover-batch-queue-container');  
+      const list = document.getElementById('cover-batch-list');  
+  
+      if (counter) counter.textContent = `已準備 ${state.coverBatchDrafts.length} / 10 本`;  
+      if (!container || !list) return;  
+  
+      if (state.coverBatchDrafts.length === 0) {  
+        container.classList.add('hidden');  
+        list.innerHTML = '';  
+        return;  
+      }  
+  
+      container.classList.remove('hidden');  
+      list.innerHTML = state.coverBatchDrafts.map((d, idx) => `  
+        <div class="relative p-3 rounded-xl bg-surface border border-gold/45 flex flex-col sm:flex-row gap-3 items-start">  
+          <button type="button" onclick="removeCoverBatchDraft('${d.id}')"  
+            title="刪除此張誤傳封面"  
+            class="absolute -top-2 -right-2 z-10 w-6 h-6 rounded-full bg-rust text-white shadow-md flex items-center justify-center hover:scale-105 transition">  
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24">  
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+            </svg>  
+          </button>  
+  
+          <div class="shrink-0 flex flex-col items-center gap-1.5">  
+            <div onclick="openPerspectiveCropModal('${d.id}')"  
+              class="relative w-16 h-24 rounded-md overflow-hidden border border-ink/25 shadow-sm cursor-pointer group bg-paperDark"  
+              title="點擊開啟定點拉直與光線修圖">  
+              <img src="${d.coverDataUrl}" alt="封面預覽" class="w-full h-full object-cover group-hover:scale-105 transition" />  
+              <span class="absolute bottom-0 inset-x-0 bg-black/70 text-white text-[9px] text-center py-0.5 font-mono">  
+                ${d.isCropped ? '✓ 已拉直' : '✂ 拉直/修圖'}  
+              </span>  
+            </div>  
+            <button type="button" onclick="openPerspectiveCropModal('${d.id}')"  
+              class="text-[10px] font-medium text-goldDark hover:text-ink underline">  
+              剪裁與修圖  
+            </button>  
+          </div>  
+  
+          <div class="flex-1 min-w-0 w-full space-y-2">  
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">  
+              <input type="text" value="${escapeHTML(d.title)}"  
+                onchange="updateCoverDraftField('${d.id}', 'title', this.value)"  
+                placeholder="書名 *"  
+                class="w-full px-2.5 py-1.5 rounded border border-ink/20 bg-paper text-xs font-semibold text-ink" />  
+              <input type="text" value="${escapeHTML(d.author)}"  
+                onchange="updateCoverDraftField('${d.id}', 'author', this.value)"  
+                placeholder="作者"  
+                class="w-full px-2.5 py-1.5 rounded border border-ink/20 bg-paper text-xs text-ink" />  
+            </div>  
+  
+            <div class="flex flex-wrap items-center gap-2">  
+              <select onchange="updateCoverDraftField('${d.id}', 'category', this.value)"  
+                class="px-2.5 py-1.5 rounded border border-ink/20 bg-paper text-xs text-ink">  
+                <option value="書籍" ${d.category === '書籍' ? 'selected' : ''}>書籍</option>  
+                <option value="漫畫" ${d.category === '漫畫' ? 'selected' : ''}>漫畫</option>  
+              </select>  
+  
+              <input type="text" value="${escapeHTML(d.volume)}"  
+                onchange="updateCoverDraftField('${d.id}', 'volume', this.value)"  
+                placeholder="冊數/版本（選填）"  
+                class="w-28 px-2.5 py-1.5 rounded border border-ink/20 bg-paper text-xs text-ink" />  
+  
+              <div class="flex items-center gap-1 flex-1 min-w-[160px]">  
+                <input type="text" value="${escapeHTML(d.isbn)}"  
+                  onchange="updateCoverDraftField('${d.id}', 'isbn', this.value)"  
+                  placeholder="選填 ISBN 補全資料"  
+                  class="flex-1 min-w-0 px-2.5 py-1.5 rounded border border-ink/20 bg-paper font-mono text-xs text-ink" />  
+                <button type="button" onclick="enrichDraftByISBN('${d.id}')"  
+                  class="px-2.5 py-1.5 rounded bg-ink text-paper text-[11px] font-medium hover:bg-forest transition shrink-0">  
+                  補全  
+                </button>  
+              </div>  
+  
+              <label class="flex items-center gap-1 text-[11px] text-inkMuted shrink-0" title="自動提取書背色">  
+                <span>書背</span>  
+                <input type="color" value="${escapeHTML(d.spineColor)}"  
+                  onchange="updateCoverDraftField('${d.id}', 'spineColor', this.value)"  
+                  class="w-6 h-6 rounded border border-ink/20 cursor-pointer" />  
+              </label>  
+            </div>  
+          </div>  
+        </div>  
+      `).join('');  
+    }  
+  
+    function updateCoverDraftField(draftId, field, value) {  
+      const draft = state.coverBatchDrafts.find(d => d.id === draftId);  
+      if (draft) draft[field] = value;  
+    }  
+  
+    function removeCoverBatchDraft(draftId) {  
+      state.coverBatchDrafts = state.coverBatchDrafts.filter(d => d.id !== draftId);  
+      renderCoverBatchDrafts();  
+      showToast('已移除該張待入櫃封面');  
+    }  
+  
+    function clearCoverBatchQueue() {  
+      state.coverBatchDrafts = [];  
+      renderCoverBatchDrafts();  
+    }  
+  
+    async function enrichDraftByISBN(draftId) {  
+      const draft = state.coverBatchDrafts.find(d => d.id === draftId);  
+      if (!draft) return;  
+      const cleanIsbn = (draft.isbn || '').replace(/[^0-9Xx]/g, '');  
+      if (cleanIsbn.length < 10) {  
+        showToast('請先在該列輸入有效 ISBN（10 或 13 碼）', true);  
+        return;  
+      }  
+      showToast('正在查詢 ISBN 書目資料...');  
+      const fetched = await lookupSingleISBNMetadata(cleanIsbn);  
+      if (fetched) {  
+        if (fetched.title && !fetched.title.startsWith('未收錄 ISBN')) draft.title = fetched.title;  
+        if (fetched.author && fetched.author !== '待補作者') draft.author = fetched.author;  
+        if (fetched.synopsis) draft.synopsis = fetched.synopsis;  
+        renderCoverBatchDrafts();  
+        showToast(`已補全《${draft.title}》書目資料（保留你的實拍封面）`);  
+      } else {  
+        showToast('外部資料庫暫無此 ISBN 詳細資料，可直接手動編輯書名', true);  
+      }  
+    }  
+  
+    function commitCoverBatchToShelf() {  
+      if (state.coverBatchDrafts.length === 0) return;  
+      const activeShelf = getActiveShelfObj();  
+      const newBooks = state.coverBatchDrafts.map((d, idx) => ({  
+        id: 'bk-cover-' + Date.now() + '-' + idx,  
+        shelfId: activeShelf.id,  
+        title: (d.title || '').trim() || `未命名藏書 ${idx + 1}`,  
+        author: (d.author || '').trim() || '待補作者',  
+        category: d.category || '書籍',  
+        volume: (d.volume || '').trim(),  
+        isbn: (d.isbn || '').trim(),  
+        coverUrl: d.coverDataUrl,  
+        spineColor: d.spineColor || '#28463B',  
+        status: 'available',  
+        borrower: '',  
+        borrowDate: '',  
+        history: [],  
+        synopsis: d.synopsis || ''  
+      }));  
+  
+      state.books.unshift(...newBooks);  
+      state.focusedIndex = 0;  
+      saveState();  
+      renderAll();  
+      clearCoverBatchQueue();  
+      closeImportModal();  
+      showToast(`已成功將 ${newBooks.length} 本書籍加入「${activeShelf.name}」！`);  
+    }  
+  
+    // ==================== 4-POINT PERSPECTIVE SCAN CROPPER & RETOUCH ENGINE ====================  
+    function openPerspectiveCropModal(draftId) {  
+      const draft = state.coverBatchDrafts.find(d => d.id === draftId);  
+      if (!draft) return;  
+  
+      const img = new Image();  
+      img.onload = () => {  
+        const maxW = Math.min(540, window.innerWidth - 56);  
+        const maxH = Math.min(400, window.innerHeight * 0.48);  
+        const ratio = Math.min(maxW / img.width, maxH / img.height, 1);  
+        const dw = Math.round(img.width * ratio);  
+        const dh = Math.round(img.height * ratio);  
+  
+        const padX = Math.round(dw * 0.12);  
+        const padY = Math.round(dh * 0.10);  
+  
+        state.cropperState = {  
+          draftId,  
+          img,  
+          displayWidth: dw,  
+          displayHeight: dh,  
+          corners: [  
+            { x: padX, y: padY },  
+            { x: dw - padX, y: padY },  
+            { x: dw - padX, y: dh - padY },  
+            { x: padX, y: dh - padY }  
+          ],  
+          draggingIdx: -1,  
+          brightness: 100,  
+          contrast: 100,  
+          saturate: 100  
+        };  
+  
+        syncCropperSlidersUI();  
+  
+        const canvas = document.getElementById('perspective-crop-canvas');  
+        canvas.width = dw;  
+        canvas.height = dh;  
+  
+        const modal = document.getElementById('perspective-crop-modal');  
+        modal.classList.remove('hidden');  
+        modal.classList.add('flex');  
+        drawPerspectiveCropCanvas();  
+      };  
+      img.src = draft.originalDataUrl || draft.coverDataUrl;  
+    }  
+  
+    function syncCropperSlidersUI() {  
+      const cs = state.cropperState;  
+      const bSlider = document.getElementById('crop-slider-brightness');  
+      const cSlider = document.getElementById('crop-slider-contrast');  
+      const sSlider = document.getElementById('crop-slider-saturate');  
+      if (bSlider) bSlider.value = cs.brightness;  
+      if (cSlider) cSlider.value = cs.contrast;  
+      if (sSlider) sSlider.value = cs.saturate;  
+      document.getElementById('crop-val-brightness').textContent = `${cs.brightness}%`;  
+      document.getElementById('crop-val-contrast').textContent = `${cs.contrast}%`;  
+      document.getElementById('crop-val-saturate').textContent = `${cs.saturate}%`;  
+    }  
+  
+    function updateCropperFilter(key, val) {  
+      state.cropperState[key] = Number(val) || 100;  
+      syncCropperSlidersUI();  
+      drawPerspectiveCropCanvas();  
+    }  
+  
+    function applyScanEnhancePreset() {  
+      state.cropperState.brightness = 114;  
+      state.cropperState.contrast = 122;  
+      state.cropperState.saturate = 108;  
+      syncCropperSlidersUI();  
+      drawPerspectiveCropCanvas();  
+      showToast('已套用書封增亮與清晰度強化');  
+    }  
+  
+    function resetCropperFilters() {  
+      state.cropperState.brightness = 100;  
+      state.cropperState.contrast = 100;  
+      state.cropperState.saturate = 100;  
+      syncCropperSlidersUI();  
+      drawPerspectiveCropCanvas();  
+    }  
+  
+    function closePerspectiveCropModal() {  
+      closeModal('perspective-crop-modal');  
+    }  
+  
+    function resetPerspectiveCorners() {  
+      const cs = state.cropperState;  
+      if (!cs.img) return;  
+      const padX = Math.round(cs.displayWidth * 0.12);  
+      const padY = Math.round(cs.displayHeight * 0.10);  
+      cs.corners = [  
+        { x: padX, y: padY },  
+        { x: cs.displayWidth - padX, y: padY },  
+        { x: cs.displayWidth - padX, y: cs.displayHeight - padY },  
+        { x: padX, y: cs.displayHeight - padY }  
+      ];  
+      drawPerspectiveCropCanvas();  
+    }  
+  
+    function restoreOriginalDraftCover() {  
+      const cs = state.cropperState;  
+      const draft = state.coverBatchDrafts.find(d => d.id === cs.draftId);  
+      if (!draft) return;  
+      draft.coverDataUrl = draft.originalDataUrl;  
+      draft.isCropped = false;  
+      extractDominantColorFromImage(draft.coverDataUrl, (hex) => {  
+        draft.spineColor = hex;  
+        renderCoverBatchDrafts();  
+      });  
+      closePerspectiveCropModal();  
+      showToast('已還原為原始圖片');  
+    }  
+  
+    function drawPerspectiveCropCanvas() {  
+      const canvas = document.getElementById('perspective-crop-canvas');  
+      const cs = state.cropperState;  
+      if (!canvas || !cs.img) return;  
+      const ctx = canvas.getContext('2d');  
+      const w = cs.displayWidth;  
+      const h = cs.displayHeight;  
+  
+      ctx.clearRect(0, 0, w, h);  
+  
+      ctx.save();  
+      ctx.filter = `brightness(${cs.brightness}%) contrast(${cs.contrast}%) saturate(${cs.saturate}%)`;  
+      ctx.drawImage(cs.img, 0, 0, w, h);  
+      ctx.restore();  
+  
+      ctx.save();  
+      ctx.fillStyle = 'rgba(15, 12, 10, 0.56)';  
+      ctx.beginPath();  
+      ctx.rect(0, 0, w, h);  
+      ctx.moveTo(cs.corners[0].x, cs.corners[0].y);  
+      ctx.lineTo(cs.corners[3].x, cs.corners[3].y);  
+      ctx.lineTo(cs.corners[2].x, cs.corners[2].y);  
+      ctx.lineTo(cs.corners[1].x, cs.corners[1].y);  
+      ctx.closePath();  
+      ctx.fill('evenodd');  
+      ctx.restore();  
+  
+      ctx.save();  
+      ctx.strokeStyle = '#E5C170';  
+      ctx.lineWidth = 2.2;  
+      ctx.beginPath();  
+      cs.corners.forEach((pt, i) => {  
+        if (i === 0) ctx.moveTo(pt.x, pt.y);  
+        else ctx.lineTo(pt.x, pt.y);  
+      });  
+      ctx.closePath();  
+      ctx.stroke();  
+  
+      ctx.strokeStyle = 'rgba(229, 193, 112, 0.35)';  
+      ctx.lineWidth = 1;  
+      for (let t = 1; t <= 2; t++) {  
+        const f = t / 3;  
+        const topX = cs.corners[0].x + (cs.corners[1].x - cs.corners[0].x) * f;  
+        const topY = cs.corners[0].y + (cs.corners[1].y - cs.corners[0].y) * f;  
+        const botX = cs.corners[3].x + (cs.corners[2].x - cs.corners[3].x) * f;  
+        const botY = cs.corners[3].y + (cs.corners[2].y - cs.corners[3].y) * f;  
+        ctx.beginPath();  
+        ctx.moveTo(topX, topY);  
+        ctx.lineTo(botX, botY);  
+        ctx.stroke();  
+      }  
+      ctx.restore();  
+  
+      cs.corners.forEach((pt, idx) => {  
+        ctx.save();  
+        ctx.beginPath();  
+        ctx.arc(pt.x, pt.y, 11, 0, Math.PI * 2);  
+        ctx.fillStyle = cs.draggingIdx === idx ? '#28463B' : '#C5A059';  
+        ctx.fill();  
+        ctx.lineWidth = 2.5;  
+        ctx.strokeStyle = '#FAF6ED';  
+        ctx.stroke();  
+        ctx.restore();  
+      });  
+    }  
+  
+    function setupPerspectiveCropCanvasEvents() {  
+      const canvas = document.getElementById('perspective-crop-canvas');  
+      if (!canvas) return;  
+  
+      const getPointerPos = (e) => {  
+        const rect = canvas.getBoundingClientRect();  
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;  
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;  
+        const scaleX = canvas.width / rect.width;  
+        const scaleY = canvas.height / rect.height;  
+        return {  
+          x: (clientX - rect.left) * scaleX,  
+          y: (clientY - rect.top) * scaleY  
+        };  
+      };  
+  
+      const onDown = (e) => {  
+        const cs = state.cropperState;  
+        if (!cs.img) return;  
+        const pos = getPointerPos(e);  
+        let hitIdx = -1;  
+        let minDist = 28;  
+        cs.corners.forEach((pt, idx) => {  
+          const d = Math.hypot(pt.x - pos.x, pt.y - pos.y);  
+          if (d < minDist) {  
+            minDist = d;  
+            hitIdx = idx;  
+          }  
+        });  
+        if (hitIdx >= 0) {  
+          cs.draggingIdx = hitIdx;  
+          drawPerspectiveCropCanvas();  
+          if (e.cancelable) e.preventDefault();  
+        }  
+      };  
+  
+      const onMove = (e) => {  
+        const cs = state.cropperState;  
+        if (cs.draggingIdx < 0) return;  
+        const pos = getPointerPos(e);  
+        cs.corners[cs.draggingIdx] = {  
+          x: Math.max(0, Math.min(cs.displayWidth, pos.x)),  
+          y: Math.max(0, Math.min(cs.displayHeight, pos.y))  
+        };  
+        drawPerspectiveCropCanvas();  
+        if (e.cancelable) e.preventDefault();  
+      };  
+  
+      const onUp = () => {  
+        if (state.cropperState.draggingIdx >= 0) {  
+          state.cropperState.draggingIdx = -1;  
+          drawPerspectiveCropCanvas();  
+        }  
+      };  
+  
+      canvas.addEventListener('mousedown', onDown);  
+      window.addEventListener('mousemove', onMove);  
+      window.addEventListener('mouseup', onUp);  
+  
+      canvas.addEventListener('touchstart', onDown, { passive: false });  
+      window.addEventListener('touchmove', onMove, { passive: false });  
+      window.addEventListener('touchend', onUp);  
+    }  
+  
+    function solveLinearSystem8(A, b) {  
+      const n = 8;  
+      const M = A.map((row, i) => [...row, b[i]]);  
+      for (let col = 0; col < n; col++) {  
+        let pivot = col;  
+        for (let row = col + 1; row < n; row++) {  
+          if (Math.abs(M[row][col]) > Math.abs(M[pivot][col])) pivot = row;  
+        }  
+        [M[col], M[pivot]] = [M[pivot], M[col]];  
+        const div = M[col][col] || 1e-10;  
+        for (let j = col; j <= n; j++) M[col][j] /= div;  
+        for (let row = 0; row < n; row++) {  
+          if (row === col) continue;  
+          const factor = M[row][col];  
+          for (let j = col; j <= n; j++) M[row][j] -= factor * M[col][j];  
+        }  
+      }  
+      return M.map(row => row[n]);  
+    }  
+  
+    function computeHomography(srcPts, dstPts) {  
+      const A = [];  
+      const b = [];  
+      for (let i = 0; i < 4; i++) {  
+        const x = srcPts[i].x, y = srcPts[i].y;  
+        const u = dstPts[i].x, v = dstPts[i].y;  
+        A.push([x, y, 1, 0, 0, 0, -u * x, -u * y]);  
+        b.push(u);  
+        A.push([0, 0, 0, x, y, 1, -v * x, -v * y]);  
+        b.push(v);  
+      }  
+      const h = solveLinearSystem8(A, b);  
+      return [h[0], h[1], h[2], h[3], h[4], h[5], h[6], h[7], 1];  
+    }  
+  
+    function applyPerspectiveCrop() {  
+      const cs = state.cropperState;  
+      const draft = state.coverBatchDrafts.find(d => d.id === cs.draftId);  
+      if (!cs.img || !draft) return;  
+  
+      const scaleX = cs.img.width / cs.displayWidth;  
+      const scaleY = cs.img.height / cs.displayHeight;  
+      const imgCorners = cs.corners.map(pt => ({  
+        x: pt.x * scaleX,  
+        y: pt.y * scaleY  
+      }));  
+  
+      const outW = 360;  
+      const outH = 540;  
+  
+      const srcCanvas = document.createElement('canvas');  
+      srcCanvas.width = cs.img.width;  
+      srcCanvas.height = cs.img.height;  
+      const srcCtx = srcCanvas.getContext('2d');  
+      srcCtx.filter = `brightness(${cs.brightness}%) contrast(${cs.contrast}%) saturate(${cs.saturate}%)`;  
+      srcCtx.drawImage(cs.img, 0, 0);  
+      const srcImgData = srcCtx.getImageData(0, 0, srcCanvas.width, srcCanvas.height);  
+      const srcPixels = srcImgData.data;  
+  
+      const dstPts = [  
+        { x: 0, y: 0 },  
+        { x: outW, y: 0 },  
+        { x: outW, y: outH },  
+        { x: 0, y: outH }  
+      ];  
+      const H = computeHomography(dstPts, imgCorners);  
+  
+      const outCanvas = document.createElement('canvas');  
+      outCanvas.width = outW;  
+      outCanvas.height = outH;  
+      const outCtx = outCanvas.getContext('2d');  
+      const outImgData = outCtx.createImageData(outW, outH);  
+      const outPixels = outImgData.data;  
+  
+      const sw = srcCanvas.width;  
+      const sh = srcCanvas.height;  
+  
+      for (let y = 0; y < outH; y++) {  
+        for (let x = 0; x < outW; x++) {  
+          const denom = H[6] * x + H[7] * y + 1;  
+          const sx = (H[0] * x + H[1] * y + H[2]) / denom;  
+          const sy = (H[3] * x + H[4] * y + H[5]) / denom;  
+  
+          const x0 = Math.floor(sx);  
+          const y0 = Math.floor(sy);  
+          const dstIdx = (y * outW + x) * 4;  
+  
+          if (x0 >= 0 && x0 < sw - 1 && y0 >= 0 && y0 < sh - 1) {  
+            const dx = sx - x0;  
+            const dy = sy - y0;  
+            const w00 = (1 - dx) * (1 - dy);  
+            const w10 = dx * (1 - dy);  
+            const w01 = (1 - dx) * dy;  
+            const w11 = dx * dy;  
+  
+            const i00 = (y0 * sw + x0) * 4;  
+            const i10 = (y0 * sw + (x0 + 1)) * 4;  
+            const i01 = ((y0 + 1) * sw + x0) * 4;  
+            const i11 = ((y0 + 1) * sw + (x0 + 1)) * 4;  
+  
+            outPixels[dstIdx] = srcPixels[i00] * w00 + srcPixels[i10] * w10 + srcPixels[i01] * w01 + srcPixels[i11] * w11;  
+            outPixels[dstIdx + 1] = srcPixels[i00 + 1] * w00 + srcPixels[i10 + 1] * w10 + srcPixels[i01 + 1] * w01 + srcPixels[i11 + 1] * w11;  
+            outPixels[dstIdx + 2] = srcPixels[i00 + 2] * w00 + srcPixels[i10 + 2] * w10 + srcPixels[i01 + 2] * w01 + srcPixels[i11 + 2] * w11;  
+            outPixels[dstIdx + 3] = 255;  
+          } else {  
+            outPixels[dstIdx] = 244;  
+            outPixels[dstIdx + 1] = 239;  
+            outPixels[dstIdx + 2] = 228;  
+            outPixels[dstIdx + 3] = 255;  
+          }  
+        }  
+      }  
+  
+      outCtx.putImageData(outImgData, 0, 0);  
+      const croppedUrl = outCanvas.toDataURL('image/jpeg', 0.92);  
+      draft.coverDataUrl = croppedUrl;  
+      draft.isCropped = true;  
+  
+      extractDominantColorFromImage(croppedUrl, (hex) => {  
+        draft.spineColor = hex;  
+        renderCoverBatchDrafts();  
+      });  
+  
+      closePerspectiveCropModal();  
+      showToast('已拉直書封、套用調色並更新書背色！');  
+    }  
+  
+    // ==================== BOOK DETAIL & EDITING ====================  
+    function openBookDetail(bookId) {  
+      const book = state.books.find(b => b.id === bookId);  
+      if (!book) return;  
+  
+      const content = document.getElementById('book-detail-content');  
+      const fallbackCover = `https://placehold.co/320x480/${(book.spineColor || '#28463B').replace('#', '')}/FAF6ED?text=${encodeURIComponent(book.title.slice(0, 12))}`;  
+      const isSaved = isBookSavedInAnyFolder(book.id);  
+      const inLoan = isBookInLoanSlip(book.id);  
+  
+      const folderOptions = state.savedFolders.map(f => {  
+        const has = (f.bookIds || []).includes(book.id);  
+        return `<option value="${f.id}">${escapeHTML(f.name)} ${has ? '(已收入)' : ''}</option>`;  
+      }).join('');  
+  
+      const historyHTML = (book.history && book.history.length > 0)  
+        ? book.history.map(h => `  
+            <div class="flex items-center justify-between text-xs py-1.5 border-b border-ink/10 last:border-0">  
+              <span>借閱人：<strong>${escapeHTML(h.borrower)}</strong></span>  
+              <span class="font-mono text-inkMuted">${h.borrowDate} → ${h.returnDate || '借閱中'}</span>  
+            </div>  
+          `).join('')  
+        : `<p class="text-xs text-inkMuted italic">尚無歷史借閱紀錄</p>`;  
+  
+      content.innerHTML = `  
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6">  
+          <div class="md:col-span-4 flex flex-col items-center">  
+            <div class="w-40 sm:w-48 aspect-[2/3] rounded-lg overflow-hidden shadow-xl border border-ink/15 bg-surface">  
+              <img src="${escapeHTML(book.coverUrl || fallbackCover)}"  
+                alt="${escapeHTML(book.title)}"  
+                onerror="this.onerror=null;this.src='${fallbackCover}';"  
+                class="w-full h-full object-cover ${book.status === 'archived' ? 'grayscale opacity-45' : ''}" />  
+            </div>  
+  
+            <div class="mt-4 w-full space-y-2">  
+              <div class="flex items-center gap-1.5">  
+                <select id="detail-target-folder" class="flex-1 min-w-0 px-2.5 py-2 rounded-lg border border-ink/20 bg-surface text-xs text-ink">  
+                  ${folderOptions}  
+                </select>  
+                <button onclick="saveBookToSelectedFolder('${book.id}')"  
+                  class="px-3 py-2 rounded-lg bg-gold text-[#261E18] text-xs font-semibold hover:bg-goldDark hover:text-white transition shrink-0">  
+                  ${isSaved ? '更新收藏' : '加入收藏'}  
+                </button>  
+              </div>  
+              <button onclick="quickToggleLoanBook('${book.id}'); openBookDetail('${book.id}');"  
+                class="w-full py-2 rounded-lg border text-xs font-medium transition ${  
+                  inLoan ? 'bg-forest text-paper border-forest' : 'border-forest/40 text-forest hover:bg-forest hover:text-paper'  
+                }">  
+                ${inLoan ? '✓ 已在借書單中（點擊移出）' : '+ 加入借書單'}  
+              </button>  
+            </div>  
+          </div>  
+  
+          <div class="md:col-span-8 space-y-4">  
+            <div class="flex flex-wrap items-center gap-2">  
+              ${getStatusBadgeHTML(book.status)}  
+              <span class="px-2.5 py-0.5 rounded-full text-xs bg-paperDark text-ink font-medium">${escapeHTML(book.category)}</span>  
+              ${book.volume ? `<span class="text-xs font-mono text-inkMuted">${escapeHTML(book.volume)}</span>` : ''}  
+            </div>  
+  
+            <div>  
+              <h2 class="font-serif text-2xl sm:text-3xl font-bold text-ink leading-snug">${escapeHTML(book.title)}</h2>  
+              <p class="text-sm text-inkMuted mt-1">作者：${escapeHTML(book.author)} ${book.isbn ? `· <span class="font-mono text-xs">ISBN: ${escapeHTML(book.isbn)}</span>` : ''}</p>  
+            </div>  
+  
+            <div class="p-4 rounded-xl bg-surface/85 border border-ink/10 text-xs sm:text-sm leading-relaxed text-ink">  
+              ${escapeHTML(book.synopsis || '暫無書籍簡介。')}  
+            </div>  
+  
+            ${state.mode === 'admin' ? `  
+              <div class="p-4 rounded-xl bg-paperDark/65 border border-gold/40 space-y-3">  
+                <div class="flex items-center justify-between">  
+                  <span class="text-xs font-bold text-ink uppercase tracking-wider">主人館藏與借閱狀態管理</span>  
+                  <button onclick="confirmDeleteBook('${book.id}')"  
+                    class="text-xs text-rust hover:underline font-medium">  
+                    刪除此書  
+                  </button>  
+                </div>  
+  
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">  
+                  <button onclick="updateBookStatus('${book.id}', 'available')"  
+                    class="py-2 rounded-lg border text-xs font-medium transition ${book.status === 'available' ? 'bg-forest text-paper border-forest' : 'bg-surface border-ink/20 text-ink'}">  
+                    在架上 (Available)  
+                  </button>  
+                  <button onclick="promptLendBook('${book.id}')"  
+                    class="py-2 rounded-lg border text-xs font-medium transition ${book.status === 'lent' ? 'bg-rust text-white border-rust' : 'bg-surface border-ink/20 text-ink'}">  
+                    借出中 (Lent)  
+                  </button>  
+                  <button onclick="updateBookStatus('${book.id}', 'archived')"  
+                    class="py-2 rounded-lg border text-xs font-medium transition ${book.status === 'archived' ? 'bg-neutral-600 text-white border-neutral-600' : 'bg-surface border-ink/20 text-ink'}">  
+                    已下架 (Archived)  
+                  </button>  
+                </div>  
+  
+                <div id="lend-form-${book.id}" class="${book.status === 'lent' ? '' : 'hidden'} pt-2 border-t border-ink/10 flex flex-col sm:flex-row gap-2">  
+                  <input id="borrower-input-${book.id}" type="text" value="${escapeHTML(book.borrower)}" placeholder="輸入借閱人姓名..."  
+                    class="flex-1 px-3 py-1.5 rounded-lg border border-ink/25 bg-surface text-xs text-ink" />  
+                  <button onclick="confirmLendBook('${book.id}')"  
+                    class="px-4 py-1.5 rounded-lg bg-rust text-white text-xs font-medium hover:opacity-90">  
+                    更新借出資訊  
+                  </button>  
+                </div>  
+              </div>  
+  
+              <div class="space-y-1.5">  
+                <h5 class="text-xs font-semibold text-inkMuted uppercase tracking-wider">借閱流轉歷史</h5>  
+                <div class="p-3 rounded-xl bg-surface/65 border border-ink/10">  
+                  ${historyHTML}  
+                </div>  
+              </div>  
+            ` : `  
+              <div class="p-3.5 rounded-xl bg-surface/80 border border-gold/40 text-xs text-inkMuted">  
+                ${book.status === 'available'  
+                  ? '本書目前「在架上」，歡迎點擊左側「+ 加入借書單」傳送給書房主人！'  
+                  : (book.status === 'lent' ? '本書目前正由親友借閱中，你仍可先加入收藏或借書單預約。' : '本書目前已下架封存。')}  
+              </div>  
+            `}  
+          </div>  
+        </div>  
+      `;  
+  
+      const modal = document.getElementById('book-detail-modal');  
+      modal.classList.remove('hidden');  
+      modal.classList.add('flex');  
+    }  
+  
+    function promptLendBook(bookId) {  
+      const form = document.getElementById(`lend-form-${bookId}`);  
+      if (form) form.classList.remove('hidden');  
+      const input = document.getElementById(`borrower-input-${bookId}`);  
+      if (input) input.focus();  
+    }  
+  
+    function confirmLendBook(bookId) {  
+      const input = document.getElementById(`borrower-input-${bookId}`);  
+      const borrower = (input ? input.value : '').trim() || '親友借閱';  
+      updateBookStatus(bookId, 'lent', borrower);  
+    }  
+  
+    function updateBookStatus(bookId, newStatus, borrowerName = '') {  
+      const book = state.books.find(b => b.id === bookId);  
+      if (!book) return;  
+      const today = new Date().toISOString().split('T')[0];  
+  
+      if (book.isDemo) book.demoEdited = true;  
+  
+      if (book.status === 'lent' && newStatus !== 'lent' && Array.isArray(book.history) && book.history.length > 0) {  
+        const lastRecord = book.history[book.history.length - 1];  
+        if (!lastRecord.returnDate) lastRecord.returnDate = today;  
+      }  
+  
+      book.status = newStatus;  
+      if (newStatus === 'lent') {  
+        book.borrower = borrowerName;  
+        book.borrowDate = today;  
+        if (!Array.isArray(book.history)) book.history = [];  
+        book.history.push({ borrower: borrowerName, borrowDate: today, returnDate: '' });  
+      } else {  
+        book.borrower = '';  
+        book.borrowDate = '';  
+      }  
+  
+      saveState();  
+      renderAll();  
+      openBookDetail(bookId);  
+      showToast(newStatus === 'lent' ? `已登記借出給「${borrowerName}」` : (newStatus === 'archived' ? '已標記為已下架' : '已恢復為在架上'));  
+    }  
+  
+    function removeBooksByIds(idsToRemove) {  
+      const removeSet = new Set(idsToRemove);  
+      state.books = state.books.filter(b => !removeSet.has(b.id));  
+      state.savedFolders.forEach(f => {  
+        f.bookIds = (f.bookIds || []).filter(id => !removeSet.has(id));  
+      });  
+      state.loanBookIds = state.loanBookIds.filter(id => !removeSet.has(id));  
+      state.selectedCatalogueIds = state.selectedCatalogueIds.filter(id => !removeSet.has(id));  
+      saveState();  
+      renderAll();  
+    }  
+  
+    function confirmDeleteBook(bookId) {  
+      const book = state.books.find(b => b.id === bookId);  
+      if (!book) return;  
+      openConfirmModal({  
+        title: `刪除《${book.title}》？`,  
+        message: '確定要從書房永久刪除此書籍嗎？此操作無法復原。',  
+        confirmLabel: '確定刪除',  
+        onConfirm: () => {  
+          removeBooksByIds([bookId]);  
+          closeModal('book-detail-modal');  
+          showToast(`已刪除《${book.title}》`);  
+        }  
+      });  
+    }  
+  
+    // ==================== SAVED FOLDERS MODAL ====================  
+    function openSavedFoldersModal() {  
+      renderSavedFoldersUI();  
+      const modal = document.getElementById('saved-folders-modal');  
+      modal.classList.remove('hidden');  
+      modal.classList.add('flex');  
+    }  
+  
+    function quickToggleSaveDefault(bookId) {  
+      const defaultFolder = state.savedFolders[0];  
+      if (!defaultFolder) return;  
+      const idx = defaultFolder.bookIds.indexOf(bookId);  
+      if (idx >= 0) {  
+        defaultFolder.bookIds.splice(idx, 1);  
+        showToast(`已從「${defaultFolder.name}」移除`);  
+      } else {  
+        defaultFolder.bookIds.push(bookId);  
+        showToast(`已收入「${defaultFolder.name}」`);  
+      }  
+      saveState();  
+      renderAll();  
+    }  
+  
+    function saveBookToSelectedFolder(bookId) {  
+      const select = document.getElementById('detail-target-folder');  
+      const folderId = select ? select.value : state.savedFolders[0].id;  
+      const folder = state.savedFolders.find(f => f.id === folderId) || state.savedFolders[0];  
+      if (!folder.bookIds.includes(bookId)) {  
+        folder.bookIds.push(bookId);  
+        saveState();  
+        renderAll();  
+        showToast(`已加入「${folder.name}」資料夾`);  
+      } else {  
+        showToast(`本書已在「${folder.name}」中`);  
+      }  
+    }  
+  
+    function createSavedFolder() {  
+      const input = document.getElementById('new-saved-folder-name');  
+      const name = (input ? input.value : '').trim();  
+      if (!name) {  
+        showToast('請輸入資料夾名稱', true);  
+        return;  
+      }  
+      const newFolder = { id: 'saved-' + Date.now(), name, bookIds: [] };  
+      state.savedFolders.push(newFolder);  
+      state.activeSavedFolderId = newFolder.id;  
+      if (input) input.value = '';  
+      saveState();  
+      renderSavedFoldersUI();  
+      showToast(`已建立資料夾「${name}」`);  
+    }  
+  
+    function selectSavedFolder(folderId) {  
+      state.activeSavedFolderId = folderId;  
+      renderSavedFoldersUI();  
+    }  
+  
+    function renameActiveSavedFolder() {  
+      const folder = state.savedFolders.find(f => f.id === state.activeSavedFolderId) || state.savedFolders[0];  
+      const input = document.getElementById('rename-saved-folder-input');  
+      const newName = (input ? input.value : '').trim();  
+      if (!folder || !newName) return;  
+      folder.name = newName;  
+      saveState();  
+      renderSavedFoldersUI();  
+      showToast('已更新資料夾名稱');  
+    }  
+  
+    function confirmDeleteActiveSavedFolder() {  
+      if (state.savedFolders.length <= 1) {  
+        showToast('至少需保留一個預設收藏資料夾', true);  
+        return;  
+      }  
+      const folder = state.savedFolders.find(f => f.id === state.activeSavedFolderId);  
+      if (!folder) return;  
+      openConfirmModal({  
+        title: `刪除資料夾「${folder.name}」？`,  
+        message: '刪除資料夾不會刪除書架上的原書，僅移除此收藏分類，確定要繼續嗎？',  
+        confirmLabel: '確定刪除',  
+        onConfirm: () => {  
+          state.savedFolders = state.savedFolders.filter(f => f.id !== folder.id);  
+          state.activeSavedFolderId = state.savedFolders[0].id;  
+          saveState();  
+          renderAll();  
+          renderSavedFoldersUI();  
+          showToast(`已刪除資料夾「${folder.name}」`);  
+        }  
+      });  
+    }  
+  
+    function removeBookFromFolder(folderId, bookId) {  
+      const folder = state.savedFolders.find(f => f.id === folderId);  
+      if (!folder) return;  
+      folder.bookIds = folder.bookIds.filter(id => id !== bookId);  
+      saveState();  
+      renderAll();  
+      renderSavedFoldersUI();  
+    }  
+  
+    function renderSavedFoldersUI() {  
+      const pillsEl = document.getElementById('saved-folder-pills');  
+      const renameInput = document.getElementById('rename-saved-folder-input');  
+      const delBtn = document.getElementById('btn-delete-saved-folder');  
+      const listEl = document.getElementById('saved-folder-books-list');  
+  
+      const activeFolder = state.savedFolders.find(f => f.id === state.activeSavedFolderId) || state.savedFolders[0];  
+      state.activeSavedFolderId = activeFolder.id;  
+      const scopeSet = getVisibleScopeBookSet();  
+  
+      if (pillsEl) {  
+        pillsEl.innerHTML = state.savedFolders.map(f => {  
+          const active = f.id === activeFolder.id;  
+          const count = (f.bookIds || []).filter(id => scopeSet.has(id)).length;  
+          return `  
+            <button onclick="selectSavedFolder('${f.id}')"  
+              class="px-3 py-1.5 rounded-full text-xs font-medium shrink-0 whitespace-nowrap transition ${  
+                active ? 'bg-ink text-paper shadow-sm' : 'bg-surface border border-ink/20 text-ink hover:border-ink'  
+              }">  
+              ${escapeHTML(f.name)} (${count})  
+            </button>  
+          `;  
+        }).join('');  
+      }  
+  
+      if (renameInput) renameInput.value = activeFolder.name;  
+      if (delBtn) delBtn.classList.toggle('hidden', state.savedFolders.length <= 1);  
+  
+      const booksInFolder = (activeFolder.bookIds || [])  
+        .filter(id => scopeSet.has(id))  
+        .map(id => state.books.find(b => b.id === id))  
+        .filter(Boolean);  
+  
+      if (listEl) {  
+        if (booksInFolder.length === 0) {  
+          listEl.innerHTML = `<div class="py-8 text-center text-xs text-inkMuted">此資料夾目前尚無收藏書籍。</div>`;  
+        } else {  
+          listEl.innerHTML = booksInFolder.map(b => `  
+            <div class="py-2.5 flex items-center justify-between gap-2 text-xs w-full min-w-0">  
+              <div class="min-w-0 flex-1">  
+                <p class="font-serif font-bold text-ink truncate">${escapeHTML(b.title)}</p>  
+                <p class="text-[11px] text-inkMuted truncate">${escapeHTML(b.author)}</p>  
+              </div>  
+              <div class="flex items-center gap-1.5 shrink-0">  
+                <button onclick="quickToggleLoanBook('${b.id}'); renderSavedFoldersUI();"  
+                  class="px-2.5 py-1 rounded bg-forest/15 text-forest font-medium hover:bg-forest hover:text-paper transition whitespace-nowrap">  
+                  ${isBookInLoanSlip(b.id) ? '已入借書單' : '+ 借書單'}  
+                </button>  
+                <button onclick="removeBookFromFolder('${activeFolder.id}', '${b.id}')"  
+                  class="text-inkMuted hover:text-rust p-1 shrink-0" title="移出資料夾">  
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">  
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />  
+                  </svg>  
+                </button>  
+              </div>  
+            </div>  
+          `).join('');  
+        }  
+      }  
+    }  
+  
+    // ==================== CATALOGUE DRAWER ====================  
+    function toggleCatalogueDrawer(open) {  
+      const drawer = document.getElementById('catalogue-drawer');  
+      const overlay = document.getElementById('catalogue-drawer-overlay');  
+      const titleEl = document.getElementById('catalogue-drawer-title');  
+      const activeShelf = getActiveShelfObj();  
+  
+      if (open) {  
+        if (titleEl && activeShelf) titleEl.textContent = `${activeShelf.name} · 總清單目錄`;  
+        overlay.classList.remove('hidden');  
+        drawer.classList.remove('translate-x-full');  
+        renderCatalogueList();  
+        if (state.mode === 'admin') {  
+          setTimeout(() => playCatalogueSwipeDeleteHint(), 340);  
+        }  
+      } else {  
+        overlay.classList.add('hidden');  
+        drawer.classList.add('translate-x-full');  
+      }  
+    }  
+  
+    function playCatalogueSwipeDeleteHint() {  
+      const drawer = document.getElementById('catalogue-drawer');  
+      if (!drawer || drawer.classList.contains('translate-x-full') || state.mode !== 'admin') return;  
+      const firstContent = drawer.querySelector('.catalogue-swipe-wrapper .catalogue-swipe-content');  
+      if (!firstContent) return;  
+  
+      firstContent.style.transition = 'transform 0.36s cubic-bezier(0.22, 1, 0.36, 1)';  
+      firstContent.style.transform = 'translateX(-84px)';  
+  
+      setTimeout(() => {  
+        if (!firstContent.isConnected) return;  
+        firstContent.style.transform = 'translateX(0px)';  
+        setTimeout(() => {  
+          if (firstContent.isConnected) firstContent.style.transition = '';  
+        }, 380);  
+      }, 1000);  
+    }  
+  
+    function getFilteredCatalogueBooks() {  
+      const q = (document.getElementById('catalogue-search').value || '').trim().toLowerCase();  
+      const cat = document.getElementById('catalogue-cat-filter').value;  
+      const st = document.getElementById('catalogue-status-filter').value;  
+      const shelfBooks = getBooksInActiveShelf();  
+  
+      return shelfBooks.filter(b => {  
+        if (cat !== 'all' && b.category !== cat) return false;  
+        if (st !== 'all' && b.status !== st) return false;  
+        if (!q) return true;  
+        return (  
+          b.title.toLowerCase().includes(q) ||  
+          b.author.toLowerCase().includes(q) ||  
+          (b.isbn && b.isbn.toLowerCase().includes(q)) ||  
+          (b.borrower && b.borrower.toLowerCase().includes(q))  
+        );  
+      });  
+    }  
+  
+    function renderCatalogueList() {  
+      const container = document.getElementById('catalogue-list-container');  
+      if (!container) return;  
+  
+      const list = getFilteredCatalogueBooks();  
+      updateCatalogueBatchBar();  
+  
+      if (list.length === 0) {  
+        container.innerHTML = `<div class="py-16 text-center text-xs text-inkMuted">找不到符合條件的藏書記錄</div>`;  
+        return;  
+      }  
+  
+      const isAdmin = state.mode === 'admin';  
+      container.innerHTML = list.map(book => {  
+        const checked = state.selectedCatalogueIds.includes(book.id);  
+        const fallbackCover = `https://placehold.co/96x144/${(book.spineColor || '#28463B').replace('#', '')}/FAF6ED?text=${encodeURIComponent(book.title.slice(0, 4))}`;  
+        return `  
+          <div class="catalogue-swipe-wrapper" data-book-id="${book.id}">  
+            ${isAdmin ? `  
+              <button type="button" onclick="confirmDeleteBook('${book.id}')" class="catalogue-swipe-action">  
+                刪除  
+              </button>  
+            ` : ''}  
+            <div class="catalogue-swipe-content py-3.5 flex items-center justify-between gap-3">  
+              <div class="flex items-center gap-3 min-w-0 flex-1">  
+                <input type="checkbox" ${checked ? 'checked' : ''} onchange="toggleCatalogueItemSelect('${book.id}', this.checked)"  
+                  class="rounded border-ink/30 shrink-0" />  
+                <img src="${escapeHTML(book.coverUrl || fallbackCover)}"  
+                  alt="${escapeHTML(book.title)}"  
+                  onerror="this.onerror=null;this.src='${fallbackCover}';"  
+                  onclick="openBookDetail('${book.id}')"  
+                  class="w-10 h-14 object-cover rounded border border-ink/15 shrink-0 cursor-pointer" />  
+                <div onclick="openBookDetail('${book.id}')" class="min-w-0 flex-1 cursor-pointer">  
+                  <div class="flex items-center gap-1.5 mb-0.5">  
+                    ${getStatusBadgeHTML(book.status)}  
+                    <span class="font-mono text-[10px] text-inkMuted">${escapeHTML(book.category)}</span>  
+                  </div>  
+                  <p class="font-serif font-bold text-sm text-ink truncate">${escapeHTML(book.title)}</p>  
+                  <p class="text-xs text-inkMuted truncate">${escapeHTML(book.author)}${isAdmin && book.borrower ? ` · 借閱人：${escapeHTML(book.borrower)}` : ''}</p>  
+                </div>  
+              </div>  
+  
+              <div class="flex items-center gap-1.5 shrink-0">  
+                <button onclick="quickToggleLoanBook('${book.id}'); renderCatalogueList();"  
+                  class="px-2.5 py-1 rounded-full border text-xs font-medium transition ${  
+                    isBookInLoanSlip(book.id) ? 'bg-forest text-paper border-forest' : 'border-forest/40 text-forest hover:bg-forest hover:text-paper'  
+                  }">  
+                  ${isBookInLoanSlip(book.id) ? '已入單' : '+ 借書單'}  
+                </button>  
+              </div>  
+            </div>  
+          </div>  
+        `;  
+      }).join('');  
+  
+      if (isAdmin) attachCatalogueSwipeHandlers();  
+    }  
+  
+    function attachCatalogueSwipeHandlers() {  
+      document.querySelectorAll('.catalogue-swipe-wrapper').forEach(wrapper => {  
+        const content = wrapper.querySelector('.catalogue-swipe-content');  
+        if (!content) return;  
+        let startX = 0;  
+        let currentDelta = 0;  
+        let isOpened = false;  
+  
+        content.addEventListener('touchstart', (e) => {  
+          startX = e.touches[0].clientX;  
+          content.classList.add('is-swiping');  
+        }, { passive: true });  
+  
+        content.addEventListener('touchmove', (e) => {  
+          const dx = e.touches[0].clientX - startX;  
+          const base = isOpened ? -84 : 0;  
+          currentDelta = Math.max(-96, Math.min(0, base + dx));  
+          content.style.transform = `translateX(${currentDelta}px)`;  
+        }, { passive: true });  
+  
+        content.addEventListener('touchend', () => {  
+          content.classList.remove('is-swiping');  
+          if (currentDelta < -42) {  
+            isOpened = true;  
+            content.style.transform = 'translateX(-84px)';  
+          } else {  
+            isOpened = false;  
+            content.style.transform = 'translateX(0px)';  
+          }  
+        });  
+      });  
+    }  
+  
+    function toggleCatalogueItemSelect(bookId, checked) {  
+      if (checked) {  
+        if (!state.selectedCatalogueIds.includes(bookId)) state.selectedCatalogueIds.push(bookId);  
+      } else {  
+        state.selectedCatalogueIds = state.selectedCatalogueIds.filter(id => id !== bookId);  
+      }  
+      updateCatalogueBatchBar();  
+    }  
+  
+    function toggleCatalogueSelectAll() {  
+      const visible = getFilteredCatalogueBooks();  
+      const allSelected = visible.length > 0 && visible.every(b => state.selectedCatalogueIds.includes(b.id));  
+      if (allSelected) {  
+        const visibleSet = new Set(visible.map(b => b.id));  
+        state.selectedCatalogueIds = state.selectedCatalogueIds.filter(id => !visibleSet.has(id));  
+      } else {  
+        const merged = new Set([...state.selectedCatalogueIds, ...visible.map(b => b.id)]);  
+        state.selectedCatalogueIds = Array.from(merged);  
+      }  
+      renderCatalogueList();  
+    }  
+  
+    function updateCatalogueBatchBar() {  
+      const bar = document.getElementById('catalogue-batch-bar');  
+      const countEl = document.getElementById('batch-selected-count');  
+      if (!bar || !countEl) return;  
+      const count = state.selectedCatalogueIds.length;  
+      countEl.textContent = String(count);  
+      bar.classList.toggle('hidden', count === 0);  
+    }  
+  
+    function batchAddToSaved() {  
+      const defaultFolder = state.savedFolders[0];  
+      if (!defaultFolder || state.selectedCatalogueIds.length === 0) return;  
+      const merged = new Set([...defaultFolder.bookIds, ...state.selectedCatalogueIds]);  
+      defaultFolder.bookIds = Array.from(merged);  
+      saveState();  
+      renderAll();  
+      showToast(`已將 ${state.selectedCatalogueIds.length} 本書籍加入「${defaultFolder.name}」`);  
+    }  
+  
+    function batchAddToLoan() {  
+      if (state.selectedCatalogueIds.length === 0) return;  
+      const merged = new Set([...state.loanBookIds, ...state.selectedCatalogueIds]);  
+      state.loanBookIds = Array.from(merged);  
+      saveState();  
+      renderAll();  
+      showToast(`已將 ${state.selectedCatalogueIds.length} 本書籍加入借書單`);  
+    }  
+  
+    function confirmBatchDeleteSelected() {  
+      const count = state.selectedCatalogueIds.length;  
+      if (count === 0) return;  
+      openConfirmModal({  
+        title: `批量刪除所選的 ${count} 本書籍？`,  
+        message: '確定要永久刪除已勾選的書籍嗎？此操作無法復原。',  
+        confirmLabel: `確定刪除 (${count})`,  
+        onConfirm: () => {  
+          removeBooksByIds([...state.selectedCatalogueIds]);  
+          showToast(`已批量刪除 ${count} 本書籍`);  
+        }  
+      });  
+    }  
+  
+    // ==================== IMPORT MODAL: ISBN, CSV/JSON & MANUAL ====================  
+    function openImportModal() {  
+      if (state.mode === 'guest') return;  
+      switchImportTab('cover');  
+      const modal = document.getElementById('import-modal');  
+      modal.classList.remove('hidden');  
+      modal.classList.add('flex');  
+    }  
+  
+    function closeImportModal() {  
+      if (state.isScanning) toggleBarcodeScanner();  
+      closeModal('import-modal');  
+    }  
+  
+    function switchImportTab(tabKey) {  
+      document.querySelectorAll('.import-tab-btn').forEach(btn => {  
+        const active = btn.dataset.tab === tabKey;  
+        btn.className = active  
+          ? 'import-tab-btn py-3 px-3.5 border-b-2 border-ink text-ink font-semibold whitespace-nowrap'  
+          : 'import-tab-btn py-3 px-3.5 border-b-2 border-transparent text-inkMuted hover:text-ink whitespace-nowrap';  
+      });  
+      ['cover', 'isbn', 'batch', 'manual'].forEach(k => {  
+        const panel = document.getElementById(`tab-panel-${k}`);  
+        if (panel) panel.classList.toggle('hidden', k !== tabKey);  
+      });  
+    }  
+  
+    function toggleBarcodeScanner() {  
+      const container = document.getElementById('scanner-container');  
+      const btn = document.getElementById('btn-toggle-scanner');  
+      const statusText = document.getElementById('scanner-status-text');  
+  
+      if (state.isScanning) {  
+        if (state.html5QrCode) {  
+          state.html5QrCode.stop().catch(() => {});  
+        }  
+        state.isScanning = false;  
+        container.classList.add('hidden');  
+        btn.textContent = '開啟鏡頭掃描';  
+        return;  
+      }  
+  
+      container.classList.remove('hidden');  
+      btn.textContent = '停止掃描';  
+      state.isScanning = true;  
+      statusText.textContent = '正在啟動相機鏡頭...';  
+  
+      if (!window.Html5Qrcode) {  
+        statusText.textContent = '條碼模組未載入，請改用下方文字框輸入 ISBN';  
+        return;  
+      }  
+  
+      state.html5QrCode = new Html5Qrcode('qr-reader');  
+      state.html5QrCode.start(  
+        { facingMode: 'environment' },  
+        { fps: 10, qrbox: { width: 240, height: 110 } },  
+        (decodedText) => {  
+          const clean = decodedText.replace(/[^0-9Xx]/g, '');  
+          if (clean.length >= 10 && clean !== state.lastScannedCode) {  
+            state.lastScannedCode = clean;  
+            const input = document.getElementById('isbn-batch-input');  
+            input.value = (input.value ? input.value.trim() + '\n' : '') + clean;  
+            statusText.textContent = `已掃描條碼：${clean}`;  
+            showToast(`已掃描條碼：${clean}`);  
+          }  
+        },  
+        () => {}  
+      ).catch(() => {  
+        statusText.textContent = '無法存取相機，請確認瀏覽器權限或手動輸入 ISBN';  
+      });  
+    }  
+  
+    function fillSampleISBNs() {  
+      const input = document.getElementById('isbn-batch-input');  
+      input.value = '9780140449136\n9780062316097';  
+    }  
+  
+    async function lookupSingleISBNMetadata(isbn) {  
+      try {  
+        const res = await fetch(`https://www.googleapis.com/books/v1/volumes?q=isbn:${encodeURIComponent(isbn)}`);  
+        const data = await res.json();  
+        if (data.items && data.items.length > 0) {  
+          const info = data.items[0].volumeInfo;  
+          const thumb = info.imageLinks ? (info.imageLinks.thumbnail || info.imageLinks.smallThumbnail || '').replace('http://', 'https://') : '';  
+          return {  
+            title: info.title || `未收錄 ISBN (${isbn})`,  
+            author: Array.isArray(info.authors) ? info.authors.join(', ') : '待補作者',  
+            coverUrl: thumb || `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`,  
+            synopsis: info.description || ''  
+          };  
+        }  
+      } catch (e) {}  
+  
+      try {  
+        const olRes = await fetch(`https://openlibrary.org/api/books?bibkeys=ISBN:${encodeURIComponent(isbn)}&format=json&jscmd=data`);  
+        const olData = await olRes.json();  
+        const entry = olData[`ISBN:${isbn}`];  
+        if (entry) {  
+          return {  
+            title: entry.title || `未收錄 ISBN (${isbn})`,  
+            author: Array.isArray(entry.authors) ? entry.authors.map(a => a.name).join(', ') : '待補作者',  
+            coverUrl: (entry.cover && (entry.cover.large || entry.cover.medium)) || `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`,  
+            synopsis: ''  
+          };  
+        }  
+      } catch (e) {}  
+  
+      return {  
+        title: `未收錄 ISBN (${isbn})`,  
+        author: '待補作者',  
+        coverUrl: `https://covers.openlibrary.org/b/isbn/${isbn}-L.jpg`,  
+        synopsis: '外部資料庫尚未收錄此 ISBN 詳情，可於書籍詳情補充書名與封面。'  
+      };  
+    }  
+  
+    async function fetchBatchISBNs() {  
+      const raw = document.getElementById('isbn-batch-input').value || '';  
+      const codes = Array.from(new Set(  
+        raw.split(/[\s,;\n]+/).map(s => s.replace(/[^0-9Xx]/g, '')).filter(s => s.length >= 10)  
+      ));  
+  
+      if (codes.length === 0) {  
+        showToast('請輸入至少一組有效 ISBN（10 或 13 碼）', true);  
+        return;  
+      }  
+  
+      const logEl = document.getElementById('isbn-fetch-log');  
+      const btn = document.getElementById('btn-fetch-isbn');  
+      logEl.classList.remove('hidden');  
+      logEl.innerHTML = `<div class="text-goldDark">開始查詢 ${codes.length} 筆 ISBN...</div>`;  
+      btn.disabled = true;  
+  
+      const activeShelf = getActiveShelfObj();  
+      const spineColors = ['#28463B', '#9C4A3B', '#5B4B6A', '#2E4057', '#7A5C38'];  
+  
+      for (let i = 0; i < codes.length; i++) {  
+        const isbn = codes[i];  
+        logEl.innerHTML += `<div>[${i + 1}/${codes.length}] 查詢 ${isbn}...</div>`;  
+        const meta = await lookupSingleISBNMetadata(isbn);  
+        state.books.unshift({  
+          id: 'bk-isbn-' + Date.now() + '-' + i,  
+          shelfId: activeShelf.id,  
+          title: meta.title,  
+          author: meta.author,  
+          category: '書籍',  
+          volume: '',  
+          isbn,  
+          coverUrl: meta.coverUrl,  
+          spineColor: spineColors[i % spineColors.length],  
+          status: 'available',  
+          borrower: '',  
+          borrowDate: '',  
+          history: [],  
+          synopsis: meta.synopsis  
+        });  
+        logEl.innerHTML += `<div class="text-forest">✓ 已加入：${escapeHTML(meta.title)}</div>`;  
+      }  
+  
+      btn.disabled = false;  
+      state.focusedIndex = 0;  
+      saveState();  
+      renderAll();  
+      showToast(`已完成匯入 ${codes.length} 本書籍！`);  
+    }  
+  
+    function handleManualBookSubmit(event) {  
+      event.preventDefault();  
+      const form = event.target;  
+      const fd = new FormData(form);  
+      const title = (fd.get('title') || '').toString().trim();  
+      const author = (fd.get('author') || '').toString().trim();  
+      if (!title || !author) {  
+        showToast('請填寫書名與作者', true);  
+        return;  
+      }  
+  
+      const activeShelf = getActiveShelfObj();  
+      state.books.unshift({  
+        id: 'bk-manual-' + Date.now(),  
+        shelfId: activeShelf.id,  
+        title,  
+        author,  
+        category: (fd.get('category') || '書籍').toString(),  
+        volume: (fd.get('volume') || '').toString().trim(),  
+        isbn: (fd.get('isbn') || '').toString().trim(),  
+        coverUrl: (fd.get('coverUrl') || '').toString().trim(),  
+        spineColor: (fd.get('spineColor') || '#28463B').toString(),  
+        status: 'available',  
+        borrower: '',  
+        borrowDate: '',  
+        history: [],  
+        synopsis: (fd.get('synopsis') || '').toString().trim()  
+      });  
+  
+      form.reset();  
+      state.focusedIndex = 0;  
+      saveState();  
+      renderAll();  
+      closeImportModal();  
+      showToast(`已將《${title}》加入「${activeShelf.name}」`);  
+    }  
+  
+    function handleBatchFileUpload(event) {  
+      const file = event.target.files[0];  
+      if (!file) return;  
+      const reader = new FileReader();  
+      reader.onload = (e) => {  
+        const text = e.target.result || '';  
+        const activeShelf = getActiveShelfObj();  
+        let importedCount = 0;  
+  
+        if (file.name.toLowerCase().endsWith('.json')) {  
+          try {  
+            const parsed = JSON.parse(text);  
+            const arr = Array.isArray(parsed) ? parsed : (Array.isArray(parsed.books) ? parsed.books : []);  
+            arr.forEach((item, idx) => {  
+              if (!item.title) return;  
+              state.books.unshift({  
+                id: 'bk-json-' + Date.now() + '-' + idx,  
+                shelfId: activeShelf.id,  
+                title: item.title,  
+                author: item.author || '未知作者',  
+                category: item.category || '書籍',  
+                volume: item.volume || '',  
+                isbn: item.isbn || '',  
+                coverUrl: item.coverUrl || '',  
+                spineColor: item.spineColor || '#28463B',  
+                status: item.status || 'available',  
+                borrower: item.borrower || '',  
+                borrowDate: item.borrowDate || '',  
+                history: Array.isArray(item.history) ? item.history : [],  
+                synopsis: item.synopsis || ''  
+              });  
+              importedCount++;  
+            });  
+          } catch (err) {  
+            showToast('JSON 格式解析失敗', true);  
+            return;  
+          }  
+        } else {  
+          const lines = text.split(/\r?\n/).filter(l => l.trim());  
+          if (lines.length > 1) {  
+            const headers = parseCSVRow(lines[0]).map(h => h.toLowerCase());  
+            const titleIdx = headers.findIndex(h => h.includes('title') || h.includes('書名'));  
+            const authorIdx = headers.findIndex(h => h.includes('author') || h.includes('作者'));  
+            const isbnIdx = headers.findIndex(h => h.includes('isbn'));  
+            const catIdx = headers.findIndex(h => h.includes('category') || h.includes('類型'));  
+  
+            for (let i = 1; i < lines.length; i++) {  
+              const cols = parseCSVRow(lines[i]);  
+              const title = cols[titleIdx >= 0 ? titleIdx : 0];  
+              if (!title) continue;  
+              const rawIsbn = isbnIdx >= 0 ? (cols[isbnIdx] || '').replace(/[^0-9Xx]/g, '') : '';  
+              state.books.unshift({  
+                id: 'bk-csv-' + Date.now() + '-' + i,  
+                shelfId: activeShelf.id,  
+                title,  
+                author: (authorIdx >= 0 ? cols[authorIdx] : cols[1]) || '未知作者',  
+                category: (catIdx >= 0 && cols[catIdx]) ? cols[catIdx] : '書籍',  
+                volume: '',  
+                isbn: rawIsbn,  
+                coverUrl: rawIsbn ? `https://covers.openlibrary.org/b/isbn/${rawIsbn}-L.jpg` : '',  
+                spineColor: '#28463B',  
+                status: 'available',  
+                borrower: '',  
+                borrowDate: '',  
+                history: [],  
+                synopsis: ''  
+              });  
+              importedCount++;  
+            }  
+          }  
+        }  
+  
+        event.target.value = '';  
+        if (importedCount > 0) {  
+          state.focusedIndex = 0;  
+          saveState();  
+          renderAll();  
+          closeImportModal();  
+          showToast(`成功匯入 ${importedCount} 本書籍至「${activeShelf.name}」`);  
+        } else {  
+          showToast('檔案中未偵測到有效書目資料', true);  
+        }  
+      };  
+      reader.readAsText(file);  
+    }  
+  
+    function parseCSVRow(row) {  
+      const result = [];  
+      let cur = '';  
+      let inQuotes = false;  
+      for (let i = 0; i < row.length; i++) {  
+        const ch = row[i];  
+        if (ch === '"') {  
+          inQuotes = !inQuotes;  
+        } else if (ch === ',' && !inQuotes) {  
+          result.push(cur.trim());  
+          cur = '';  
+        } else {  
+          cur += ch;  
+        }  
+      }  
+      result.push(cur.trim());  
+      return result;  
+    }  
+  
+    function downloadCSVTemplate() {  
+      const csv = 'Title,Author,Category,ISBN\n"小王子","Antoine de Saint-Exupéry","書籍","9780156012195"\n"SPY×FAMILY 間諜家家酒","遠藤達哉","漫畫","9789572643082"\n';  
+      const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });  
+      const url = URL.createObjectURL(blob);  
+      const a = document.createElement('a');  
+      a.href = url;  
+      a.download = 'my_study_template.csv';  
+      a.click();  
+      URL.revokeObjectURL(url);  
+    }  
+  
+    function exportBooksJSON() {  
+      const payload = {  
+        exportedAt: new Date().toISOString(),  
+        shelves: state.shelves,  
+        books: state.books  
+      };  
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });  
+      const url = URL.createObjectURL(blob);  
+      const a = document.createElement('a');  
+      a.href = url;  
+      a.download = 'books.json';  
+      a.click();  
+      URL.revokeObjectURL(url);  
+      showToast('已匯出 books.json 備份檔');  
+    }  
+  
+    function setupTrackInteractions() {  
+      const track = document.getElementById('bookshelf-track');  
+      if (!track) return;  
+  
+      track.addEventListener('scroll', () => {  
+        requestAnimationFrame(update3DShelfPhysics);  
+      }, { passive: true });  
+  
+      track.addEventListener('wheel', (e) => {  
+        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {  
+          e.preventDefault();  
+          track.scrollLeft += e.deltaY * 1.1;  
+        }  
+      }, { passive: false });  
+  
+      let startX = 0;  
+      let scrollStart = 0;  
+      let isDown = false;  
+  
+      track.addEventListener('mousedown', (e) => {  
+        isDown = true;  
+        state.isDraggingShelf = false;  
+        startX = e.pageX;  
+        scrollStart = track.scrollLeft;  
+      });  
+  
+      window.addEventListener('mousemove', (e) => {  
+        if (!isDown) return;  
+        const dx = e.pageX - startX;  
+        if (Math.abs(dx) > 6) state.isDraggingShelf = true;  
+        track.scrollLeft = scrollStart - dx * 1.25;  
+      });  
+  
+      window.addEventListener('mouseup', () => {  
+        isDown = false;  
+        setTimeout(() => { state.isDraggingShelf = false; }, 60);  
+      });  
+  
+      window.addEventListener('resize', () => {  
+        update3DShelfPhysics();  
+        if (state.tourStepIndex >= 0) {  
+          const steps = getTourStepsForCurrentMode();  
+          const step = steps[state.tourStepIndex];  
+          const pop = document.getElementById('guided-tour-popover');  
+          if (step && pop && !pop.classList.contains('hidden')) {  
+            if (step.isWelcome || step.placeScreenCenter) {  
+              centerCoachmarkStrictly(pop);  
+              if (step.isFinalOutOfFrameBlur && step.targetId) {  
+                const target = document.getElementById(step.targetId);  
+                if (target) renderFourPaneBlurAroundTarget(target, 6);  
+              }  
+            } else if (step.targetId && !step.isLoanSlipStep) {  
+              const target = document.getElementById(step.targetId);  
+              if (target && !target.classList.contains('hidden')) {  
+                positionCoachmark(pop, target, step);  
+                renderFourPaneBlurAroundTarget(target, 6);  
+              }  
+            }  
+          }  
+        }  
+      });  
+    }  
+  
+    function applyUrlRouteOverrides() {  
+      const params = new URLSearchParams(window.location.search);  
+      const urlMode = params.get('mode');  
+      const urlShelf = params.get('shelf');  
+      const urlSingle = params.get('single');  
+      const urlTheme = params.get('theme');  
+      const urlScheme = params.get('scheme');  
+  
+      if (urlTheme && THEMES[urlTheme]) state.settings.theme = urlTheme;  
+      if (urlScheme && (urlScheme === 'day' || urlScheme === 'night')) state.settings.scheme = urlScheme;  
+  
+      if (urlShelf) {  
+        if (!state.shelves.some(s => s.id === urlShelf)) {  
+          state.shelves.push({  
+            id: urlShelf,  
+            name: '分享書櫃',  
+            isDefault: false,  
+            customTheme: urlTheme || null,  
+            customScheme: urlScheme || null  
+          });  
+        }  
+        state.activeShelfId = urlShelf;  
+      }  
+  
+      if (urlMode === 'guest') {  
+        if (urlSingle === '1' && urlShelf) {  
+          state.isSingleShelfLocked = true;  
+          state.lockedShelfId = urlShelf;  
+        }  
+        setAppMode('guest', false);  
+      } else {  
+        setAppMode('admin', false);  
+      }  
+    }  
+  
+    window.addEventListener('DOMContentLoaded', () => {  
+      loadSharedState();  
+      applyUrlRouteOverrides();  
+      setupTrackInteractions();  
+      setupPerspectiveCropCanvasEvents();  
+      maybeShowFirstVisitOnboarding();  
+    });  
+  </script>  
+</body>  
+</html>  
